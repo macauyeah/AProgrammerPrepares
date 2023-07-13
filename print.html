@@ -1,0 +1,777 @@
+<!DOCTYPE HTML>
+<html lang="zh-Hant" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>程序員的自我修養 A Programmer Prepares</title>
+        <meta name="robots" content="noindex" />
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">Why I write this</a></li><li class="chapter-item expanded affix "><li class="part-title">Docker Notes</li><li class="chapter-item expanded "><a href="VMDockerNotes/index.html"><strong aria-hidden="true">1.</strong> All about VM</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/MultipassPackerCN.html"><strong aria-hidden="true">2.</strong> Create custom Ubuntu cloud-img with Packer - 中文</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/MultipassStaticIpEN.html"><strong aria-hidden="true">3.</strong> Multipass with static IP - EN</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/MultipassStaticIpCN.html"><strong aria-hidden="true">4.</strong> Multipass with static IP - 中文</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/MultipassDockerClusterEN.html"><strong aria-hidden="true">5.</strong> Docker Cluster with Multipass - EN</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/MultipassDockerClusterCN.html"><strong aria-hidden="true">6.</strong> Docker Cluster with Multipass - 中文</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/DockerWithNfsCN.html"><strong aria-hidden="true">7.</strong> Docker with NFS file store - 中文</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/VmwareDockerClusterCN.html"><strong aria-hidden="true">8.</strong> Vmware下建立Docker Cluster - 中文</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/BinaryAsDockerImageEN.html"><strong aria-hidden="true">9.</strong> Encapsulate Command Line Binary as Docker Image - EN</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/BinaryAsDockerImageCN.html"><strong aria-hidden="true">10.</strong> Encapsulate Command Line Binary as Docker Image - 中文</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">Git</li><li class="chapter-item expanded "><a href="gitNotes/gitcoworkflow.html"><strong aria-hidden="true">11.</strong> Git Co-Work Flow - 中文</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">Spring boot</li><li class="chapter-item expanded "><a href="spring-boot-multiple-datasource/index.html"><strong aria-hidden="true">12.</strong> Multiple datasource</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">程序員的自我修養 A Programmer Prepares</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p>as of a programmer, some tech we need to keep improving</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="vm--docker-notes"><a class="header" href="#vm--docker-notes">VM / Docker Notes</a></h1>
+<p>那些我在VM和Docker的中摸索的經驗</p>
+<p>Notes about all of my trails and errors in VM and docker.</p>
+<h2 id="vm"><a class="header" href="#vm">VM</a></h2>
+<ul>
+<li>Create custom Ubuntu cloud-img with Packer.<a href="VMDockerNotes/MultipassPackerCN.html">中文</a> <a href="https://github.com/macauyeah/ubuntuPackerImage">Repo</a></li>
+<li>Multipass with static IP <a href="VMDockerNotes/MultipassStaticIpEN.html">EN</a>, <a href="VMDockerNotes/MultipassStaticIpCN.html">中文</a></li>
+<li>Docker Cluster with Multipass <a href="VMDockerNotes/MultipassDockerClusterEN.html">EN</a>, <a href="VMDockerNotes/MultipassDockerClusterCN.html">中文</a></li>
+<li>Docker Cluster with Vmware <a href="VMDockerNotes/VmwareDockerClusterCN.html">中文</a></li>
+</ul>
+<h2 id="docker"><a class="header" href="#docker">Docker</a></h2>
+<ul>
+<li>Encapsulate Command Line Binary as Docker Image <a href="VMDockerNotes/BinaryAsDockerImageEN.html">EN</a>, <a href="VMDockerNotes/BinaryAsDockerImageCN.html">中文</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="notes-about-customizing-cloud-image-for-multipass"><a class="header" href="#notes-about-customizing-cloud-image-for-multipass">Notes about customizing cloud image for Multipass</a></h1>
+<h2 id="前言"><a class="header" href="#前言">前言</a></h2>
+<p>原本筆者只是想做docker cluster，但因為在實機中建VM極其麻煩，所以就研究了好一陣子如何快速起VM。</p>
+<ul>
+<li>Hyper-V有預設的Ubuntu template，但只有ubuntu desktop版，沒有server版。而且desktop gui顯得浪費資源，要clone VM也很廢時，放棄。</li>
+<li>Windows Subsystem Linux起VM很方便，但同一個Linux version只有一個instance，沒法起cluster，放棄。</li>
+<li>Virtual box沒有Ubuntu template，若要clone的話就變得跟Hyper-V差不多，放棄。</li>
+</ul>
+<p>經過一輪資料搜集，發現了一個Ubuntu multipass engine，聲稱可以跨平台快速起VM。裏面有一些很吸引的功能，可以自己建立images、使用固定IP。</p>
+<p>那怕即使是沒有snapshot，在自定義images的配合下預裝docker，要隨時加減cluster node都是一件容易的事。</p>
+<h2 id="重大問題"><a class="header" href="#重大問題">重大問題</a></h2>
+<p>醜話說在前頭。經過一輪測試，multipass最大的問題，就是custom image、fix IP都只能在bare metal ubuntu 中才能使用。如果你沒有一台閒置實體機安裝Ubuntu，還是不要隨便試。</p>
+<h2 id="重點"><a class="header" href="#重點">重點</a></h2>
+<p>詳細的Proof of Concept，筆者記錄了在</p>
+<ul>
+<li><a href="https://github.com/macauyeah/ubuntuPackerImage">Packer template git repo link</a> 
+<ul>
+<li><a href="https://github.com/macauyeah/ubuntuPackerImage/blob/main/template.json">Packer template.json link</a></li>
+<li><a href="https://github.com/macauyeah/ubuntuPackerImage/blob/main/initDockerCluster.sh">Multipass run packer image script link</a></li>
+</ul>
+</li>
+<li><a href="VMDockerNotes/MultipassStaticIpCN.html">Multipass Static IP script snippet</a>
+<ul>
+<li>筆者已經沒有多餘的bare metal ubuntu，沒法不斷重複測試這個安裝步驟。</li>
+</ul>
+</li>
+</ul>
+<p>在這裏就補充一些重點。</p>
+<ul>
+<li>packer是使用cloud-init和qemu的技術，行起template中指定的cloud image (在筆者的例子中就是ubuntu-22.04-server-cloudimg-amd64.img)</li>
+<li>大家可以定義image行起後進行一些操作，而那些操作都是經過qemu vnc、ssh進去操作的。</li>
+<li>操作完後就會直接儲存當時的image。所以在操作結束之前，盡可能地刪cache或刪去不要的user / group settings。</li>
+<li>最後生成的image，還是一個cloud image。若要再運行它，必需要使用支援cloud-init的VM來讀取。</li>
+<li>cloud-init是用來指定初次運行時要設定的事，例如:hdd size, user account password, ssh key import等。</li>
+<li>使用工具cloud-localds可以生成一個seed.img，這樣qemu也可以cloud-init。</li>
+<li>Hyper-V應該也可以經過類似方式，進行cloud-init，但筆者未有去實測。如有更簡便的方法請告知。</li>
+<li>multipass預設就已經有cloud-init，在bare metal ubuntu就可以直接執行。</li>
+<li>multipass也可以設定不同的cloud-init參數。</li>
+</ul>
+<h2 id="成品"><a class="header" href="#成品">成品</a></h2>
+<p>最後筆者就選擇了用packer用來預裝docker，經mulitpass無腦起VM，再使用 <a href="https://github.com/macauyeah/ubuntuPackerImage/blob/main/initDockerCluster.sh">shell script</a> 對多個node設定docker，達到即時起docker node的功能。這樣就減省了VM的安裝時間，也省去了docker的安裝問題。</p>
+<p>說到底，如果只想測試docker cluster，其實windows, macOS中的multipass也可以實現相同的功能。因為安裝docker那些都可以經過shell script自動化，只是每次重複操作，都變得相當慢。另外，因為multipass在windows, macOS不支援fix ip，對於指定docker cluster interface又會再多一重功夫。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="notes-about-installing-multipass-on-ubuntu-server-2204-and-config-static-ip"><a class="header" href="#notes-about-installing-multipass-on-ubuntu-server-2204-and-config-static-ip">Notes about installing Multipass on Ubuntu Server 22.04 and config static IP</a></h1>
+<p>Install mulitpass on Ubuntu is easy, but config static IP is not. </p>
+<p>Another problem is official document stating that config static IP is beyond the scope of Multipass. As my experience, the <a href="https://multipass.run/docs/configure-static-ips">official example</a> is not work on Ubuntu 22.04 server. (It might work on Ubuntu Desktop, but I am not sure).</p>
+<p>Following is my solution after trial and errors.</p>
+<h2 id="install-multipass-by-snap"><a class="header" href="#install-multipass-by-snap">Install Multipass by snap</a></h2>
+<p>Easy step.</p>
+<pre><code>sudo snap install multipass
+</code></pre>
+<h2 id="config-a-new-virtual-bridge-on-host"><a class="header" href="#config-a-new-virtual-bridge-on-host">Config a new Virtual Bridge on Host</a></h2>
+<p>Important, stop multipass before everything. Then install command tools &quot;nmcli&quot; with package &quot;network-manager&quot;</p>
+<pre><code>sudo snap stop multipass.multipassd
+sudo apt-get update &amp;&amp; sudo apt-get install network-manager
+</code></pre>
+<p>Modify NetworkManager config, so that it could manage all bridge interface.
+By default, it excludes many types of interface. You need to add &quot;<em><strong>,except:type:bridge</strong></em>&quot; at the end of line 'unmanaged-devices' </p>
+<pre><code>sudo vim /usr/lib/NetworkManager/conf.d/10-globally-managed-devices.conf
+</code></pre>
+<p>NetworkManager Config Example</p>
+<pre><code class="language-conf">[keyfile]
+unmanaged-devices=*,except:type:wifi,except:type:gsm,except:type:cdma,except:type:bridge
+</code></pre>
+<p>Then reload NetworkManager.service, and add the virtual bridge with fix IP range.</p>
+<pre><code>sudo systemctl reload NetworkManager.service 
+sudo nmcli connection add type bridge con-name localbr ifname localbr \
+    ipv4.method manual ipv4.addresses 10.13.31.1/24
+</code></pre>
+<p>The new interface should appear now (but down) if you check by <code>ip a</code>. </p>
+<h2 id="switch-multipass-to-lxd"><a class="header" href="#switch-multipass-to-lxd">Switch Multipass to lxd</a></h2>
+<p>Multipass networks feature currently are only available on <em><strong>lxd</strong></em> backend.</p>
+<pre><code>sudo snap start multipass.multipassd
+multipass set local.driver=lxd
+</code></pre>
+<p>Following commands are all same as official document.</p>
+<h2 id="create-extra-interface-in-vm"><a class="header" href="#create-extra-interface-in-vm">Create Extra interface in VM</a></h2>
+<p>Create extra interface when creating new new VM instance.</p>
+<pre><code>multipass exec -n test1 -- sudo bash -c 'cat &lt;&lt; EOF &gt; /etc/netplan/10-custom.yaml
+network:
+    version: 2
+    ethernets:
+        extra0:
+            dhcp4: no
+            match:
+                macaddress: &quot;52:54:00:4b:ab:cd&quot;
+            addresses: [10.13.31.13/24]
+EOF'
+</code></pre>
+<p>Restart VM instance networks.</p>
+<pre><code>multipass exec -n test1 -- sudo netplan apply
+</code></pre>
+<p>And you should see the fix ip list on VM </p>
+<pre><code>multipass info test1
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="在ubuntu-server-2204上安裝multipass並配置固定ip的注意事項"><a class="header" href="#在ubuntu-server-2204上安裝multipass並配置固定ip的注意事項">在Ubuntu Server 22.04上安裝Multipass並配置固定IP的注意事項</a></h1>
+<p>安裝Multipass很容易的，但配置固定IP就不是了。</p>
+<p>另一個問題是官方文件都認為設定固定IP不是Multipass的範圍，它不想講太多。 但根據我的經驗，它的<a href="https://multipass.run/docs/configure-static-ips">官方例子</a>在Ubuntu Server 22.04並不能用。 (它可能可以在Ubuntu桌面上運行吧，但我不確定。)</p>
+<p>以下是我在不斷踩坑後找到的解決方案。</p>
+<h2 id="通過snap安裝multipass"><a class="header" href="#通過snap安裝multipass">通過snap安裝Multipass</a></h2>
+<p>簡單，無腦</p>
+<pre><code>sudo snap install multipass
+</code></pre>
+<h2 id="在主機上配置virtual-bridge"><a class="header" href="#在主機上配置virtual-bridge">在主機上配置Virtual Bridge</a></h2>
+<p>很重要，很重要，很重要，在所有操作之前停止multipass。然後使用&quot;network-manager&quot;包安裝命令工具&quot;nmcli&quot;。</p>
+<pre><code>sudo snap stop multipass.multipassd
+sudo apt-get update &amp;&amp; sudo apt-get install network-manager
+</code></pre>
+<p>修改NetworkManager配置，以便它可以管理所有bridge interface。預設情況下，有很多類型的接口它都不管的。您需要在'unmanaged-devices'行的末尾添加 &quot;<em><strong>,except:type:bridge</strong></em>&quot;。 </p>
+<pre><code>sudo vim /usr/lib/NetworkManager/conf.d/10-globally-managed-devices.conf
+</code></pre>
+<p>NetworkManager Config Example</p>
+<pre><code class="language-conf">[keyfile]
+unmanaged-devices=*,except:type:wifi,except:type:gsm,except:type:cdma,except:type:bridge
+</code></pre>
+<p>然後重新運行NetworkManager.service，並添加具有固定IP範圍的Bridge network interface。</p>
+<pre><code>sudo systemctl reload NetworkManager.service 
+sudo nmcli connection add type bridge con-name localbr ifname localbr \
+    ipv4.method manual ipv4.addresses 10.13.31.1/24
+</code></pre>
+<p>現在，如果您使用<code>ip a</code>檢查主機所有網卡，新network interface應該已經出現（但有機會是處於關閉狀態）。</p>
+<h2 id="將multipass切換到lxd"><a class="header" href="#將multipass切換到lxd">將Multipass切換到lxd</a></h2>
+<p>Multipass網絡功能目前只在<em><strong>lxd</strong></em>後端上提供。</p>
+<pre><code>sudo snap start multipass.multipassd
+multipass set local.driver=lxd
+</code></pre>
+<p>以下指令與官方教學相同。</p>
+<h2 id="在vm中創建額外的網卡"><a class="header" href="#在vm中創建額外的網卡">在VM中創建額外的網卡</a></h2>
+<p>在創建新的VM實例時創建額外的網卡。</p>
+<pre><code>multipass exec -n test1 -- sudo bash -c 'cat &lt;&lt; EOF &gt; /etc/netplan/10-custom.yaml
+network:
+    version: 2
+    ethernets:
+        extra0:
+            dhcp4: no
+            match:
+                macaddress: &quot;52:54:00:4b:ab:cd&quot;
+            addresses: [10.13.31.13/24]
+EOF'
+</code></pre>
+<p>重啟VM實例網絡。</p>
+<pre><code>multipass exec -n test1 -- sudo netplan apply
+</code></pre>
+<p>然後，您應該在VM上看到固定IP列表。</p>
+<pre><code>multipass info test1
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="create-docker-cluster-with-multipass"><a class="header" href="#create-docker-cluster-with-multipass">Create Docker Cluster with Multipass</a></h1>
+<p>The following instruction, assume you already prepared</p>
+<ul>
+<li>Setup Virtual Bridge in Ubuntu Server for Multipass to config <a href="VMDockerNotes/MultipassStaticIpEN.html">Static IP</a>. And the network interface name is <em><strong>localbr</strong></em>.</li>
+<li>A <a href="https://github.com/macauyeah/ubuntuPackerImage/blob/main/template.json">docker.img</a> by Packer template, and put it in current working folder.</li>
+</ul>
+<p>Create 3 nodes with docker.img, and attach to bridge network <em><strong>localbr</strong></em> with specific mac address</p>
+<pre><code class="language-bash">multipass launch file://$PWD/docker.img --name node21 --network name=localbr,mode=manual,mac=&quot;52:54:00:4b:ab:21&quot;
+multipass launch file://$PWD/docker.img --name node22 --network name=localbr,mode=manual,mac=&quot;52:54:00:4b:ab:22&quot;
+multipass launch file://$PWD/docker.img --name node23 --network name=localbr,mode=manual,mac=&quot;52:54:00:4b:ab:23&quot;
+</code></pre>
+<p>Create static ip in 3 running nodes.</p>
+<pre><code class="language-bash">multipass exec -n node21 -- sudo bash -c 'cat &lt;&lt; EOF &gt; /etc/netplan/10-custom.yaml
+network:
+    version: 2
+    ethernets:
+        extra0:
+            dhcp4: no
+            match:
+                macaddress: &quot;52:54:00:4b:ab:21&quot;
+            addresses: [10.13.31.21/24]
+EOF'
+
+multipass exec -n node22 -- sudo bash -c 'cat &lt;&lt; EOF &gt; /etc/netplan/10-custom.yaml
+network:
+    version: 2
+    ethernets:
+        extra0:
+            dhcp4: no
+            match:
+                macaddress: &quot;52:54:00:4b:ab:22&quot;
+            addresses: [10.13.31.22/24]
+EOF'
+
+multipass exec -n node23 -- sudo bash -c 'cat &lt;&lt; EOF &gt; /etc/netplan/10-custom.yaml
+network:
+    version: 2
+    ethernets:
+        extra0:
+            dhcp4: no
+            match:
+                macaddress: &quot;52:54:00:4b:ab:23&quot;
+            addresses: [10.13.31.23/24]
+EOF'
+
+multipass exec -n node21 -- sudo netplan apply
+multipass exec -n node22 -- sudo netplan apply
+multipass exec -n node23 -- sudo netplan apply
+</code></pre>
+<p>Let node21 as Leader (Manager) and create a cluster with other two nodes.</p>
+<pre><code class="language-bash">multipass exec -n node21 -- sudo docker swarm init --advertise-addr 10.13.31.21
+multipass exec -n node21 -- sudo docker swarm join-token manager
+
+managerToken=$(multipass exec -n node21 -- sudo docker swarm join-token manager -q)
+multipass exec -n node22 -- sudo docker swarm join --token $managerToken 10.13.31.21:2377
+multipass exec -n node23 -- sudo docker swarm join --token $managerToken 10.13.31.21:2377
+</code></pre>
+<p>That's all.</p>
+<p>If you want to redo everything, delete them.</p>
+<pre><code class="language-bash">multipass delete node21
+multipass delete node22
+multipass delete node23
+multipass purge
+</code></pre>
+<h2 id="remark"><a class="header" href="#remark">Remark</a></h2>
+<p>In practical, most of time, we also need port forwarding. But Multipass no build-in port forward function. We might use ssh tunnel to simulate that.</p>
+<p>Ex. create tunnel for Ubuntu Server port 8080 point to node21's 8080</p>
+<pre><code class="language-bash">sudo ssh -i /var/snap/multipass/common/data/multipassd/ssh-keys/id_rsa -L 0.0.0.0:8080:10.13.31.21:8080 ubuntu@10.13.31.21
+</code></pre>
+<p>You can find the complete script here <a href="https://github.com/macauyeah/ubuntuPackerImage/blob/main/initDockerCluster.sh">initDockerCluster.sh</a></p>
+<p>If you have no bare metal ubuntu or no static ip, you could test this script <a href="https://github.com/macauyeah/ubuntuPackerImage/blob/main/initDockerClusterWithoutStaticIp.sh">initDockerClusterWithoutStaticIp.sh</a>. Because of limited network brandwidth, I won't always test the script during update.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="使用-multipass-建立docker-cluster"><a class="header" href="#使用-multipass-建立docker-cluster">使用 Multipass 建立Docker Cluster</a></h1>
+<p>以下流程，假設各位已經</p>
+<ul>
+<li>在Ubuntu Server中開設了virtual bridge 供Multipass設定<a href="VMDockerNotes/MultipassStaticIpCN.html">Static IP</a>，並且network interface定為 <em><strong>localbr</strong></em></li>
+<li>使用Packer template制成<a href="https://github.com/macauyeah/ubuntuPackerImage/blob/main/template.json">docker.img</a> , 並存放於當前資料夾內</li>
+</ul>
+<p>使用docker.img 起三個node，並使用network interface <em><strong>localbr</strong></em>，各有一個指定的mac address</p>
+<pre><code class="language-bash">multipass launch file://$PWD/docker.img --name node21 --network name=localbr,mode=manual,mac=&quot;52:54:00:4b:ab:21&quot;
+multipass launch file://$PWD/docker.img --name node22 --network name=localbr,mode=manual,mac=&quot;52:54:00:4b:ab:22&quot;
+multipass launch file://$PWD/docker.img --name node23 --network name=localbr,mode=manual,mac=&quot;52:54:00:4b:ab:23&quot;
+</code></pre>
+<p>對運行中的三個node，為它們設定static ip</p>
+<pre><code class="language-bash">multipass exec -n node21 -- sudo bash -c 'cat &lt;&lt; EOF &gt; /etc/netplan/10-custom.yaml
+network:
+    version: 2
+    ethernets:
+        extra0:
+            dhcp4: no
+            match:
+                macaddress: &quot;52:54:00:4b:ab:21&quot;
+            addresses: [10.13.31.21/24]
+EOF'
+
+multipass exec -n node22 -- sudo bash -c 'cat &lt;&lt; EOF &gt; /etc/netplan/10-custom.yaml
+network:
+    version: 2
+    ethernets:
+        extra0:
+            dhcp4: no
+            match:
+                macaddress: &quot;52:54:00:4b:ab:22&quot;
+            addresses: [10.13.31.22/24]
+EOF'
+
+multipass exec -n node23 -- sudo bash -c 'cat &lt;&lt; EOF &gt; /etc/netplan/10-custom.yaml
+network:
+    version: 2
+    ethernets:
+        extra0:
+            dhcp4: no
+            match:
+                macaddress: &quot;52:54:00:4b:ab:23&quot;
+            addresses: [10.13.31.23/24]
+EOF'
+
+multipass exec -n node21 -- sudo netplan apply
+multipass exec -n node22 -- sudo netplan apply
+multipass exec -n node23 -- sudo netplan apply
+</code></pre>
+<p>使用node21作為Leader (Manager)，與其他兩個node一起組成Cluster</p>
+<pre><code class="language-bash">multipass exec -n node21 -- sudo docker swarm init --advertise-addr 10.13.31.21
+multipass exec -n node21 -- sudo docker swarm join-token manager
+
+managerToken=$(multipass exec -n node21 -- sudo docker swarm join-token manager -q)
+multipass exec -n node22 -- sudo docker swarm join --token $managerToken 10.13.31.21:2377
+multipass exec -n node23 -- sudo docker swarm join --token $managerToken 10.13.31.21:2377
+</code></pre>
+<p>Cluster就建立完成。</p>
+<p>若想刪掉重來</p>
+<pre><code class="language-bash">multipass delete node21
+multipass delete node22
+multipass delete node23
+multipass purge
+</code></pre>
+<h2 id="備註"><a class="header" href="#備註">備註</a></h2>
+<p>在直正使用時，大部份時間還需要做port forwarding。multipass沒有自己的port forward，可以用ssh tunnel來模擬。</p>
+<p>例如把Ubuntu Server的8080指向node21的8080，可以這樣</p>
+<pre><code class="language-bash">sudo ssh -i /var/snap/multipass/common/data/multipassd/ssh-keys/id_rsa -L 0.0.0.0:8080:10.13.31.21:8080 ubuntu@10.13.31.21
+</code></pre>
+<p>完整的script可以參考<a href="https://github.com/macauyeah/ubuntuPackerImage/blob/main/initDockerCluster.sh">initDockerCluster.sh</a>。</p>
+<p>沒有Bare Metal Ubuntu或者沒有static ip也可以參考<a href="https://github.com/macauyeah/ubuntuPackerImage/blob/main/initDockerClusterWithoutStaticIp.sh">initDockerClusterWithoutStaticIp.sh</a>。只是因為network brandwidth問題，我就不會在每次更新時都測試。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="自己架設docker的共享儲存空間"><a class="header" href="#自己架設docker的共享儲存空間">自己架設Docker的共享儲存空間</a></h1>
+<p>Docker很好用，在單機環境下真的很好用。Docker原本的設計，是為了快速迭代而設計成Image的。在一般設定下，每次新建或重建container，都會根據Image重設一下各方面的環境，包括儲存空間。重設CPU，Memory，大家都很易理解，但重設儲存空間，真的不是每一個使用情況都可以這樣。</p>
+<p>又或者說，未必所有使用情況都會有一個第三方的儲存空間可以用。所以良心的Docker在單機環境下也有提供bind mount或是docker named volume，作為可以長期保存，不受container生死的影響，以達到長期存在Data的存在。</p>
+<h2 id="單機-儲存空間"><a class="header" href="#單機-儲存空間">單機-儲存空間</a></h2>
+<p>單機情況下很簡單，就用一個docker compose做例子</p>
+<pre><code>services:
+  nginx:
+    image: nginx:1.23
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./html/:/usr/share/nginx/html/
+      - nginxlogs:/var/log/nginx/
+
+volumes:
+  nginxlogs:
+</code></pre>
+<p>其中html就是一個bind mount，而nginxlogs就是一個docker named volume，兩者都可以長期保存data，除非各位自己手動刪除，否則不會因為container的興亡而不見了。</p>
+<p>但有兩個很重要的分別</p>
+<ul>
+<li>bind mount，直接跟host os連接，實際上是每次folder有更新，docker都要同步host和container之間的資料。
+<ul>
+<li>bind mount在linux下很暢順，因為大部份docker image/container原本就是linux engine，所以folder mount真的可以互通。</li>
+<li>bind mount在windows / mac下，就會不斷抄資料。面對大量檔案，例如node_module，就會有速度上的問題</li>
+</ul>
+</li>
+<li>docker named volume，就是docker 分離一些獨立空間，然後再綁到container上
+<ul>
+<li>相對bind mount，即使在windows / mac下，都沒有那個速度上的問題。筆者猜測，即使是獨立空間，其實本身都已經限定在linux enginx下，所以沒有需要抄資料。</li>
+<li>但在windows / mac下，因應docker 底層建立Linux VM的技術不同，你可能沒法在windows / mac預設環境下直接讀取docker named volume。</li>
+<li>若要讀取docker named volume，最好的做法，還是連上docker container，然後用docker cp 來抄回資料。一但抄資料，其實都會有速度上問題，不過docker cp是手動決定何時做的，不做docker cp，其實container也是可以用。</li>
+</ul>
+</li>
+</ul>
+<h2 id="cluster-docker-swarm---儲存空間"><a class="header" href="#cluster-docker-swarm---儲存空間">Cluster (Docker Swarm) - 儲存空間</a></h2>
+<p>雖然良心的bind mount和named volume解決了單機上的儲存問題，但到了cluster環境，就沒有可以跨機同步儲存空間的做法，要做就自己建立。</p>
+<p>筆者也稍為研究了一下同步的問題，不過對技術真的很有要求。所以退而求其次，筆者還是選擇簡單的第三方儲存空間。就是做一個可以分享存取的NAS。</p>
+<h3 id="建立nfs"><a class="header" href="#建立nfs">建立nfs</a></h3>
+<p>linux下要安裝nfs其實很簡單，不過要注意資料夾和防火牆權限。</p>
+<p>以下安裝教學以ubunut 22.04為例，記得把下面的YOUR_DOCKER_NODE_ADDRESS_RANGE轉為你的真實IP段落</p>
+<pre><code>apt update &amp;&amp; apt install nfs-kernel-server ufw -y
+
+mkdir -p /mnt/nfs_share
+chown -R nobody:nogroup /mnt/nfs_share/
+chmod 777 /mnt/nfs_share/
+
+echo &quot;/mnt/nfs_share YOUR_DOCKER_NODE_ADDRESS_RANGE/24(rw,sync,no_subtree_check)&quot; &gt;&gt; /etc/exports
+
+exportfs -a
+
+systemctl restart nfs-kernel-server
+
+ufw allow from YOUR_DOCKER_NODE_ADDRESS_RANGE/24 to any port nfs
+ufw allow ssh
+ufw enable
+</code></pre>
+<h3 id="修改docker-compose"><a class="header" href="#修改docker-compose">修改docker compose</a></h3>
+<p>最後，你在原來的docker-compose的docker volume上加driver_opts就大功告成。</p>
+<p>記得把下面的YOUR_NFS_IP轉為你的真實IP</p>
+<pre><code>volumes:
+  nginxlogs:
+    driver_opts:
+      type: &quot;nfs&quot;
+      o: &quot;nfsvers=4,addr=YOUR_NFS_IP,nolock,soft,rw&quot;
+      device: &quot;:/mnt/nfs_share/nginxlogs&quot;
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="vmware下建立docker-cluster"><a class="header" href="#vmware下建立docker-cluster">Vmware下建立Docker Cluster</a></h1>
+<p>之前都使用Multipass作為Proof of Concept，自己做測試用。直正上Production，Network環境就多少有點差異。</p>
+<p>假設大家為Application Admin，但無條件處理Vmware層面上的事項，只可以從VM內部install / setup application。</p>
+<h2 id="安裝docker"><a class="header" href="#安裝docker">安裝Docker</a></h2>
+<p>script 都來自<a href="https://docs.docker.com/engine/install/ubuntu/">Docker 官方網</a>，筆者微調了一些auto accept選項。</p>
+<pre><code class="language-bash">sudo apt-get update
+sudo apt-get install -y ca-certificates curl gnupg
+
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -kfsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+echo \
+  &quot;deb [arch=&quot;$(dpkg --print-architecture)&quot; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  &quot;$(. /etc/os-release &amp;&amp; echo &quot;$VERSION_CODENAME&quot;)&quot; stable&quot; | \
+  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+</code></pre>
+<p>假設三台VM已經安裝docker，ip分別為 10.13.31.21, 10.13.31.22, 10.13.31.23。</p>
+<p>在其中一台VM上，例如:ip 10.13.31.21上，</p>
+<pre><code>sudo docker swarm init --advertise-addr 10.13.31.21 --data-path-port=7777
+</code></pre>
+<p>與前述Multipass不同的是，這裏的data-path-port要自定義，因為預設的<em><strong>port 4789</strong></em>在Vmware的有特殊同途。</p>
+<p>之後部份就跟傳統做法一樣，先取得manager join token, 然後在其他VM上使用該token加入cluster</p>
+<pre><code># at 10.13.31.21
+sudo docker swarm join-token manager
+
+# at 10.13.31.22, 10.13.31.23, 
+sudo docker swarm join --token XXXXXXXXXXXXXXXXXXXXXXXXXX 10.13.31.21:2377
+</code></pre>
+<p>這樣，在swarm上的application，就會自動在10.13.31.21, 10.13.31.22, 10.13.31.23，上遊走。</p>
+<p>即使你的app container目前是跑在10.13.31.23:8080上，但因為swarm mode routing mesh，你經過10.13.31.21:8080都可以連到該app。</p>
+<p>如果你只是做stateless app load balance分流，這樣就足夠了，不用考慮ip fail over。但如果你要做到ip fail over，還要額外設定keepalive virtual ip，這個virtual ip會自動依付到某台活著的VM上，這樣外界才不會連到一個死ip上。又或者額外建一台load balancer，可以偵測到swarm node上那台機還活著，從而達到fail over效果。但這台load balancer也有一些穩定性要求，若然大家只是用一個普通的nginx做load balance，還是會有單點故障問題(single point of failure)。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="encapsulate-command-line-binary-as-docker-image"><a class="header" href="#encapsulate-command-line-binary-as-docker-image">Encapsulate Command Line Binary as Docker Image</a></h1>
+<p>Usually in docker images, they mainly focus on providing network service. Their image will keep an alive process in some specific port to provide service.</p>
+<p>But some other images like nodejs, java, they are an time only binary. They can run and return result form command line output.</p>
+<p>In this article, we will build an image to provide mdbook binary.</p>
+<p>First thing first, in docker image to install or compile the binary.</p>
+<pre><code># Dockerfile
+FROM ubuntu:22.04
+
+RUN apt-get update &amp;&amp; apt-get install cargo -y &amp;&amp; cargo install mdbook
+
+ENV PATH=&quot;${PATH}:/root/.cargo/bin&quot;
+
+VOLUME /opt/mdbookdata
+WORKDIR /opt/mdbookdata
+ENTRYPOINT [&quot;mdbook&quot;]
+</code></pre>
+<p>Build image, give it a tag name, mdbook:beta</p>
+<pre><code class="language-bash">sudo docker build -t mdbook:beta ./
+</code></pre>
+<p>In the Dockerfile, I choose to use <em><strong>ENTRYPOINT</strong></em> and in <em><strong>exec</strong></em> form, because I want to append mdbook argument through <em><strong>docker run</strong></em></p>
+<p>For example, passing <em><strong>--version</strong></em> to container, so that mdbook could get the argument.</p>
+<pre><code class="language-bash">sudo docker run --rm -it -v $(pwd):/opt/mdbookdata mdbook:beta --version
+</code></pre>
+<p>But in the base docker image, it run as root. If you build a book by image, the <em><strong>book/</strong></em> output folder's ownership will be set to root. You could change the default ownership by add <code>--user $(id -u):$(id -g)</code></p>
+<pre><code class="language-bash">sudo docker run --user $(id -u):$(id -g) --rm -it -v $(pwd):/opt/mdbookdata mdbook:beta build
+</code></pre>
+<p>And also, if you want to make an cammand alias in your bash shell, so that you no need to run a long command very time, you could add a line in <code>~/.bashrc</code>.</p>
+<pre><code class="language-bash"># edit ~/.bashrc
+alias mdbook='sudo docker run --user $(id -u):$(id -g) --rm -it -v $(pwd):/opt/mdbookdata mdbook:beta $1'
+</code></pre>
+<p>Then you can call it from your host by</p>
+<pre><code class="language-bash"># let .bashrc take effect without logout login
+source ~/.bashrc
+# run command through alias
+mdbook --version
+# it support multiple arguments
+mdbook build --dest-dir ./dest
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="把command-line-的程式打包成docker-image"><a class="header" href="#把command-line-的程式打包成docker-image">把command line 的程式打包成Docker Image</a></h1>
+<p>平時我們用別人的Docker image，都以網絡服務為主，也就是，他們的image通常以常駐，打開某個網絡端口(UDP/TCP Port)提供服務。</p>
+<p>但像nodejs, java等，其實是一些command line程式。它們其實可以一次性地執行後，回傳結果。</p>
+<p>這次我們就以一個mdbook程式為例子，介紹打包的流程。</p>
+<p>第一件事，在Docker image中，安裝或編譯binary</p>
+<pre><code># Dockerfile
+FROM ubuntu:22.04
+
+RUN apt-get update &amp;&amp; apt-get install cargo -y &amp;&amp; cargo install mdbook
+
+ENV PATH=&quot;${PATH}:/root/.cargo/bin&quot;
+
+VOLUME /opt/mdbookdata
+WORKDIR /opt/mdbookdata
+ENTRYPOINT [&quot;mdbook&quot;]
+</code></pre>
+<p>打包成image，給他一個名字，例如mdbook:beta</p>
+<pre><code class="language-bash">sudo docker build -t mdbook:beta ./
+</code></pre>
+<p>在Dockerfile中，我選擇使用 <em><strong>ENTRYPOINT</strong></em> 的 <em><strong>exec</strong></em> 格式，因為我需要後期在 <em><strong>docker run</strong></em> 動態加入參數。</p>
+<p>例如，要把參數 <em><strong>--version</strong></em> 傳入container，讓mdbook就可以看到該參數。</p>
+<pre><code class="language-bash">sudo docker run --rm -it -v $(pwd):/opt/mdbookdata mdbook:beta --version
+</code></pre>
+<p>但在docker image中，它是使用root來執行。如果你直接執行build，那麼它的輸出資料夾 <em><strong>book/</strong></em> 的擁有人就會變成了root。你要用指定 <code>--user $(id -u):$(id -g)</code> 來指定執行者。</p>
+<pre><code class="language-bash">sudo docker run --user $(id -u):$(id -g) --rm -it -v $(pwd):/opt/mdbookdata mdbook:beta build
+</code></pre>
+<p>還有，如果不想每次都打這麼長的指令，你可以在 <code>~/.bashrc</code> 中做別名(alias)。</p>
+<pre><code class="language-bash"># edit ~/.bashrc
+alias mdbook='sudo docker run --user $(id -u):$(id -g) --rm -it -v $(pwd):/opt/mdbookdata mdbook:beta $1'
+</code></pre>
+<p>這樣就可以簡化執行指令。</p>
+<pre><code class="language-bash"># let .bashrc take effect without logout login
+source ~/.bashrc
+# run command through alias
+mdbook --version
+# it support multiple arguments
+mdbook build --dest-dir ./dest
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="git-co-work-flow"><a class="header" href="#git-co-work-flow">Git Co-Work Flow</a></h1>
+<p>雖然git面世已很久，但相當一部份澳門朋友都是solo man，很少合作寫code，對git branch始終都有些恐懼。所以這次來解召一個基本原則，至少你不會爛了code救不回來。</p>
+<p>若然大家未熟悉git，初次利用git合作寫program，請盡量減少使用共同分支(branch)，可以極大地減少問題。</p>
+<h2 id="第一個大原則---建立一條自己分支"><a class="header" href="#第一個大原則---建立一條自己分支">第一個大原則 - 建立一條自己分支</a></h2>
+<p>在一個repo中，為自己建立一條分支(branch)，可以減少Remote repo中有人比你先commit，而令你push失敗的情況。</p>
+<pre><code class="language-bash">git clone xxx
+git checkout -b YOUR_BRANCH
+
+# 提交你的改動
+git add FILE_OR_FOLDER
+git commit
+# 上傳
+git push origin YOUR_BRANCH
+</code></pre>
+<p>除非你的隊友故意你用的分支名先commit，又或者你自己有幾台電腦，幾台一起做改動。不然push 應該不會有問題。</p>
+<h2 id="第二個大原則---用fetch取代pull"><a class="header" href="#第二個大原則---用fetch取代pull">第二個大原則 - 用fetch取代pull</a></h2>
+<p>很多人在取用Remote Repo的更新時，都會使用pull。但pull其實是fetch及merge的混合，而且merge還要考慮source branch是那條分支的問題，若然大家都有一條獨立branch，那麼這個無腦pull並不存於每人只有一台電腦下的多人協作中。</p>
+<p>fetch的過程中，還可以加入參數--prune，順便依照Remote Repo的指示，同步刪掉本機中一些不再存在的origin/branch。</p>
+<pre><code class="language-bash"># 不要用pull，用fetch看看server的最新改動
+git fetch origin --prune
+# 跟上述command類似，只是在fetch的途中，把main和 origin/main自動同步
+git fetch origin main:main --prune
+</code></pre>
+<h2 id="第三個大原則---merge前先commit"><a class="header" href="#第三個大原則---merge前先commit">第三個大原則 - Merge前先Commit</a></h2>
+<p>經過前述fetch後，其實他人的改動並未加入自己的分支中，必需經過merge才會出現。但並不是沒有conflict就無腦merge。 假若自己有改動，未commit，應該老虎蟹都先commit。這是為了在merge後，還有機會可以無腦reset，回到之前那個commit。這就像是做任何更新前，先做backup。</p>
+<pre><code class="language-bash"># 看看有沒有未commit的改動，若有，先commit。
+git status
+git add FILE_OR_FOLDER
+git commit
+
+# 把別人的改動加到自己的分支中, 若有衝突請，git會提示你去修正
+git merge origin/OTHER_BRANCH
+
+# 檢查merge後的code有沒有問題，沒有就可以上傳
+git push origin YOUR_BRANCH
+</code></pre>
+<h2 id="第四個大原則---由某個特定的人來管理master或main-branch"><a class="header" href="#第四個大原則---由某個特定的人來管理master或main-branch">第四個大原則 - 由某個特定的人來管理master或main branch</a></h2>
+<p>main branch(以前叫master branch)，是他人下載時的預設分支，也是Github、Gitlab的預設顯示分支。所以該分支存放著的source code，應該在代表信心度比較高。</p>
+<p>在協作的環境中，每人都有自己分支，那就代表要有一位人員做管理，他負責checkout main, 然後合併其他已驗證的分支。</p>
+<pre><code class="language-bash"># 用fetch看看server的最新改動
+git fetch origin --prune
+
+# 看看自己分支有沒有未commit的改動，若有，先commit。你不應在main中改動，否則後述部份會有機會亂了。
+git status
+git add FILE_OR_FOLDER
+git commit
+
+# Optional，切換到他人的分支，執行程式以驗證更新
+git checkout origin/SOMEONE_BRANCH
+# 檢視差異，若發現有任何問題，例如他的分支落後於main，或很大機會出現衝突，可以叫對方先更新到最新狀況，再重來一次
+git diff main origin/SOMEONE_BRANCH
+
+# 有信心，就可以合併到main中
+git checkout main &amp;&amp; git merge origin/SOMEONE_BRANCH
+git push origin main
+
+# 回到你原來的分支中
+git checkout YOUR_BRANCH
+</code></pre>
+<p>在某些比較嚴僅的環境中(例如Github、Gitlab)，main分支可能會被系統機制鎖定，必需通過系統內鍵的Pull Request，才能通過審核，合併到main。另外，也有一些關於開發上的<a href="https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow">Git workflow</a>，主要針對功能管理、版本發佈、錯誤修正等控制。有機會再為大家介紹。</p>
+<p>希望以上的流程，可以有效且容易地讓大家協作。如果有任何command錯誤或更新，都可以經Github Pull Request通知筆者。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="spring-data-jpa-example"><a class="header" href="#spring-data-jpa-example">Spring Data JPA example</a></h1>
+<h2 id="multiple-datasource"><a class="header" href="#multiple-datasource">Multiple DataSource</a></h2>
+<p>Project entityone, entitytwo define two different schemas' conneciton. They can be imported from other project.</p>
+<p>For example, project applicationRunner utitlizes that two schemas to process read write operation. But spring need to defined a Primary datasource, it would be easier if you redefine the datasource configuration in applicationRunner.</p>
+<p>Examples</p>
+<ul>
+<li><a href="spring-boot-multiple-datasource/applicationRunner/src/main/java/macauyeah/personal/springbootdatajpa/applicationRunner/configuration/EntityOneDataSourceConfiguration.java">EntityOneDataSourceConfiguration.java</a></li>
+<li><a href="spring-boot-multiple-datasource/applicationRunner/src/main/java/macauyeah/personal/springbootdatajpa/applicationRunner/configuration/EntityTwoDataSourceConfiguration.java">EntityTwoDataSourceConfiguration.java</a></li>
+</ul>
+<h3 id="maven-dependency"><a class="header" href="#maven-dependency">Maven dependency</a></h3>
+<p>In project entityone &amp; entitytwo, you need to include dependency <strong>spring-boot-starter-data-jpa</strong>.</p>
+<p>But in project <strong>applicationRunner</strong> (<a href="spring-boot-multiple-datasource/applicationRunner/pom.xml">pom.xml</a>), it only need to include dependency to entityone, entitytwo. <strong>Don't</strong> include <strong>spring-boot-starter-data-jpa</strong> , becasue you will be asked to configuare one more standard jpa configuration.</p>
+<h2 id="specification"><a class="header" href="#specification">Specification</a></h2>
+<p>entitytwo defines a <a href="spring-boot-multiple-datasource/searchspecification/src/main/java/macauyeah/personal/springbootdatajpa/searchspecification/SearchSpecification.java">SearchSpecification.java</a> , it mainly uses generic type to search any entity within that project. It also supports <strong>OneToMany</strong> , <strong>ManyToOne</strong>  relationship.</p>
+<p>Examples</p>
+<ul>
+<li><a href="spring-boot-multiple-datasource/entitytwo/src/main/java/macauyeah/personal/springbootdatajpa/entitytwo/database/specification/SomethingTwoFilter.java">SomethingTwoFilter.java</a></li>
+<li><a href="spring-boot-multiple-datasource/applicationRunner/src/main/java/macauyeah/personal/springbootdatajpa/applicationRunner/service/QueryService.java">QueryService.java</a></li>
+</ul>
+<h2 id="envers"><a class="header" href="#envers">Envers</a></h2>
+<p>to be testing</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>
