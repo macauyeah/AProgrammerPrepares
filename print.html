@@ -1,0 +1,1785 @@
+<!DOCTYPE HTML>
+<html lang="zh-Hant" class="light" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>程序員的自我修養 A Programmer Prepares</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body class="sidebar-visible no-js">
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('light')
+            html.classList.add(theme);
+            var body = document.querySelector('body');
+            body.classList.remove('no-js')
+            body.classList.add('js');
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var body = document.querySelector('body');
+            var sidebar = null;
+            var sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            body.classList.remove('sidebar-visible');
+            body.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="index.html">前言 編寫這堆電子垃圾的原因 Why I write these articles - </a></li><li class="chapter-item expanded affix "><li class="part-title">Docker</li><li class="chapter-item expanded "><a href="VMDockerNotes/DockerConcept101CN.html"><strong aria-hidden="true">1.</strong> Docker的基本概念 - 中文</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/BinaryAsDockerImageCN.html"><strong aria-hidden="true">2.</strong> Build Command Line Application Docker Image - 中文</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/BinaryAsDockerImageEN.html"><strong aria-hidden="true">3.</strong> Build Command Line Application Docker Image - EN</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/DeployDockerClusterCN.html"><strong aria-hidden="true">4.</strong> Deploy Docker Cluster - 中文</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/SwarmModeCommandCN.html"><strong aria-hidden="true">5.</strong> Swarm mode 上線 - 中文</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/SwarmModeUndeployLeaveCN.html"><strong aria-hidden="true">6.</strong> Swarm mode 上線 2 - 中文</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/SwarmModeRollbackCN.html"><strong aria-hidden="true">7.</strong> Swarm mode 上線 3 - 中文</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/CronJobWithDockerCN.html"><strong aria-hidden="true">8.</strong> Schedule Job with Docker - 中文</a></li><li class="chapter-item expanded affix "><li class="part-title">VM</li><li class="chapter-item expanded "><a href="VMDockerNotes/MultipassPackerCN.html"><strong aria-hidden="true">9.</strong> Create custom Ubuntu cloud-img with Packer - 中文</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/MultipassStaticIpCN.html"><strong aria-hidden="true">10.</strong> Multipass with static IP - 中文</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/MultipassStaticIpEN.html"><strong aria-hidden="true">11.</strong> Multipass with static IP - EN</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/MultipassDockerClusterCN.html"><strong aria-hidden="true">12.</strong> Docker Swarm in Multipass - 中文</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/MultipassDockerClusterEN.html"><strong aria-hidden="true">13.</strong> Docker Swarm in Multipass - EN</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/VmwareDockerClusterCN.html"><strong aria-hidden="true">14.</strong> Docker Swarm in Vmware - 中文</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/DockerWithNfsCN.html"><strong aria-hidden="true">15.</strong> Docker with NFS file store - 中文</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/DockerSyslogCN.html"><strong aria-hidden="true">16.</strong> Docker with Syslog - 中文</a></li><li class="chapter-item expanded "><a href="VMDockerNotes/DockerSyslogEN.html"><strong aria-hidden="true">17.</strong> Docker with Syslog - EN</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">Git</li><li class="chapter-item expanded "><a href="gitNotes/gitcoworkflow.html"><strong aria-hidden="true">18.</strong> Git Co-Work Flow</a></li><li class="chapter-item expanded "><a href="gitNotes/submodule.html"><strong aria-hidden="true">19.</strong> Git Submodule</a></li><li class="chapter-item expanded "><a href="gitNotes/git-merge-timing.html"><strong aria-hidden="true">20.</strong> Git Merge Timing</a></li><li class="chapter-item expanded "><a href="gitNotes/git-continuous-integration-strategy.html"><strong aria-hidden="true">21.</strong> Continuous Integration Strategy</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">Spring boot</li><li class="chapter-item expanded "><a href="spring/springBootMavenCheatSheet.html"><strong aria-hidden="true">22.</strong> Spring Boot - Maven Cheat Sheet 貓紙</a></li><li class="chapter-item expanded "><a href="spring/springBootWebSocket.html"><strong aria-hidden="true">23.</strong> Websocke and HTTP 1.1</a></li><li class="chapter-item expanded "><a href="spring/springBootMultipleDatasource.html"><strong aria-hidden="true">24.</strong> Multiple datasource</a></li><li class="chapter-item expanded "><a href="spring/javaLambda.html"><strong aria-hidden="true">25.</strong> Java Lamdbda</a></li><li class="chapter-item expanded "><a href="spring/javaLambda2.html"><strong aria-hidden="true">26.</strong> Java Lamdbda - Sorting</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><li class="part-title">Spring boot tutorial</li><li class="chapter-item expanded "><a href="spring/springBootLesson/01-command-line-application.html"><strong aria-hidden="true">27.</strong> Spring Boot 01 - 萬物始於Spring boot context</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <!-- Track and set sidebar scroll position -->
+        <script>
+            var sidebarScrollbox = document.querySelector('#sidebar .sidebar-scrollbox');
+            sidebarScrollbox.addEventListener('click', function(e) {
+                if (e.target.tagName === 'A') {
+                    sessionStorage.setItem('sidebar-scroll', sidebarScrollbox.scrollTop);
+                }
+            }, { passive: true });
+            var sidebarScrollTop = sessionStorage.getItem('sidebar-scroll');
+            sessionStorage.removeItem('sidebar-scroll');
+            if (sidebarScrollTop) {
+                // preserve sidebar scroll position when navigating via links within sidebar
+                sidebarScrollbox.scrollTop = sidebarScrollTop;
+            } else {
+                // scroll sidebar to current active section when navigating via "next/previous chapter" buttons
+                var activeSection = document.querySelector('#sidebar .active');
+                if (activeSection) {
+                    activeSection.scrollIntoView({ block: 'center' });
+                }
+            }
+        </script>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">程序員的自我修養 A Programmer Prepares</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p>作為一個開發向的IT狗，應該要對一些DevOps技術有實踐上的認知，所以我把自身的經驗寫下來。希望可以有一個整體上的實踐方案以供討論和改進。</p>
+<p>雖然我覺得願意看的人不多，看完後願意試的人更少，試完願意分享意見和改進的更希少。如果你是那個少少少少的希有人群，有興趣可以在github提交修正。</p>
+<p><a href="https://github.com/macauyeah/AProgrammerPrepares">Github - 程序員的自我修養</a></p>
+<p>As of a programmer, we should not only focus on source code development. We need to take a look about the DevOps workflow, and choose some suitable technology to ehance our working process (and the final product). Therefore, I write down notes and hope it could be structural enough to be compaired or discussed, and hopefully to improve that.</p>
+<p>I don't think much people would like to read these articles. But if you are the special geek, please join and help to improve the articles in Github.</p>
+<p><a href="https://github.com/macauyeah/AProgrammerPrepares">Github - A Programmer Prepares</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="docker-101"><a class="header" href="#docker-101">Docker 101</a></h1>
+<p>雖然Docker面世很久了，但筆者也是最近才摸清Docker一些概念和實務上的用途。趁著還有一些記憶，分享一些筆記。好讓未正式用過的朋友少走一些冤枉路。</p>
+<h2 id="docker是輕量vm"><a class="header" href="#docker是輕量vm">Docker是輕量VM?</a></h2>
+<p>首先，第一個最大的普遍認知錯誤，就是認為Docker是輕量VM。</p>
+<p>但其實它不是VM(更不是輕量VM)，它其實只是Linux上幫忙起Process的Daemon，官方叫作Docker Engine。個人感覺就像是在Host OS Kernal上的一個Playground (Sandbox會不會pro一點?)。我們平時最常使用的，是請Docker Engine根據Docker Image生成Container。而這些Container，因為一些特性，我習慣對非核心用戶解釋為【分身】。</p>
+<p>整個生態系統中，最特別的是Container和Container之間，本身是獨立的。它們之間沒有Network, Storge也不會共用。除非你刻意連結起，否則它們理論上不會互相污染。但因為Kernal本身也是直接用Host OS，所以還是有機會被Hack而互相污染。</p>
+<h2 id="docker-可以打包萬用linux-applicaiton"><a class="header" href="#docker-可以打包萬用linux-applicaiton">Docker 可以打包萬用Linux Applicaiton?</a></h2>
+<p>第二個認知錯誤，就是認為Docker Container有persistent storage，可以看成VM，做一些Statefull application。</p>
+<p>最陽春的Persistent storage是存在的，但並不是預期你會用到Production上面。因為Production大家考量的是做Cluster(例如Docker Swarm, K8s, KIND)，隨時增加或刪除多個相同Image來源的Container(分身)，以應付大流量。而經過Cluster的網絡routing mesh，即使同一個IP的Network request，也並不會一定派到同一個Container上。</p>
+<h2 id="docker-run"><a class="header" href="#docker-run">Docker Run?</a></h2>
+<p>第三個，不是認知錯誤，而是入坑起點問題。大部份教學，都會教大家怎樣包裝自己的Docker image，然後經docker run，產生container。</p>
+<p>但其實一個application，並不是單一container可以包辦的事。例如，一個Wordpress網站，就會分了為兩個不同的Service(服務)來運作 來運作。而同一個Service，在需要的情況下，可以由一個或多個分身(Container)組成。</p>
+<p>回到Wordpress的例子，應該看由成以下各部份組成的系統</p>
+<ul>
+<li>一個資料庫的Service，靠一個Container作為資料儲存。</li>
+<li>一個Web Service，靠一個或多個Php (Apache) Container來應對使用者Http Request。</li>
+<li>經Docker Network把上面兩個Service連在一起。而且Web Service會對外開放Port，但資料庫就只會對內開放Port。</li>
+</ul>
+<p>而一般的docker run，需要自行把上述所有事情串連起來。需要學習的command多，也很難感受整體的架構。個人覺得，在testing / development 環境下，容易上手的入門方式應該是docker compose。它可以同時行起多個Service/Container，提供同一個內部Network，把串連的動作簡化。更重要的是，docker compose主要是靠yaml file來做設定。讓新用戶可以更容易地重現別人做的好設定。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="把command-line-的程式打包成docker-image"><a class="header" href="#把command-line-的程式打包成docker-image">把command line 的程式打包成Docker Image</a></h1>
+<p>平時我們用別人的Docker image，都以網絡服務為主，也就是，他們的image通常以常駐，打開某個網絡端口(UDP/TCP Port)提供服務。</p>
+<p>但像nodejs, java等，其實是一些command line程式。它們其實可以一次性地執行後，回傳結果。</p>
+<p>這次我們就以一個mdbook程式為例子，介紹打包的流程。</p>
+<p>第一件事，在Docker image中，安裝或編譯binary</p>
+<pre><code># Dockerfile
+FROM ubuntu:22.04
+
+RUN apt-get update &amp;&amp; apt-get install cargo -y &amp;&amp; cargo install mdbook
+
+ENV PATH="${PATH}:/root/.cargo/bin"
+
+VOLUME /opt/mdbookdata
+WORKDIR /opt/mdbookdata
+ENTRYPOINT ["mdbook"]
+</code></pre>
+<p>打包成image，給他一個名字，例如mdbook:beta</p>
+<pre><code class="language-bash">sudo docker build -t mdbook:beta ./
+</code></pre>
+<p>在Dockerfile中，我選擇使用 <em><strong>ENTRYPOINT</strong></em> 的 <em><strong>exec</strong></em> 格式，因為我需要後期在 <em><strong>docker run</strong></em> 動態加入參數。</p>
+<p>例如，要把參數 <em><strong>--version</strong></em> 傳入container，讓mdbook就可以看到該參數。</p>
+<pre><code class="language-bash">sudo docker run --rm -it -v $(pwd):/opt/mdbookdata mdbook:beta --version
+</code></pre>
+<p>但在docker image中，它是使用root來執行。如果你直接執行build，那麼它的輸出資料夾 <em><strong>book/</strong></em> 的擁有人就會變成了root。你要用指定 <code>--user $(id -u):$(id -g)</code> 來指定執行者。</p>
+<pre><code class="language-bash">sudo docker run --user $(id -u):$(id -g) --rm -it -v $(pwd):/opt/mdbookdata mdbook:beta build
+</code></pre>
+<p>還有，如果不想每次都打這麼長的指令，你可以在 <code>~/.bashrc</code> 中做別名(alias)。</p>
+<pre><code class="language-bash"># edit ~/.bashrc
+alias mdbook='sudo docker run --user $(id -u):$(id -g) --rm -it -v $(pwd):/opt/mdbookdata mdbook:beta $1'
+</code></pre>
+<p>這樣就可以簡化執行指令。</p>
+<pre><code class="language-bash"># let .bashrc take effect without logout login
+source ~/.bashrc
+# run command through alias
+mdbook --version
+# it support multiple arguments
+mdbook build --dest-dir ./dest
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="encapsulate-command-line-binary-as-docker-image"><a class="header" href="#encapsulate-command-line-binary-as-docker-image">Encapsulate Command Line Binary as Docker Image</a></h1>
+<p>Usually in docker images, they mainly focus on providing network service. Their image will keep an alive process in some specific port to provide service.</p>
+<p>But some other images like nodejs, java, they are an time only binary. They can run and return result form command line output.</p>
+<p>In this article, we will build an image to provide mdbook binary.</p>
+<p>First thing first, in docker image to install or compile the binary.</p>
+<pre><code># Dockerfile
+FROM ubuntu:22.04
+
+RUN apt-get update &amp;&amp; apt-get install cargo -y &amp;&amp; cargo install mdbook
+
+ENV PATH="${PATH}:/root/.cargo/bin"
+
+VOLUME /opt/mdbookdata
+WORKDIR /opt/mdbookdata
+ENTRYPOINT ["mdbook"]
+</code></pre>
+<p>Build image, give it a tag name, mdbook:beta</p>
+<pre><code class="language-bash">sudo docker build -t mdbook:beta ./
+</code></pre>
+<p>In the Dockerfile, I choose to use <em><strong>ENTRYPOINT</strong></em> and in <em><strong>exec</strong></em> form, because I want to append mdbook argument through <em><strong>docker run</strong></em></p>
+<p>For example, passing <em><strong>--version</strong></em> to container, so that mdbook could get the argument.</p>
+<pre><code class="language-bash">sudo docker run --rm -it -v $(pwd):/opt/mdbookdata mdbook:beta --version
+</code></pre>
+<p>But in the base docker image, it run as root. If you build a book by image, the <em><strong>book/</strong></em> output folder's ownership will be set to root. You could change the default ownership by add <code>--user $(id -u):$(id -g)</code></p>
+<pre><code class="language-bash">sudo docker run --user $(id -u):$(id -g) --rm -it -v $(pwd):/opt/mdbookdata mdbook:beta build
+</code></pre>
+<p>And also, if you want to make an cammand alias in your bash shell, so that you no need to run a long command very time, you could add a line in <code>~/.bashrc</code>.</p>
+<pre><code class="language-bash"># edit ~/.bashrc
+alias mdbook='sudo docker run --user $(id -u):$(id -g) --rm -it -v $(pwd):/opt/mdbookdata mdbook:beta $1'
+</code></pre>
+<p>Then you can call it from your host by</p>
+<pre><code class="language-bash"># let .bashrc take effect without logout login
+source ~/.bashrc
+# run command through alias
+mdbook --version
+# it support multiple arguments
+mdbook build --dest-dir ./dest
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="docker-in-production"><a class="header" href="#docker-in-production">Docker In Production</a></h1>
+<p>大部份在大公司工作的朋友，在公開的應用情景中，應該都會直接選擇Public Cloud(公有雲)的Kubernetes作為Production(投產環境)。但對於澳門的中、小微企，要找一個附合個人資料保護法的Public Cloud，可真難。想要簡單地靠自己架設本地Kubernetes，也不是一件易事。退而求其次，想要快速擁有一個Cluster(群集)，Docker是一個最直觀的選擇。</p>
+<p>之前筆者都介紹過Swarm mode的一些指令，但指令只是執行的手法，怎樣管理你的App還是有不同的選擇。</p>
+<h2 id="把app轉成swarm-mode-還是把底層程式變成swarm-mode"><a class="header" href="#把app轉成swarm-mode-還是把底層程式變成swarm-mode">把App轉成Swarm mode 還是把底層程式變成Swarm mode?</a></h2>
+<p>雖然筆者對於Docker Swarm Mode的資歷尚淺，但由於後期更動的難點越來越多，筆者很想早一點討論其中不同操作的差異</p>
+<h2 id="docker-swarm"><a class="header" href="#docker-swarm">Docker Swarm</a></h2>
+<p>Docker Swarm Mode其實是Docker提供的一個Cluster(群集)環境。在其中運行的Image，都可以比較方便地隨時分身到不同的node(節點)上，對於提高負載或可用性，都是一個不錯的解決。</p>
+<p>只要該Image跑起的Container是Stateless(前後兩次執行的結果互不相干涉)，或者是把Stateful的部份(有干涉的部份)外包到第三方(例如儲存空間使用NFS，或記憶體暫存改為Key-Value Database)，就可以方便地運作在Docker Swarm mode上。</p>
+<h2 id="部署docker-swarm的選項"><a class="header" href="#部署docker-swarm的選項">部署Docker Swarm的選項</a></h2>
+<p>Docker Swarm可以把Image變成分身Container，但並沒有硬性改變傳統App操作方式。大部份App在執行時，都需要另一個底層程式的支緩。例如</p>
+<ul>
+<li>Php Web App，需要底層php fpm + nginx或apache</li>
+<li>Java Web App，就需要java + Tomcat</li>
+</ul>
+<p>所以在發佈App時，可以選擇把</p>
+<ul>
+<li>App直接打包成Image</li>
+<li>只把底層程式打包在Image中(例如Tomcat)，再在跑起Container時再動態接起App。</li>
+</ul>
+<h3 id="兩者有何差別"><a class="header" href="#兩者有何差別">兩者有何差別?</a></h3>
+<p>就信心層面上，一定是把App直接打包成Image實際一點。因為這樣可以極大地減少測試環境和正式環境的差異而出現的問題。筆者一開始也不完全讚成，但也越來越傾向這種做法。</p>
+<p>在解釋筆者為何有這個結論前，先條列式地對比一下兩種差別。</p>
+<div class="table-wrapper"><table><thead><tr><th style="text-align: left">事項</th><th style="text-align: left">打包App成為Image</th><th style="text-align: left">打包底層程式成為Image</th></tr></thead><tbody>
+<tr><td style="text-align: left">打包複雜度</td><td style="text-align: left">需要把App用到的一些環境變數引入設定Image的entrypoint中，方便配合不同的環境可以改變App的行為。<br>打包次數根據App數量有關。<br>比較靈活，但比較需要學習和試錯。</li></td><td style="text-align: left">底層程式統一設定環境變數，其中所有App都會使用類似或相同的設定，設定方式跟傳統方式無異。<br>打包次數根據底層程式數量有關。<br>比較死版，但要試錯的成本較低</td></tr>
+<tr><td style="text-align: left">發佈流程</td><td style="text-align: left">打包App成Image。再靠Docker Swarm設定Image有多少分身，每個分身不需要特別再設定。</td><td style="text-align: left">原來的底層程式已存在於Docker Swarm中，只需把新建或更新了的App放入不同分身的儲存空間，讓底層程式動態跑起App。</td></tr>
+<tr><td style="text-align: left">管理複雜度</td><td style="text-align: left">每個App都是獨立的，代表有任何更新也是獨立更新。<br>在微服務的協作環境中，需要管理員從Image層面為每個App設定網絡(network)或開放端口(Port)。但每個App可以設定不同的分身數量，靈活性一定比只打包底層程式要高。</td><td style="text-align: left">使用同一個底層程式Image的App都會使用同一個網路和端口設定。<br>在微服務的協作環境中，管理員要應付的設定數量一定比打包App要少。<br>但由於是Conatiner分身是針對底層程式，所以若然某個App有不同需求，就要重新設定另一套底層程式。</td></tr>
+</tbody></table>
+</div>
+<p>上述幾個點，最後其實都是複雜度和靈活度的取捨。雖然打包App的工序更多，但提供的靈活性也更多。如果考慮要從傳統模式中過渡，方便與完成不懂Docker的同事協作，就首選打包底層程式。如果考慮可重複性和信心保證，還是打抱App比較直接，要複制一個環境到另一個環境，也比較易測試。</p>
+<h1 id="cicd系統的參與"><a class="header" href="#cicd系統的參與">CI/CD系統的參與</a></h1>
+<p>CI/CD 全稱是continuous integration (CI) 和 continuous delivery (CD)，字面上代表的持續地集成和發佈，實體上就是某台伺服器自動發佈APP。因為使用到Docker Cluster，不論前述什麼選擇，都會有多個node(節點)的出現。要發佈App，總不能一個個node逐個登入設定。所以我們需要一些CI/CD工具，把這個過程都自動化。</p>
+<p>在筆者的認知上，CI/CD系統，由兩個部份組成，一個是取得Source Code(程式原始碼)的過程，一個是編譯或發佈Source Code的過程。Gitlab，Github，BitBucket等大型的代碼庫供應商，它們天生為了保存Source Code而提供服務的。不少CI/CD系統都可以跟它們整合，它們提供了存取Source Code的部份，剩下你只要能提供編譯或發佈的伺服器就好。</p>
+<p>如果作為小型開發團隊，很少會有意願去自己花錢養一個編譯或發佈的伺服器。(極端地，如果我就是一人團隊，我用自己電腦編譯和發佈就好，伺服器能做的，我自己也能做。)好消息的是，Github提供了一個叫Github Action的CI/CD系統，即使你沒有自己的編譯專用的伺服器，Github Action也可以用Docker Image，提供一個臨時的編譯程序，用完就刪掉。詳細功能還請各位先查看官方教學，筆者也暫時只能零星使用經驗，無法給出有意思的架構。</p>
+<p>如果對智慧財產權有高度重視，Source Code不能存放在公開的伺服器，那麼Gitlab Enterprise Edtion則是一個好選擇。運用Gitlab ee，你可以用自己的機器，造一個純本地的庫存伺服器。更強的是，它內建也有CI/CD系統，只要你有間置的伺服器，就可以作為編譯使用。筆者也是從這個方向著手，架設了自己的Gitlab Runner(Gitlab CI/CD系統)。在這裏，就分享一下與Docker Swarm整理的概念。</p>
+<p>對於前述兩種選擇，GitLab Runner都可以做得到</p>
+<ul>
+<li>底層程式打包成Image並運行在Swarm mode上，每次發佈的是App Binary(執行檔或核心檔案)。</li>
+<li>把App直接打包成Image，並運行在Swarm mode上，每次發佈的是App Image。</li>
+</ul>
+<h2 id="cicd---打包底層程式成為image"><a class="header" href="#cicd---打包底層程式成為image">CI/CD - 打包底層程式成為Image</a></h2>
+<p>在這個選擇下，其實就跟傳統自動化發佈的做法類似，只是發佈時，要多個node報行更新指令。如果你使用的底層程式原本就有支援多版本並行，這樣更新時就不用太操心rollback(回滾?)等操作。若系統不支援多版本並行，為求簡化，若遇到要rollback的情況，重跑過去舊的CI/CD操作也是一個做法。當然，我們也可以經過一些備份的操作，來保存被代替的程式，若在發佈過程中出問題，也可以手動重來，不過整件事就越來越複雜。</p>
+<p>筆者發佈的基本思路是</p>
+<ul>
+<li>使用docker image，編譯和打包App Binary。
+<ul>
+<li>使docker image做編譯的好處是，你可以比較放心地假設每次編譯時，你的編譯環境都是乾淨的。</li>
+</ul>
+</li>
+<li>傳送上述的結果至生產環境可以取用的地方。</li>
+<li>跳入生產環境執行更新指令</li>
+</ul>
+<pre><code class="language-yml"># file .gitlab-ci.yml
+# need Docker executor, the gitlab runner agent need docker permission
+stages:
+  - deploy
+
+maven-deploy:
+  image: maven:3-eclipse-temurin-17
+  stage: deploy
+  script:
+    - "mvn clean compile package -Pprod -Dmaven.test.skip=true"
+    # ${ID_RSA} is a rsa private key file location, it can skip password input during ssh or scp operation. 
+    # you need to pre-config production serevr auth before exec this script
+    - "chmod og= ${ID_RSA}"
+    - "scp -i ${ID_RSA} -o StrictHostKeyChecking=no app.war YOUR_ACCOUNT@PRODUCTION_SERVER_1:./"
+    - "ssh -i ${ID_RSA} -o StrictHostKeyChecking=no YOUR_ACCOUNT@PRODUCTION_SERVER_1 UPDATE_COMMAND"
+    - "scp -i ${ID_RSA} -o StrictHostKeyChecking=no app.war YOUR_ACCOUNT@PRODUCTION_SERVER_2:./"
+    - "ssh -i ${ID_RSA} -o StrictHostKeyChecking=no YOUR_ACCOUNT@PRODUCTION_SERVER_2 UPDATE_COMMAND"
+</code></pre>
+<p>這裏有些隱藏的管理成本，如果你生產環境中有多個node，最後那幾行指令就要多抄幾次。</p>
+<h2 id="cicd---打包app成為image"><a class="header" href="#cicd---打包app成為image">CI/CD - 打包App成為Image</a></h2>
+<p>在這個選擇下，對比傳統自動化發佈的做法，現在要多做一步，就是要包裝自己的Image。不過好處是docker swarm有提供監測工具，在發佈過程每個分身會逐個更新，前一個分身更新成功後才會到下一個分身更新。而且
+rollback等的操作，你可以靠docker做到。即是要手動rollback，也可以透過更正docker tags來達到，所以整體上來說沒有比傳統的麻煩。</p>
+<p>筆者發佈的基本思路是</p>
+<ul>
+<li>編譯App Binary。</li>
+<li>打包成docker image。</li>
+<li>經docker上傳image。</li>
+<li>跳入生產環境執行更新指令。</li>
+</ul>
+<pre><code class="language-yml"># file .gitlab-ci.yml
+# need Shell executor, the gitlab runner agent also need docker permission
+stages:
+  - deploy
+
+docker-deploy:
+  stage: deploy
+  script:
+    - "mvn clean compile package -Pprod -Dmaven.test.skip=true"
+    - "docker image build -t YOUR_IMAGE_PRIVATE_REPO ./"
+    - "docker image push YOUR_IMAGE_PRIVATE_REPO"
+    # ${ID_RSA} is a rsa private key file location, it can skip password input during ssh or scp operation. 
+    # you need to pre-config production serevr auth before exec this script
+    - "chmod og= ${ID_RSA}"
+    - "ssh -i ${ID_RSA} -o StrictHostKeyChecking=no YOUR_ACCOUNT@PRODUCTION_SERVER SWARM_UPDATE_COMMAND"
+</code></pre>
+<p>對比傳統自動化發佈的做法，最後的更新指令，只要執行一次就可以。當然，原本在Docker Swarm中要管理的事還是要好好管理。</p>
+<h2 id="cicd---備註事項"><a class="header" href="#cicd---備註事項">CI/CD - 備註事項</a></h2>
+<p>雖然CI/CD可以幫忙簡化更新的過程，但實際操作會比上述的例子複雜一些。因為通常對非技術型的外界用戶來說，一個Web App會包含很多不同的功能。上述的例仔，在實際情況下可能需要拆解成很多微服務來進行。所以對管理上還是有相當的挑戰。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="swarm-mode-上線"><a class="header" href="#swarm-mode-上線">Swarm mode 上線</a></h1>
+<p>之前一直都討論Image 的打包形式，現在聊聊部署上線時的一些指令。</p>
+<h2 id="docker-service"><a class="header" href="#docker-service">Docker Service</a></h2>
+<p>swarm mode 主要通過"docker service" 指令去產生一堆可以在不同節點上運行的container。為了更加形象地講，我把container稱為Image的分身。</p>
+<p><code>docker service create</code>跟<code>docker container run</code>的感覺很像，兩者都可以指定image</p>
+<pre><code># swarm mode
+$ docker swarm init
+$ docker service create --name nginx_s nginx
+
+# container mode
+$ docker container run -d --name nginx_c nginx
+</code></pre>
+<p>兩者的差別在於docker service 可以指定多少個分身，可以隨時加減數目，而且如果你有多過一台機器，分身就會在不同的機器上遊走。而docker container就是只對本機有操作，也不會散播到其他機器。</p>
+<pre><code># swarm mode
+$ docker service create --replicas=2 --name nginx_s nginx
+$ docker service ls
+
+ID             NAME      MODE         REPLICAS   IMAGE          PORTS
+uro4rwy6nelh   nginx_s   replicated   2/2        nginx:latest
+
+$ docker service update --replicas=5 nginx_s
+$ docker service ls
+
+ID             NAME      MODE         REPLICAS   IMAGE          PORTS
+uro4rwy6nelh   nginx_s   replicated   5/5        nginx:latest
+
+# container mode
+$ docker container run -d --name nginx_c1 nginx
+$ docker container run -d --name nginx_c2 nginx
+$ docker container run -d --name nginx_c3 nginx
+$ docker container run -d --name nginx_c4 nginx
+$ docker container run -d --name nginx_c5 nginx
+$ docker container ls
+CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS         PORTS     NAMES
+c45771f06612   nginx     "/docker-entrypoint.…"   7 seconds ago    Up 6 seconds   80/tcp    nginx_c5
+a587a718da3a   nginx     "/docker-entrypoint.…"   9 seconds ago    Up 9 seconds   80/tcp    nginx_c4
+079f206f8645   nginx     "/docker-entrypoint.…"   9 seconds ago    Up 9 seconds   80/tcp    nginx_c3
+e10dc525fd22   nginx     "/docker-entrypoint.…"   10 seconds ago   Up 9 seconds   80/tcp    nginx_c2
+dcaa2b4bb3de   nginx     "/docker-entrypoint.…"   10 seconds ago   Up 9 seconds   80/tcp    nginx_c1
+</code></pre>
+<p>在建立網段時也差不多，service需要的是overlay network，而container用一般network就可以。</p>
+<pre><code># swarm mode
+$ docker network create --driver overlay nginx_s_gateway
+$ docker service update --network-add name=nginx_s_gateway,alias=gateway nginx_s
+$ docker service ps nginx_s
+ID             NAME            IMAGE          NODE         DESIRED STATE   CURRENT STATE             ERROR     PORTS
+fxqtheyvr914   nginx_s.1       nginx:latest   dockertest   Running         Running 33 seconds ago
+u0pvj1leoizw    \_ nginx_s.1   nginx:latest   dockertest   Shutdown        Shutdown 33 seconds ago
+q7arumjlxduv   nginx_s.2       nginx:latest   dockertest   Running         Running 36 seconds ago
+kurlwqfmopbg    \_ nginx_s.2   nginx:latest   dockertest   Shutdown        Shutdown 37 seconds ago
+zd0zlkhxafv0   nginx_s.3       nginx:latest   dockertest   Running         Running 40 seconds ago
+3kapr00fs6pt    \_ nginx_s.3   nginx:latest   dockertest   Shutdown        Shutdown 40 seconds ago
+5o4afd3whygo   nginx_s.4       nginx:latest   dockertest   Running         Running 35 seconds ago
+oxocropolbo8    \_ nginx_s.4   nginx:latest   dockertest   Shutdown        Shutdown 35 seconds ago
+x5y94jf3ok51   nginx_s.5       nginx:latest   dockertest   Running         Running 38 seconds ago
+cgld3au0w1i9    \_ nginx_s.5   nginx:latest   dockertest   Shutdown        Shutdown 39 seconds ago
+
+# container mode
+$ docker network create nginx_c_gateway
+$ docker network connect --alias gateway nginx_c_gateway nginx_c1
+$ docker network connect --alias gateway nginx_c_gateway nginx_c2
+$ docker network connect --alias gateway nginx_c_gateway nginx_c3
+$ docker network connect --alias gateway nginx_c_gateway nginx_c4
+$ docker network connect --alias gateway nginx_c_gateway nginx_c5
+</code></pre>
+<p>不過比較大的差異是service會停了原有的分身，重開新的分身去加入網段。所以上面的docker service ps nginx_s執行結果，就有一半是停掉的。</p>
+<p>類似地，docker service也不能單獨地停掉分身，頂多只能調整<code>--replicas=NUMBER</code>，來控制分身數量。而單機則可以經過<code>docker container stop</code>來暫停分身。</p>
+<h2 id="docker-stack"><a class="header" href="#docker-stack">Docker Stack</a></h2>
+<p>同樣地，在單機管理container時，可以通過內建的docker compose指令配搭docker-compose.yaml檔案，管理多個有協作關係的container。Swarm mode也可以通過docker stack去管理yaml檔案中的多個有協作關係的service。</p>
+<p>因為docker compose已支援v3及Compose Specification標準；但docker stack暫時只能支援到v3格式，所以說yaml檔案不能完全照搬。但指令上行為是差不多的。</p>
+<pre><code>docker stack deploy -c setting.yaml stack-name
+docker stack rm stack-name
+
+docker compose -f setting.yaml up -d
+docker compose down
+</code></pre>
+<p>docker stack也跟docker service類似，沒有隨時叫停的功能，而docker compose 就可以暫時叫停分身<code>docker compose -f setting.yaml stop</code>。</p>
+<p>yaml例子待補完</p>
+<h2 id="docker-service-rollback"><a class="header" href="#docker-service-rollback">Docker Service Rollback</a></h2>
+<p>詳見<a href="VMDockerNotes/SwarmModeRollbackCN.html">SwarmModeRollback.md</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="swarm-mode-上線---2"><a class="header" href="#swarm-mode-上線---2">Swarm mode 上線 - 2</a></h1>
+<p>系統上線一段日後，總會遇到有需要更改的時候，我們一般要用的程式，可以經過Docker Image包裝，變得無痛。但Docker Swarm本身要有改動，就不是那麼的直白。</p>
+<p>以筆者的經驗，若果Swarm mode的各位node都原地升級版本，其實都不難。但若果那些最基本的設定，例如node1的IP換了，那基本上等於要整個Swarm mode砍掉從來。</p>
+<p>筆者最近就需要將整個Docker Swarm中多個node都一起轉IP。原本以為關掉改主機IP，Docker Swarm可以隨時重起。但問題是，在改IP過程中，其他Node2、Node3發現Node1的不見了，若然Node2、Node3經過cold start，它們的Docker daemon根本行不起來。若然要在這一刻硬來，就需要整個Docker daemon重設。這比當初以為的只刪除Docker Swarm要來得恐怖。</p>
+<p>比較好一點的做法，應該是在改IP之前，先把Swarm mode中各個stack (service, network, volume)手動移除，然後把Swarm mode解除。</p>
+<p>在Docker相關事項都變成可以獨立運作後，再做主機的更新</p>
+<pre><code class="language-bash"># delete stack and leave swarm in node 3, node 2, node 1
+# don't shutdown docker in node 2,3 if node 1 is not available
+docker stack ls
+docker stack rm YOUR_STACK_NAME
+
+# to be confirm if any dingling network, service is still there.
+# not sure how stack handling re-deploy problem when something removed from yaml file
+docker network ls
+docker network rm YOUR_STACK_NETWORK
+
+docker service ls
+docker service rm YOUR_STACK_SERVICE
+
+docker volume ls
+docker volume rm YOUR_STACK_VOLUME
+
+docker swarm leave --force
+
+## begin host changes
+## finish host changes, re-create cluster
+
+# in node 1, init new swarm with new ip
+docker swarm init --advertise-addr YOUR_NEW_NODE1_IP
+# in node 1, get new manager token
+docker swarm join-token manager
+# in node 2 and node 3, join node 1 with new token
+docker swarm join --token XXXXX YOUR_NEW_NODE1_IP:2377
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="swarm-mode-上線---3--rollback"><a class="header" href="#swarm-mode-上線---3--rollback">Swarm mode 上線 - 3 | Rollback</a></h1>
+<p>Docker Swarm提供了一個很方便的rollback功能。針對swarm service的config都可以用。官方提供了一些<a href="https://docs.docker.com/engine/reference/commandline/service_rollback/">rollback config</a>的例子。</p>
+<p>今天筆者今天就來個自己更常見的例子，rollback image</p>
+<p>例設我們使用docker stack和yaml檔來操作docker service。</p>
+<pre><code class="language-yaml"># nginx-rollback.yaml
+services:
+  nginx:
+    image: nginx:1.25.2
+    ports:
+      - 8080:80
+    deploy:
+      replicas: 2
+      update_config:
+        delay: 1s
+      restart_policy:
+        condition: any
+</code></pre>
+<p>首次建立nginx service, 當前版本會是nginx:1.25.2</p>
+<pre><code class="language-bash">&gt; sudo docker stack deploy -c nginx-rollback.yaml nginx-test
+### system output
+Creating network nginx-test_default
+Creating service nginx-test_nginx
+
+&gt; sudo docker service ps nginx-test_nginx
+### system output
+ID             NAME                 IMAGE          NODE      DESIRED STATE   CURRENT STATE           ERROR     PORTS
+kn6o6p45rxtq   nginx-test_nginx.1   nginx:1.25.2   node2     Running         Running 8 minutes ago
+x1qa0tmhh8w6   nginx-test_nginx.2   nginx:1.25.2   node1     Running         Running 8 minutes ago
+</code></pre>
+<p>然後嘗試更新nginx:1.25.3</p>
+<pre><code class="language-yaml"># nginx-rollback.yaml
+services:
+  nginx:
+    image: nginx:1.25.3
+    ports:
+      - 8080:80
+    deploy:
+      replicas: 2
+      update_config:
+        delay: 1s
+      restart_policy:
+        condition: any
+</code></pre>
+<pre><code class="language-bash">&gt; sudo docker stack deploy -c nginx-rollback.yaml nginx-test
+### system output
+Updating service nginx-test_nginx (id: nlure4s6ipnzuy4qki66dz8o9)
+
+&gt; sudo docker service ps nginx-test_nginx
+### system output
+ID             NAME                     IMAGE          NODE      DESIRED STATE   CURRENT STATE             ERROR     PORTS
+83m9iyc2xg5q   nginx-test_nginx.1       nginx:1.25.3   node2     Running         Running 3 seconds ago
+kn6o6p45rxtq    \_ nginx-test_nginx.1   nginx:1.25.2   node2     Shutdown        Shutdown 7 seconds ago
+8a9vidondmyo   nginx-test_nginx.2       nginx:1.25.3   node1     Ready           Preparing 2 seconds ago
+x1qa0tmhh8w6    \_ nginx-test_nginx.2   nginx:1.25.2   node1     Shutdown        Running 2 seconds ago
+</code></pre>
+<p>假設我們發現nginx:1.25.3有些副作用不是我們想要的，可以經docker service rollback回到上次的版本，即是nginx:1.25.2</p>
+<pre><code class="language-bash">&gt; sudo docker service rollback nginx-test_nginx
+###
+nginx-test_nginx
+rollback: manually requested rollback
+overall progress: rolling back update: 2 out of 2 tasks
+1/2: running   [==================================================&gt;]
+2/2: running   [==================================================&gt;]
+verify: Service converged
+
+&gt; sudo docker service ps nginx-test_nginx
+ID             NAME                     IMAGE          NODE      DESIRED STATE   CURRENT STATE                 ERROR     PORTS     
+0mm3hzp0aaok   nginx-test_nginx.1       nginx:1.25.2   node2     Running         Running about a minute ago
+83m9iyc2xg5q    \_ nginx-test_nginx.1   nginx:1.25.3   node2     Shutdown        Shutdown about a minute ago
+kn6o6p45rxtq    \_ nginx-test_nginx.1   nginx:1.25.2   node2     Shutdown        Shutdown 10 minutes ago
+cb1pdqw0bmyx   nginx-test_nginx.2       nginx:1.25.2   node1     Running         Running about a minute ago
+8a9vidondmyo    \_ nginx-test_nginx.2   nginx:1.25.3   node1     Shutdown        Shutdown about a minute ago
+x1qa0tmhh8w6    \_ nginx-test_nginx.2   nginx:1.25.2   node1     Shutdown        Shutdown 10 minutes ago
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="schedule-job-with-docker"><a class="header" href="#schedule-job-with-docker">Schedule Job with Docker</a></h1>
+<p>在Linux底下，crontab是一個最簡單建立Schedule Job的方法。大家用crontab -e 就可以進入設定。</p>
+<pre><code># crontab -e
+*/1 * * * * /opt/run.sh
+</code></pre>
+<p>其中每個星號，順序代表的是分、時、日、月、星期。上面的例子就是不論何月何日何時，只要每一分鐘就執行一次<code>/opt/run.sh</code></p>
+<h2 id="singleton-job"><a class="header" href="#singleton-job">Singleton Job</a></h2>
+<p>問題是，實際情況下，你想執行程式的時間都不一定會少於1分鐘。所以你總是有機會上一個job未跑完，下一個job就開始了。為了保障自已，需要一些參考機制，去決定是否讓job開始跑。</p>
+<p>有些情況，可能你會想用job server去做監管，但若只為單線執行的工作，起一個job server還是會增加管理上的複雜性。</p>
+<p>最簡單的做法，就是根據不同的程式語言，使用file lock（鎖上）的機制，先上鎖，再做事。但要注意考慮有沒有出現異常情況，令你自己反鎖自己。即是你的process死了，但不懂自己解鎖，這樣以後你也不能再執行了。</p>
+<p>在Linux Bash Shell下，就有一個很簡單的做法，就是使用flock指令。用它的最大好處，就是從OS層面下，去鎖上。只要process結束了，不論正常還是不正常結束，都會自動解鎖。</p>
+<p>以下例子就是在執行<code>/opt/run.sh</code>前，先要取得<code>/tmp/run.lockfile</code>的鎖。如果沒法取鎖，就自動放棄執行後面的指令。</p>
+<pre><code>flock -n /tmp/run.lockfile /opt/run.sh
+</code></pre>
+<pre><code># crontab -e
+*/1 * * * * flock -n /tmp/run.lockfile /opt/run.sh
+</code></pre>
+<h2 id="timeout"><a class="header" href="#timeout">Timeout</a></h2>
+<p>引入singleton的概念後，其實會引發另一個問題。因為異常的情況，還有機會是不生不死，process hang。所以我們還需要設定一個最大的執行時間，讓你的process在異常的情況下，被強行清走。</p>
+<p>例如，ping指令在linux預設是永遠不會自動停止的，可以模擬process hang的情況。如果我們想定時從外部收走ping process，就可以使用timeout指令。以下指令就是2分鐘後殺指ping process。</p>
+<pre><code># in file /opt/run.sh
+timeout 2m ping localhost
+# to check process id, you could use
+# &gt; ps aux | grep ping
+# you will see two different id for ping and timeout
+</code></pre>
+<p>配合errorcode使用，你可能還會在想在timeout時送出一個email通知自已。</p>
+<pre><code># in file /opt/run.sh
+timeout 2m ping localhost
+exitCode=$?
+if [[ $exitCode -eq 124 ]]; then
+    echo "timeout"
+    # send email alert with timeout
+elif [[ $exitCode -gt 0 ]]; then
+    echo "exit with error"
+    # send email alert with error exit
+else
+    echo "exit normal"
+fi
+</code></pre>
+<p>配合docker使用，你可能需要考慮signal怎樣傳遞。</p>
+<p>在筆者測試的環境中，似乎SIGTERM會被擋，也有可能是SIGTERM太強，它只把前景的docker container run收走，但其內的ping process還在docker daemon中行走。所以最後改用SIGINT，讓docker container run可以好好地把SIGINT傳入其內。</p>
+<pre><code># It seems that docker captured the SIGTERM. Send SIGINT instead
+
+# in file /opt/run.sh
+timeout --signal=SIGINT 10s docker container run --rm pingtest -c 20
+exitCode=$?
+if [[ $exitCode -eq 124 ]]; then
+    echo "timeout"
+    # send email alert with timeout
+elif [[ $exitCode -gt 0 ]]; then
+    echo "exit with error"
+    # send email alert with error exit
+else
+    echo "exit normal"
+fi
+</code></pre>
+<p>還有一個常見的問題，就是中間夾雜了sudo，這樣前面的signal也是傳不過去，都被sudo擋了。所以只能把整段script都變成sudo或直接使用root執行；又或者把你的user加入docker group，執行docker command時就不用sudo。</p>
+<pre><code># not work if wrapped sudo inside
+timeout -signal=SIGINT 10s sudo docker container run --rm pingtest -c 20
+timeout 10s sudo docker container run --rm pingtest -c 20
+
+# workaround, add sudo outside of the whole script;
+sudo /opt/run.sh
+</code></pre>
+<p>Full demo, github repo <a href="https://github.com/macauyeah/cronjobWithDocker.git">cronjobWithDocker</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="notes-about-customizing-cloud-image-for-multipass"><a class="header" href="#notes-about-customizing-cloud-image-for-multipass">Notes about customizing cloud image for Multipass</a></h1>
+<h2 id="前言"><a class="header" href="#前言">前言</a></h2>
+<p>原本筆者只是想做docker cluster，但因為在實機中建VM極其麻煩，所以就研究了好一陣子如何快速起VM。</p>
+<p>以下是筆者有初步研究，但未有完全實行的方向。</p>
+<ul>
+<li>Hyper-V
+<ul>
+<li>有預設的Ubuntu template，但只有ubuntu desktop版，沒有server版。Desktop gui顯得浪費資源</li>
+<li>clone VM很費時，需要通過Export，Import達到Clone效果。(2023-08-17 更新:若好好地處理各VM的HDD存放位置，Export，Import也不錯)</li>
+<li>而且沒有自帶的cloud-init，需要自己想辦法做一些Clone後置的處理。</li>
+<li>若要走cloud image + cloud-init，可能需要<a href="https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install">Windows ADK</a>，並配合qemu做轉換。</li>
+</ul>
+</li>
+<li>Windows Subsystem Linux
+<ul>
+<li>起VM很方便，但同一個Linux version只有一個instance</li>
+<li>可能需要需要通過Export，Import Instance來達到Clone效果</li>
+<li>可能沒有fix ip。可能對於起docker swarm不利。</li>
+</ul>
+</li>
+<li>Virtual box
+<ul>
+<li>沒有Ubuntu template</li>
+<li>若要clone的話就變得跟Hyper-V差不多。</li>
+</ul>
+</li>
+</ul>
+<p>經過一輪資料搜集，發現了一個Ubuntu multipass engine，聲稱可以跨平台快速起VM。裏面有一些很吸引的功能，可以自己建立images、使用固定IP。</p>
+<p>那怕即使是沒有snapshot，在自定義images的配合下預裝docker，要隨時加減cluster node都是一件容易的事。</p>
+<h1 id="ubuntu-multipass"><a class="header" href="#ubuntu-multipass">Ubuntu multipass</a></h1>
+<h2 id="參考軟硬件需求"><a class="header" href="#參考軟硬件需求">參考軟硬件需求</a></h2>
+<p>醜話說在前頭。經過一輪測試，multipass最大的問題，就是custom image、fix IP都只能在ubuntu中才能使用。以下是筆者成功實現的軟硬件架構。</p>
+<ul>
+<li>你可以使用實體主機，BIOS提供Virtualization，在實機上安裝Ubuntu，最後行起multipass。
+<ul>
+<li>參考配置: 實機:CPU 10 core, 32G RAM, 1T HDD</li>
+</ul>
+</li>
+<li>你可以使用實機主機，BIOS提供Virtualization，在實機上安裝Windows 10 和Hyper-V，並在Hyper-V上安裝ubuntu，並對該Ubuntu提供ExposeVirtualizationExtensions。
+<ul>
+<li>參考配置: 實機:CPU 10 core, 32G RAM, 1T HDD；VM Ubuntu: CPU 4 core，10G RAM，128G HDD</li>
+</ul>
+</li>
+</ul>
+<h2 id="重點"><a class="header" href="#重點">重點</a></h2>
+<p>詳細的Proof of Concept，筆者記錄了在</p>
+<ul>
+<li><a href="https://github.com/macauyeah/ubuntuPackerImage">Packer template git repo link</a>
+<ul>
+<li><a href="https://github.com/macauyeah/ubuntuPackerImage/blob/main/template.pkr.hcl">Packer template.pkr.hcl link</a></li>
+<li><a href="https://github.com/macauyeah/ubuntuPackerImage/blob/main/initDockerCluster.sh">Multipass run packer image script link</a></li>
+</ul>
+</li>
+<li><a href="VMDockerNotes/MultipassStaticIpCN.html">Multipass Static IP script snippet</a></li>
+</ul>
+<p>在這裏就補充一些重點。</p>
+<ul>
+<li>packer是使用cloud-init和qemu的技術，行起template中指定的cloud image (在筆者的例子中就是ubuntu-22.04-server-cloudimg-amd64.img)</li>
+<li>大家可以定義image行起後進行一些操作，而那些操作都是經過qemu vnc、ssh進去操作的。</li>
+<li>操作完後就會直接儲存當時的image。所以在操作結束之前，盡可能地刪cache或刪去不要的user / group settings。</li>
+<li>最後生成的image，還是一個cloud image。若要再運行它，必需要使用支援cloud-init的VM來讀取。</li>
+<li>cloud-init是用來指定初次運行時要設定的事，例如:hdd size, user account password, ssh key import等。</li>
+<li>使用工具cloud-localds可以生成一個seed.img，這樣qemu也可以cloud-init。</li>
+<li>Hyper-V應該也可以經過類似方式，進行cloud-init，但筆者未有去實測。如有更簡便的方法請告知。</li>
+<li>multipass預設就已經有cloud-init，在ubuntu就可以直接執行。</li>
+<li>multipass也可以設定不同的cloud-init參數。</li>
+</ul>
+<h2 id="成品"><a class="header" href="#成品">成品</a></h2>
+<p>最後筆者就選擇了用packer用來預裝docker，經mulitpass無腦起VM，再使用 <a href="https://github.com/macauyeah/ubuntuPackerImage/blob/main/initDockerCluster.sh">shell script</a> 對多個node設定docker，達到即時起docker node的功能。這樣就減省了VM的安裝時間，也省去了docker的安裝問題。</p>
+<p>說到底，如果只想測試docker cluster，其實windows, macOS中的multipass也可以實現相同的功能。因為安裝docker那些都可以經過shell script自動化，只是每次重複操作，都變得相當慢。另外，因為multipass在windows, macOS不支援fix ip，對於指定docker cluster interface又會再多一重功夫。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="在ubuntu-server-2204上安裝multipass並配置固定ip的注意事項"><a class="header" href="#在ubuntu-server-2204上安裝multipass並配置固定ip的注意事項">在Ubuntu Server 22.04上安裝Multipass並配置固定IP的注意事項</a></h1>
+<p>安裝Multipass很容易的，但配置固定IP就不是了。</p>
+<p>另一個問題是官方文件都認為設定固定IP不是Multipass的範圍，它不想講太多。 但根據我的經驗，它的<a href="https://multipass.run/docs/configure-static-ips">官方例子</a>在Ubuntu Server 22.04並不能用。 (它可能可以在Ubuntu桌面上運行吧，但我不確定。)</p>
+<p>以下是我在不斷踩坑後找到的解決方案。</p>
+<h2 id="通過snap安裝multipass"><a class="header" href="#通過snap安裝multipass">通過snap安裝Multipass</a></h2>
+<p>簡單，無腦</p>
+<pre><code>sudo snap install multipass
+</code></pre>
+<h2 id="在主機上配置virtual-bridge"><a class="header" href="#在主機上配置virtual-bridge">在主機上配置Virtual Bridge</a></h2>
+<p>很重要，很重要，很重要，在所有操作之前停止multipass。然後使用"network-manager"包安裝命令工具"nmcli"。</p>
+<pre><code>sudo snap stop multipass.multipassd
+sudo apt-get update &amp;&amp; sudo apt-get install network-manager
+</code></pre>
+<p>修改NetworkManager配置，以便它可以管理所有bridge interface。預設情況下，有很多類型的接口它都不管的。您需要在'unmanaged-devices'行的末尾添加 "<em><strong>,except:type:bridge</strong></em>"。</p>
+<pre><code>sudo vim /usr/lib/NetworkManager/conf.d/10-globally-managed-devices.conf
+</code></pre>
+<p>NetworkManager Config Example</p>
+<pre><code class="language-conf">[keyfile]
+unmanaged-devices=*,except:type:wifi,except:type:gsm,except:type:cdma,except:type:bridge
+</code></pre>
+<p>然後重新運行NetworkManager.service，並添加具有固定IP範圍的Bridge network interface。</p>
+<pre><code>sudo systemctl reload NetworkManager.service 
+sudo nmcli connection add type bridge con-name localbr ifname localbr \
+    ipv4.method manual ipv4.addresses 10.13.31.1/24
+</code></pre>
+<p>現在，如果您使用<code>ip a</code>檢查主機所有網卡，新network interface應該已經出現（但有機會是處於關閉狀態）。</p>
+<h2 id="將multipass切換到lxd"><a class="header" href="#將multipass切換到lxd">將Multipass切換到lxd</a></h2>
+<p>Multipass網絡功能目前只在<em><strong>lxd</strong></em>後端上提供。</p>
+<pre><code class="language-bash">sudo snap start multipass.multipassd
+# 在轉driver前，先刪掉所有VM。轉了之後就無法管控之前的VM
+multipass delete --all &amp;&amp; multipass purge
+multipass set local.driver=lxd
+</code></pre>
+<p>以下指令與官方教學相同。</p>
+<h2 id="在vm中創建額外的網卡"><a class="header" href="#在vm中創建額外的網卡">在VM中創建額外的網卡</a></h2>
+<p>在創建新的VM實例時創建額外的網卡。</p>
+<pre><code class="language-bash"># 建立新VM時指定它的網卡和mac地址
+multipass launch --name test1 --network name=localbr,mode=manual,mac="52:54:00:4b:ab:cd"
+
+# 修改設定檔，對應mac地址使用固定IP
+multipass exec -n test1 -- sudo bash -c 'cat &lt;&lt; EOF &gt; /etc/netplan/10-custom.yaml
+network:
+    version: 2
+    ethernets:
+        extra0:
+            dhcp4: no
+            match:
+                macaddress: "52:54:00:4b:ab:cd"
+            addresses: [10.13.31.13/24]
+EOF'
+
+# 重啟VM實例網絡。
+multipass exec -n test1 -- sudo netplan apply
+
+# 然後，您應該在VM上看到固定IP列表。
+multipass info test1
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="notes-about-installing-multipass-on-ubuntu-server-2204-and-config-static-ip"><a class="header" href="#notes-about-installing-multipass-on-ubuntu-server-2204-and-config-static-ip">Notes about installing Multipass on Ubuntu Server 22.04 and config static IP</a></h1>
+<p>Install mulitpass on Ubuntu is easy, but config static IP is not.</p>
+<p>Another problem is official document stating that config static IP is beyond the scope of Multipass. As my experience, the <a href="https://multipass.run/docs/configure-static-ips">official example</a> is not work on Ubuntu 22.04 server. (It might work on Ubuntu Desktop, but I am not sure).</p>
+<p>Following is my solution after trial and errors.</p>
+<h2 id="install-multipass-by-snap"><a class="header" href="#install-multipass-by-snap">Install Multipass by snap</a></h2>
+<p>Easy step.</p>
+<pre><code>sudo snap install multipass
+</code></pre>
+<h2 id="config-a-new-virtual-bridge-on-host"><a class="header" href="#config-a-new-virtual-bridge-on-host">Config a new Virtual Bridge on Host</a></h2>
+<p>Important, stop multipass before everything. Then install command tools "nmcli" with package "network-manager"</p>
+<pre><code>sudo snap stop multipass.multipassd
+sudo apt-get update &amp;&amp; sudo apt-get install network-manager
+</code></pre>
+<p>Modify NetworkManager config, so that it could manage all bridge interface.
+By default, it excludes many types of interface. You need to add "<em><strong>,except:type:bridge</strong></em>" at the end of line 'unmanaged-devices'</p>
+<pre><code>sudo vim /usr/lib/NetworkManager/conf.d/10-globally-managed-devices.conf
+</code></pre>
+<p>NetworkManager Config Example</p>
+<pre><code class="language-conf">[keyfile]
+unmanaged-devices=*,except:type:wifi,except:type:gsm,except:type:cdma,except:type:bridge
+</code></pre>
+<p>Then reload NetworkManager.service, and add the virtual bridge with fix IP range.</p>
+<pre><code>sudo systemctl reload NetworkManager.service 
+sudo nmcli connection add type bridge con-name localbr ifname localbr \
+    ipv4.method manual ipv4.addresses 10.13.31.1/24
+</code></pre>
+<p>The new interface should appear now (but down) if you check by <code>ip a</code>.</p>
+<h2 id="switch-multipass-to-lxd"><a class="header" href="#switch-multipass-to-lxd">Switch Multipass to lxd</a></h2>
+<p>Multipass networks feature currently are only available on <em><strong>lxd</strong></em> backend.</p>
+<pre><code class="language-bash">sudo snap start multipass.multipassd
+# delete everything before switch to other driver. You cannot manage them after switching driver
+multipass delete --all &amp;&amp; multipass purge
+multipass set local.driver=lxd
+</code></pre>
+<p>Following commands are all same as official document.</p>
+<h2 id="create-extra-interface-in-vm"><a class="header" href="#create-extra-interface-in-vm">Create Extra interface in VM</a></h2>
+<p>Create extra interface when creating new new VM instance.</p>
+<pre><code class="language-bash"># creatre new instance with specific network interface and mac address
+multipass launch --name test1 --network name=localbr,mode=manual,mac="52:54:00:4b:ab:cd"
+
+# map mac address with fix ip
+multipass exec -n test1 -- sudo bash -c 'cat &lt;&lt; EOF &gt; /etc/netplan/10-custom.yaml
+network:
+    version: 2
+    ethernets:
+        extra0:
+            dhcp4: no
+            match:
+                macaddress: "52:54:00:4b:ab:cd"
+            addresses: [10.13.31.13/24]
+EOF'
+
+# Restart VM instance networks.
+multipass exec -n test1 -- sudo netplan apply
+
+# And you should see the fix ip list on VM 
+multipass info test1
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="使用-multipass-建立docker-cluster"><a class="header" href="#使用-multipass-建立docker-cluster">使用 Multipass 建立Docker Cluster</a></h1>
+<p>以下流程，假設各位已經</p>
+<ul>
+<li>在Ubuntu Server中開設了virtual bridge 供Multipass設定<a href="VMDockerNotes/MultipassStaticIpCN.html">Static IP</a>，並且network interface定為 <em><strong>localbr</strong></em></li>
+<li>使用Packer template制成<a href="https://github.com/macauyeah/ubuntuPackerImage/blob/main/template.json">docker.img</a> , 並存放於當前資料夾內</li>
+</ul>
+<p>使用docker.img 起三個node，並使用network interface <em><strong>localbr</strong></em>，各有一個指定的mac address</p>
+<pre><code class="language-bash">multipass launch file://$PWD/docker.img --name node21 --network name=localbr,mode=manual,mac="52:54:00:4b:ab:21"
+multipass launch file://$PWD/docker.img --name node22 --network name=localbr,mode=manual,mac="52:54:00:4b:ab:22"
+multipass launch file://$PWD/docker.img --name node23 --network name=localbr,mode=manual,mac="52:54:00:4b:ab:23"
+</code></pre>
+<p>對運行中的三個node，為它們設定static ip</p>
+<pre><code class="language-bash">multipass exec -n node21 -- sudo bash -c 'cat &lt;&lt; EOF &gt; /etc/netplan/10-custom.yaml
+network:
+    version: 2
+    ethernets:
+        extra0:
+            dhcp4: no
+            match:
+                macaddress: "52:54:00:4b:ab:21"
+            addresses: [10.13.31.21/24]
+EOF'
+
+multipass exec -n node22 -- sudo bash -c 'cat &lt;&lt; EOF &gt; /etc/netplan/10-custom.yaml
+network:
+    version: 2
+    ethernets:
+        extra0:
+            dhcp4: no
+            match:
+                macaddress: "52:54:00:4b:ab:22"
+            addresses: [10.13.31.22/24]
+EOF'
+
+multipass exec -n node23 -- sudo bash -c 'cat &lt;&lt; EOF &gt; /etc/netplan/10-custom.yaml
+network:
+    version: 2
+    ethernets:
+        extra0:
+            dhcp4: no
+            match:
+                macaddress: "52:54:00:4b:ab:23"
+            addresses: [10.13.31.23/24]
+EOF'
+
+multipass exec -n node21 -- sudo netplan apply
+multipass exec -n node22 -- sudo netplan apply
+multipass exec -n node23 -- sudo netplan apply
+</code></pre>
+<p>使用node21作為Leader (Manager)，與其他兩個node一起組成Cluster</p>
+<pre><code class="language-bash">multipass exec -n node21 -- sudo docker swarm init --advertise-addr 10.13.31.21
+multipass exec -n node21 -- sudo docker swarm join-token manager
+
+managerToken=$(multipass exec -n node21 -- sudo docker swarm join-token manager -q)
+multipass exec -n node22 -- sudo docker swarm join --token $managerToken 10.13.31.21:2377
+multipass exec -n node23 -- sudo docker swarm join --token $managerToken 10.13.31.21:2377
+</code></pre>
+<p>Cluster就建立完成。</p>
+<p>若想刪掉重來</p>
+<pre><code class="language-bash">multipass delete node21
+multipass delete node22
+multipass delete node23
+multipass purge
+</code></pre>
+<h2 id="備註"><a class="header" href="#備註">備註</a></h2>
+<p>在直正使用時，大部份時間還需要做port forwarding。multipass沒有自己的port forward，可以用ssh tunnel來模擬。</p>
+<p>例如把Ubuntu Server的8080指向node21的8080，可以這樣</p>
+<pre><code class="language-bash">sudo ssh -i /var/snap/multipass/common/data/multipassd/ssh-keys/id_rsa -L 0.0.0.0:8080:10.13.31.21:8080 ubuntu@10.13.31.21
+</code></pre>
+<p>完整的script可以參考<a href="https://github.com/macauyeah/ubuntuPackerImage/blob/main/initDockerCluster.sh">initDockerCluster.sh</a>。</p>
+<p>沒有Bare Metal Ubuntu或者沒有static ip也可以參考<a href="https://github.com/macauyeah/ubuntuPackerImage/blob/main/initDockerClusterWithoutStaticIp.sh">initDockerClusterWithoutStaticIp.sh</a>。只是因為network brandwidth問題，我就不會在每次更新時都測試。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="create-docker-cluster-with-multipass"><a class="header" href="#create-docker-cluster-with-multipass">Create Docker Cluster with Multipass</a></h1>
+<p>The following instruction, assume you already prepared</p>
+<ul>
+<li>Setup Virtual Bridge in Ubuntu Server for Multipass to config <a href="VMDockerNotes/MultipassStaticIpEN.html">Static IP</a>. And the network interface name is <em><strong>localbr</strong></em>.</li>
+<li>A <a href="https://github.com/macauyeah/ubuntuPackerImage/blob/main/template.json">docker.img</a> by Packer template, and put it in current working folder.</li>
+</ul>
+<p>Create 3 nodes with docker.img, and attach to bridge network <em><strong>localbr</strong></em> with specific mac address</p>
+<pre><code class="language-bash">multipass launch file://$PWD/docker.img --name node21 --network name=localbr,mode=manual,mac="52:54:00:4b:ab:21"
+multipass launch file://$PWD/docker.img --name node22 --network name=localbr,mode=manual,mac="52:54:00:4b:ab:22"
+multipass launch file://$PWD/docker.img --name node23 --network name=localbr,mode=manual,mac="52:54:00:4b:ab:23"
+</code></pre>
+<p>Create static ip in 3 running nodes.</p>
+<pre><code class="language-bash">multipass exec -n node21 -- sudo bash -c 'cat &lt;&lt; EOF &gt; /etc/netplan/10-custom.yaml
+network:
+    version: 2
+    ethernets:
+        extra0:
+            dhcp4: no
+            match:
+                macaddress: "52:54:00:4b:ab:21"
+            addresses: [10.13.31.21/24]
+EOF'
+
+multipass exec -n node22 -- sudo bash -c 'cat &lt;&lt; EOF &gt; /etc/netplan/10-custom.yaml
+network:
+    version: 2
+    ethernets:
+        extra0:
+            dhcp4: no
+            match:
+                macaddress: "52:54:00:4b:ab:22"
+            addresses: [10.13.31.22/24]
+EOF'
+
+multipass exec -n node23 -- sudo bash -c 'cat &lt;&lt; EOF &gt; /etc/netplan/10-custom.yaml
+network:
+    version: 2
+    ethernets:
+        extra0:
+            dhcp4: no
+            match:
+                macaddress: "52:54:00:4b:ab:23"
+            addresses: [10.13.31.23/24]
+EOF'
+
+multipass exec -n node21 -- sudo netplan apply
+multipass exec -n node22 -- sudo netplan apply
+multipass exec -n node23 -- sudo netplan apply
+</code></pre>
+<p>Let node21 as Leader (Manager) and create a cluster with other two nodes.</p>
+<pre><code class="language-bash">multipass exec -n node21 -- sudo docker swarm init --advertise-addr 10.13.31.21
+multipass exec -n node21 -- sudo docker swarm join-token manager
+
+managerToken=$(multipass exec -n node21 -- sudo docker swarm join-token manager -q)
+multipass exec -n node22 -- sudo docker swarm join --token $managerToken 10.13.31.21:2377
+multipass exec -n node23 -- sudo docker swarm join --token $managerToken 10.13.31.21:2377
+</code></pre>
+<p>That's all.</p>
+<p>If you want to redo everything, delete them.</p>
+<pre><code class="language-bash">multipass delete node21
+multipass delete node22
+multipass delete node23
+multipass purge
+</code></pre>
+<h2 id="remark"><a class="header" href="#remark">Remark</a></h2>
+<p>In practical, most of time, we also need port forwarding. But Multipass no build-in port forward function. We might use ssh tunnel to simulate that.</p>
+<p>Ex. create tunnel for Ubuntu Server port 8080 point to node21's 8080</p>
+<pre><code class="language-bash">sudo ssh -i /var/snap/multipass/common/data/multipassd/ssh-keys/id_rsa -L 0.0.0.0:8080:10.13.31.21:8080 ubuntu@10.13.31.21
+</code></pre>
+<p>You can find the complete script here <a href="https://github.com/macauyeah/ubuntuPackerImage/blob/main/initDockerCluster.sh">initDockerCluster.sh</a></p>
+<p>If you have no bare metal ubuntu or no static ip, you could test this script <a href="https://github.com/macauyeah/ubuntuPackerImage/blob/main/initDockerClusterWithoutStaticIp.sh">initDockerClusterWithoutStaticIp.sh</a>. Because of limited network brandwidth, I won't always test the script during update.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="vmware下建立docker-cluster"><a class="header" href="#vmware下建立docker-cluster">Vmware下建立Docker Cluster</a></h1>
+<p>之前都使用Multipass作為Proof of Concept，自己做測試用。直正上Production，Network環境就多少有點差異。</p>
+<p>假設大家為Application Admin，但無條件處理Vmware層面上的事項，只可以從VM內部install / setup application。</p>
+<h2 id="安裝docker"><a class="header" href="#安裝docker">安裝Docker</a></h2>
+<p>script 都來自<a href="https://docs.docker.com/engine/install/ubuntu/">Docker 官方網</a>，筆者微調了一些auto accept選項。</p>
+<pre><code class="language-bash">sudo apt-get update
+sudo apt-get install -y ca-certificates curl gnupg
+
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -kfsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+echo \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  "$(. /etc/os-release &amp;&amp; echo "$VERSION_CODENAME")" stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+
+sudo apt-get update
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+</code></pre>
+<p>假設三台VM已經安裝docker，ip分別為 10.13.31.21, 10.13.31.22, 10.13.31.23。</p>
+<p>在其中一台VM上，例如:ip 10.13.31.21上，</p>
+<pre><code>sudo docker swarm init --advertise-addr 10.13.31.21 --data-path-port=7777
+</code></pre>
+<p>與前述Multipass不同的是，這裏的data-path-port要自定義，因為預設的<em><strong>port 4789</strong></em>在Vmware的有特殊同途。</p>
+<p>之後部份就跟傳統做法一樣，先取得manager join token, 然後在其他VM上使用該token加入cluster</p>
+<pre><code># at 10.13.31.21
+sudo docker swarm join-token manager
+
+# at 10.13.31.22, 10.13.31.23, 
+sudo docker swarm join --token XXXXXXXXXXXXXXXXXXXXXXXXXX 10.13.31.21:2377
+</code></pre>
+<p>這樣，在swarm上的application，就會自動在10.13.31.21, 10.13.31.22, 10.13.31.23，上遊走。</p>
+<p>即使你的app container目前是跑在10.13.31.23:8080上，但因為swarm mode routing mesh，你經過10.13.31.21:8080都可以連到該app。</p>
+<p>如果你只是做stateless app load balance分流，這樣就足夠了，不用考慮ip fail over。但如果你要做到ip fail over，還要額外設定keepalive virtual ip，這個virtual ip會自動依付到某台活著的VM上，這樣外界才不會連到一個死ip上。又或者額外建一台load balancer，可以偵測到swarm node上那台機還活著，從而達到fail over效果。但這台load balancer也有一些穩定性要求，若然大家只是用一個普通的nginx做load balance，還是會有單點故障問題(single point of failure)。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="自己架設docker的共享儲存空間"><a class="header" href="#自己架設docker的共享儲存空間">自己架設Docker的共享儲存空間</a></h1>
+<p>Docker很好用，在單機環境下真的很好用。Docker原本的設計，是為了快速迭代而設計成Image的。在一般設定下，每次新建或重建container，都會根據Image重設一下各方面的環境，包括儲存空間。重設CPU，Memory，大家都很易理解，但重設儲存空間，真的不是每一個使用情況都可以這樣。</p>
+<p>又或者說，未必所有使用情況都會有一個第三方的儲存空間可以用。所以良心的Docker在單機環境下也有提供bind mount或是docker named volume，作為可以長期保存，不受container生死的影響，以達到長期存在Data的存在。</p>
+<h2 id="單機-儲存空間"><a class="header" href="#單機-儲存空間">單機-儲存空間</a></h2>
+<p>單機情況下很簡單，就用一個docker compose做例子</p>
+<pre><code>services:
+  nginx:
+    image: nginx:1.23
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./html/:/usr/share/nginx/html/
+      - nginxlogs:/var/log/nginx/
+
+volumes:
+  nginxlogs:
+</code></pre>
+<p>其中html就是一個bind mount，而nginxlogs就是一個docker named volume，兩者都可以長期保存data，除非各位自己手動刪除，否則不會因為container的興亡而不見了。</p>
+<p>但有兩個很重要的分別</p>
+<ul>
+<li>bind mount，直接跟host os連接，實際上是每次folder有更新，docker都要同步host和container之間的資料。
+<ul>
+<li>bind mount在linux下很暢順，因為大部份docker image/container原本就是linux engine，所以folder mount真的可以互通。</li>
+<li>bind mount在windows / mac下，就會不斷抄資料。面對大量檔案，例如node_module，就會有速度上的問題</li>
+</ul>
+</li>
+<li>docker named volume，就是docker 分離一些獨立空間，然後再綁到container上
+<ul>
+<li>相對bind mount，即使在windows / mac下，都沒有那個速度上的問題。筆者猜測，即使是獨立空間，其實本身都已經限定在linux enginx下，所以沒有需要抄資料。</li>
+<li>但在windows / mac下，因應docker 底層建立Linux VM的技術不同，你可能沒法在windows / mac預設環境下直接讀取docker named volume。</li>
+<li>若要讀取docker named volume，最好的做法，還是連上docker container，然後用docker cp 來抄回資料。一但抄資料，其實都會有速度上問題，不過docker cp是手動決定何時做的，不做docker cp，其實container也是可以用。</li>
+</ul>
+</li>
+</ul>
+<h2 id="cluster-docker-swarm---儲存空間"><a class="header" href="#cluster-docker-swarm---儲存空間">Cluster (Docker Swarm) - 儲存空間</a></h2>
+<p>雖然良心的bind mount和named volume解決了單機上的儲存問題，但到了cluster環境，就沒有可以跨機同步儲存空間的做法，要做就自己建立。</p>
+<p>筆者也稍為研究了一下同步的問題，不過對技術真的很有要求。所以退而求其次，筆者還是選擇簡單的第三方儲存空間。就是做一個可以分享存取的NAS。</p>
+<h3 id="建立nfs"><a class="header" href="#建立nfs">建立nfs</a></h3>
+<p>linux下要安裝nfs其實很簡單，不過要注意資料夾和防火牆權限。</p>
+<p>以下安裝教學以ubunut 22.04為例，記得把下面的YOUR_DOCKER_NODE_ADDRESS_RANGE轉為你的真實IP段落</p>
+<pre><code>apt update &amp;&amp; apt install nfs-kernel-server ufw -y
+
+mkdir -p /mnt/nfs_share
+chown -R nobody:nogroup /mnt/nfs_share/
+chmod 777 /mnt/nfs_share/
+
+echo "/mnt/nfs_share YOUR_DOCKER_NODE_ADDRESS_RANGE/24(rw,sync,no_subtree_check)" &gt;&gt; /etc/exports
+
+exportfs -a
+
+systemctl restart nfs-kernel-server
+
+ufw allow from YOUR_DOCKER_NODE_ADDRESS_RANGE/24 to any port nfs
+ufw allow ssh
+ufw enable
+</code></pre>
+<h3 id="修改docker-compose"><a class="header" href="#修改docker-compose">修改docker compose</a></h3>
+<p>最後，你在原來的docker-compose的docker volume上加driver_opts就大功告成。</p>
+<p>記得把下面的YOUR_NFS_IP轉為你的真實IP</p>
+<pre><code>volumes:
+  nginxlogs:
+    driver_opts:
+      type: "nfs"
+      o: "nfsvers=4,addr=YOUR_NFS_IP,nolock,soft,rw"
+      device: ":/mnt/nfs_share/nginxlogs"
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="docker-syslog"><a class="header" href="#docker-syslog">docker syslog</a></h1>
+<p>平常大家在做單機app時，寫log有很多選擇，最簡單就是寫在檔案中。但在docker container裏面，寫檔案時要注意怎樣保留log檔，避免因為重建container時不見了。</p>
+<p>docker 大部份官方預設image，都把log導向至stdout和stderr。這是方便docker做管理，也方便大家使用統一的docker logs指令來查看，即使到了Swarm mode底下，docker service logs也是同樣原理，使用差異不大，頂多就是不保證log的實時性。</p>
+<p>如果網路延遲不計較的話，最大問題也是logs怎樣保存的做法。預設就是container刪走的時候，logs也會一借走。單機模式下，沿用最普遍的方法寫log的做法不是不可行，只是考慮到在極端情況下，同一個node(節點)中，有可能同時運作同一個service(服務)的多個分身(replica)，這裏它們寫檔案時就有機會互相搶佔。</p>
+<p>筆者認為，比較合理的是外部提供的服務，例如syslog，把寫檔的操作交給節點的Host OS處理。然後就保證好每筆log都會是一條完整的記錄。</p>
+<p>以下就以linux Host裏面的syslog，為大家簡介一下設定的步驟。</p>
+<h2 id="設定docker-導向-syslog"><a class="header" href="#設定docker-導向-syslog">設定docker 導向 syslog</a></h2>
+<p>把該主機的docker daemon (<code>/etc/docker/daemon.json</code>)，設定使用syslog driver，並以特定的方式編寫syslog tag。</p>
+<pre><code class="language-json">//file: /etc/docker/daemon.json
+{
+  "log-driver": "syslog",
+  "log-opts": {
+    "tag": "dockercontainer/{{.ImageName}}/{{.Name}}/{{.ID}}"
+  }
+}
+</code></pre>
+<p>無腦設定已完成，重啟docker就可以了。</p>
+<pre><code class="language-bash">sudo systemctl restart docker
+</code></pre>
+<p>但為了日後管理方便，能把docker log放進獨立的一個檔案中，會更易找問題。所以我們可以進一步設定syslog。我們以Ubuntu 22.04為例，可以在/etc/rsyslog.d/下增加一個設定檔(<code>/etc/rsyslog.d/*.conf</code>)，指定看到syslog tag以dockercontainer為首的記錄，都要獨立抽出來。</p>
+<pre><code class="language-conf"># file: /etc/rsyslog.d/51-docker.conf
+:syslogtag,startswith,"dockercontainer" -/var/log/dockercontainer.log
+</code></pre>
+<p>為免有檔案權限問題，手動指定檔案的所有權後，才正式重啟syslog。然後所有相關記錄都會寫在/var/log/dockercontainer.log</p>
+<pre><code class="language-bash">sudo touch /var/log/dockercontainer.log
+sudo chown syslog:adm /var/log/dockercontainer.log
+sudo systemctl restart rsyslog
+</code></pre>
+<h2 id="滾滾滾滾滾動的log檔"><a class="header" href="#滾滾滾滾滾動的log檔">滾滾滾滾滾動的log檔</a></h2>
+<p>檔案一天一天地長大，如果可以，還是自動清掉太舊的記錄為妙。Linux Syslog，通常也會配著logrotate使用。</p>
+<p>筆者亦以Ubuntu 22.04為例子，做了個最簡單的自動滾Log功能。目標就是當log檔案大於1M後，就要重開log檔。舊的log檔最多保留7份，多了就刪掉最舊的。</p>
+<pre><code class="language-conf"># file: /etc/logrotate.d/rsyslog-dockercontainer
+/var/log/dockercontainer.log
+{
+        rotate 7
+        size 1M
+        missingok
+        notifempty
+        compress
+        delaycompress
+        sharedscripts
+        postrotate
+                /usr/lib/rsyslog/rsyslog-rotate
+        endscript
+}
+</code></pre>
+<p>加了設定後，什麼都不用重啟，因為它是Ubuntu 的排程動作，到執行時就會以最新的設定檔執行，詳見<code>/etc/cron.daily/logrotate</code>.</p>
+<p>有需要手動測試的話，需要手動呼叫<code>/usr/sbin/logrotate</code>。加入-d參數後，會被視為debug mode，這是官方的說法，但因為debug mode沒有執行效果，更加像是linux中常見的dry run mode。</p>
+<pre><code class="language-bash"># dry run only, no effect
+sudo /usr/sbin/logrotate -d /etc/logrotate.conf
+# do the real task and show verbose output
+sudo /usr/sbin/logrotate -v /etc/logrotate.conf
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="docker-syslog-1"><a class="header" href="#docker-syslog-1">docker syslog</a></h1>
+<p>When we build a single instance container, we have mulitple opitons for logging. The easiest one is log to file. But we need to map it to presistent storage, so that it won't be disappear after re-creating container.</p>
+<p>Most of Docker hub official images, they redirect logs to stdout and stderr. Then the command <code>docker logs</code> will handle that all. Amazing!</p>
+<p>Even in Swarm mode, they provide <code>docker service logs</code> to help you get aggregate log across nodes. Amazing!!!</p>
+<p>But the biggest problem of the default behavior is that, the logs will be gone when the container is deleted.</p>
+<p>You might think that, you can simply write log to host os presistent storage through bind mount. It might not be okay if multiple replica of a service running at the same node. The logs might be ruined by mixing multiple messages.</p>
+<p>A better option could be sending logs to <em><strong>syslog</strong></em>, a robust service in Host OS.</p>
+<p>Following, is an example of handling docker logs with Ubuntu 22.04 <em><strong>syslog</strong></em> and <em><strong>logrotate</strong></em>.</p>
+<h2 id="configure-docker-to-syslog"><a class="header" href="#configure-docker-to-syslog">Configure docker to syslog</a></h2>
+<p>Configure docker daemon to write log to localhost syslog</p>
+<pre><code class="language-json">//file: /etc/docker/daemon.json
+{
+  "log-driver": "syslog",
+  "log-opts": {
+    "tag": "dockercontainer/{{.ImageName}}/{{.Name}}/{{.ID}}"
+  }
+}
+</code></pre>
+<p>Apply change by restarting docker</p>
+<pre><code class="language-bash">sudo systemctl restart docker
+</code></pre>
+<p>Add configuration in rsyslog to filter all tag starts with "dockercontainer", put them into a seperate file. Because when we running in swarm mode, it will generate much much logs and not easily to rotate the log message.</p>
+<pre><code class="language-conf"># file: /etc/rsyslog.d/51-docker.conf
+:syslogtag,startswith,"dockercontainer" -/var/log/dockercontainer.log
+</code></pre>
+<p>Avoid file permission problem, create the log file by command, and restart rsyslog</p>
+<pre><code class="language-bash">sudo touch /var/log/dockercontainer.log
+sudo chown syslog:adm /var/log/dockercontainer.log
+sudo systemctl restart rsyslog
+</code></pre>
+<h2 id="rotate-the-log-file"><a class="header" href="#rotate-the-log-file">Rotate the log file</a></h2>
+<p>After adding a new log file, /var/log/dockercontainer.log, it will getting bigger and bigger. Apply logrotate to rotate and dispose the old logs.</p>
+<p>Add configuration in logrotate. Aim to archive the log file when it grows over 1M and create a new one instead. Keep at most 7 old log archive, delete the oldest if more than 7.</p>
+<pre><code class="language-conf"># file: /etc/logrotate.d/rsyslog-dockercontainer
+/var/log/dockercontainer.log
+{
+        rotate 7
+        size 1M
+        missingok
+        notifempty
+        compress
+        delaycompress
+        sharedscripts
+        postrotate
+                /usr/lib/rsyslog/rsyslog-rotate
+        endscript
+}
+</code></pre>
+<p>No need to restart anything, it will take effect when next crontab daily job run (/etc/cron.daily/logrotate).</p>
+<p>You might want to verify the configuration manually. You can dry run (debug mode) the configuration or run it directly with verbose output.</p>
+<pre><code class="language-bash"># dry run only, no effect
+sudo /usr/sbin/logrotate -d /etc/logrotate.conf
+# do the real task and show verbose output
+sudo /usr/sbin/logrotate -v /etc/logrotate.conf
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="git-co-work-flow"><a class="header" href="#git-co-work-flow">Git Co-Work Flow</a></h1>
+<p>雖然git面世已很久，但相當一部份澳門朋友都是solo man，很少合作寫code，對git branch始終都有些恐懼。所以這次來解召一個基本原則，至少你不會爛了code救不回來。</p>
+<p>若然大家未熟悉git，初次利用git合作寫program，請盡量減少使用共同分支(branch)，可以極大地減少問題。</p>
+<h2 id="第一個大原則---建立一條自己分支"><a class="header" href="#第一個大原則---建立一條自己分支">第一個大原則 - 建立一條自己分支</a></h2>
+<p>在一個repo中，為自己建立一條分支(branch)，可以減少Remote repo中有人比你先commit，而令你push失敗的情況。</p>
+<pre><code class="language-bash">git clone xxx
+git checkout -b YOUR_BRANCH
+
+# 提交你的改動
+git add FILE_OR_FOLDER
+git commit
+# 上傳
+git push origin YOUR_BRANCH
+</code></pre>
+<p>除非你的隊友故意你用的分支名先commit，又或者你自己有幾台電腦，幾台一起做改動。不然push 應該不會有問題。</p>
+<h2 id="第二個大原則---用fetch取代pull"><a class="header" href="#第二個大原則---用fetch取代pull">第二個大原則 - 用fetch取代pull</a></h2>
+<p>很多人在取用Remote Repo的更新時，都會使用pull。但pull其實是fetch及merge的混合，而且merge還要考慮source branch是那條分支的問題，若然大家都有一條獨立branch，那麼這個無腦pull並不存於每人只有一台電腦下的多人協作中。</p>
+<p>fetch的過程中，還可以加入參數--prune，順便依照Remote Repo的指示，同步刪掉本機中一些不再存在的origin/branch。</p>
+<pre><code class="language-bash"># 不要用pull，用fetch看看server的最新改動
+git fetch origin --prune
+# 跟上述command類似，只是在fetch的途中，把main和 origin/main自動同步
+git fetch origin main:main --prune
+</code></pre>
+<h2 id="第三個大原則---merge前先commit"><a class="header" href="#第三個大原則---merge前先commit">第三個大原則 - Merge前先Commit</a></h2>
+<p>經過前述fetch後，其實他人的改動並未加入自己的分支中，必需經過merge才會出現。但並不是沒有conflict就無腦merge。 假若自己有改動，未commit，應該老虎蟹都先commit。這是為了在merge後，還有機會可以無腦reset，回到之前那個commit。這就像是做任何更新前，先做backup。</p>
+<pre><code class="language-bash"># 看看有沒有未commit的改動，若有，先commit。
+git status
+git add FILE_OR_FOLDER
+git commit
+
+# 把別人的改動加到自己的分支中, 若有衝突請，git會提示你去修正
+git merge origin/OTHER_BRANCH
+
+# 檢查merge後的code有沒有問題，沒有就可以上傳
+git push origin YOUR_BRANCH
+</code></pre>
+<h2 id="第四個大原則---由某個特定的人來管理master或main-branch"><a class="header" href="#第四個大原則---由某個特定的人來管理master或main-branch">第四個大原則 - 由某個特定的人來管理master或main branch</a></h2>
+<p>main branch(以前叫master branch)，是他人下載時的預設分支，也是Github、Gitlab的預設顯示分支。所以該分支存放著的source code，應該在代表信心度比較高。</p>
+<p>在協作的環境中，每人都有自己分支，那就代表要有一位人員做管理，他負責checkout main, 然後合併其他已驗證的分支。</p>
+<pre><code class="language-bash"># 用fetch看看server的最新改動
+git fetch origin --prune
+
+# 看看自己分支有沒有未commit的改動，若有，先commit。你不應在main中改動，否則後述部份會有機會亂了。
+git status
+git add FILE_OR_FOLDER
+git commit
+
+# Optional，切換到他人的分支，執行程式以驗證更新
+git checkout origin/SOMEONE_BRANCH
+# 檢視差異，若發現有任何問題，例如他的分支落後於main，或很大機會出現衝突，可以叫對方先更新到最新狀況，再重來一次
+git diff main origin/SOMEONE_BRANCH
+
+# 有信心，就可以合併到main中
+git checkout main &amp;&amp; git merge origin/SOMEONE_BRANCH
+git push origin main
+
+# 回到你原來的分支中
+git checkout YOUR_BRANCH
+</code></pre>
+<p>在某些比較嚴僅的環境中(例如Github、Gitlab)，main分支可能會被系統機制鎖定，必需通過系統內建的Pull Request(或Merge Request)，才能通過審核，合併到main。另外，也有一些關於開發上的<a href="https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow">Git workflow</a>，主要針對功能管理、版本發佈、錯誤修正等控制。有機會再為大家介紹。</p>
+<p>希望以上的流程，可以有效且容易地讓大家協作。如果有任何command錯誤或更新，都可以經Github Pull Request通知筆者。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="git-submodule"><a class="header" href="#git-submodule">git submodule</a></h1>
+<p>初次實務上使用submodule來同時管理幾個project的更新。如果有任何理解上的錯誤，請在github中提issue或pull request。</p>
+<h1 id="why-submodule"><a class="header" href="#why-submodule">why submodule</a></h1>
+<p>假設你的團隊中有三個人，A君做A Project，B君做B Project，C君做Main Project。如果可以，A，B各提供已編譯的Binary或Library，給C君直接使用就最好。</p>
+<p>但要做到好好管理，A，B都要有自己的發佈系統，即是把Binary上傳到某個分享Repo中，這樣C君就能有條理地通過IDE或Compile工具下載對應的版本。如果是javascript，Repo可能就是npm repo，如果是java，可能就是maven repo。這亦代表A，B君對程式編譯、打包、版本命名等都要很熟悉，不能一輩子都命名為v1.0.0。</p>
+<p>如果團隊對這些都不熟悉，C君還有什麼方法呢?其實靠著Submodule的功能，C君也可以硬把A，B的Source code取出，做最後打包。</p>
+<p>這跟A、B君自己把source code壓縮然後Email寄給C君是有不同的。因為這樣C君並不清楚A，B的git脈絡：C君需要自己做好A、B的版本記錄。想要只回滾A，B的版本普不容易。但經過git Submodule後，C君可以清楚知道現在正使用的是A、B的那一個commit版本。假如有一天，A、B、C三個都更新了，但發現合起來時就跑不動。C君可以保持A、C的版本不變，單獨提取B的某個版本進行測試。當然，你可以說原本Email也可以這樣管理，但始終你不清楚B的版本記錄，Email的日期並不代表Source Code的進度。(因為有時候,Bug Fix是針對舊版本的做更新，新功能的Email日期反而比Bug Fix要早)</p>
+<p>同理，如果大家要連結多個沒有發佈系統的文字資料，也可以利用Submodule。例如筆者正在編輯一<a href="https://macauyeah.github.io/AProgrammerPrepares/">本書</a>，當中不同的主題，就是使用Submodule的功能串連起。</p>
+<h1 id="command"><a class="header" href="#command">Command</a></h1>
+<p>馬上看來來Submodule可以怎樣做。 假設你已經知道git 怎樣用，也起了git repo。假設你是C君，進入你的本機repo資料夾內，使用submodule參數。</p>
+<pre><code class="language-bash">cd SOMEWHREE_IN_MAIN_FOLDER
+git submodule add SUBMODLE_REPO_LINK
+cd MAIN_FOLDER
+git add -u &amp;&amp; git commit -m 'Add sub module'
+</code></pre>
+<p>上面的效果，就是把C君當前repo的狀態，連結到B君submodule當時預設分枝(default branch)的最後一個commit 中。然後C君在自己的repo怎樣更新，它引用到B君的submodule版本都不會變。</p>
+<p>直到某一刻，B君說他加了一個穩定的新功能，請C也連帶更新一下。C君也做好自己的準備後，使用submodule參數進行更新。</p>
+<pre><code class="language-bash">cd MAIN_FOLDER
+git submodule update --remote
+# run any unit test, integration test, confirm that it works after submodule update, then commit
+git add -u &amp;&amp; git commit -m 'update sub module and auto checkout'
+</code></pre>
+<p>注意，如果C君有多於一個submodule，上述指令會全部一口氣更新。另外，如果你覺得B君的最新版本不能用，還是可以針對B君取得特定的版本。</p>
+<pre><code class="language-bash">cd SUBMODULE_FOLDER
+git checkout SUBMODULE_COMMIT
+cd MAIN_FOLDER
+git add -u &amp;&amp; git commit -m 'update sub module to specific commit'
+</code></pre>
+<p>如果，你是D君，直接下載A君的多module project，那在初次下載時，submodule還是空的，需要先init，再update。</p>
+<pre><code class="language-bash">git clone ...
+ls SUBMODULE_FOLDER
+# SUBMODULE_FOLDER will be empty
+cd MAIN_FOLDER
+git submodule init
+git submodule update
+ls SUBMODULE_FOLDER
+# submodule code should be there
+</code></pre>
+<p>如果你同時是A,B,C君，其實多個module也是你自己管理的，你可以直接進入各個submodule commit。但要記得，main module也要commit才會連上最新的submodule。</p>
+<pre><code class="language-bash">cd SUBMODULE_FOLDER
+# make some change
+git add -u &amp;&amp; git commit -m 'update in submodule only'
+# remeber to push submodule to origin
+cd MAIN_FOLDER
+git add -u &amp;&amp; git commit -m 'update main module to ref new submodule commit'
+# remeber to push main module to origin
+</code></pre>
+<p>不過筆者還是建議大家分開使用。不要全部混在一起，因為太多同步問題會漏。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="git-分支整合的時機"><a class="header" href="#git-分支整合的時機">git 分支整合的時機</a></h1>
+<p>不知道大家的開發團隊、專案規模有多大，但只要系統或程式已發佈，同時又要做維護更新，專安的git庫都至少會有兩條分枝：</p>
+<ol>
+<li>新功能 - main / feature</li>
+<li>最新的穩定發佈版本 - Release / v1.x.x</li>
+</ol>
+<p>最好的情況下，在開發完新功能之前，穩定版本都沒有需要緊急修正的地方，開發者可以專心開發新功能（main / feature）。然而這個情況並不能經常維持。</p>
+<h2 id="情況1有bug要馬上修正"><a class="header" href="#情況1有bug要馬上修正">情況1:有Bug要馬上修正</a></h2>
+<p>最常見到的情況，就是穩定發佈版本有瑕疵，可以經過小修小改來止血，由v1.x.x ⇒ v1.x.y，這些可能對用戶來說，是沒有太大感覺的改動。不過對於開發流程，就免不了由v1.x.y整合（merge）回main時，出現修改衝突的問題。</p>
+<h3 id="建議"><a class="header" href="#建議">建議</a></h3>
+<p>若屬於日後不再需要的改動，不需於整合到main中， 當然什麼都不用做。但若屬於必要的更新，就需要早早整合到main中。整合雖然痛苦，但延後整合沒有好處。以筆者的經驗，每次整合時有衝突，而越早整合越有條件知道該取用自動混合的那個版本。以整合工具的語言來說，就是更容易的作出use mine / use theirs / edit。</p>
+<h2 id="情況2-不同功能之間有衝突"><a class="header" href="#情況2-不同功能之間有衝突">情況2: 不同功能之間有衝突</a></h2>
+<p>上述情況1，已經算是可控的。主要因為穩定發佈版本都只會接受小修小改，大改都會直接在main中開當為新功能開發。當你有多個很重要的功能在不同時期被提出，而有些功能你沒有信心在下個發佈中提出，你就會選擇以獨立分支來實現不同的功能，最後選擇信心度高、權重也比較高的功能來發佈。這樣的好處是你可以有限時間先完成最必要的功能，但問題是多個功能分支之間，更容易地有衝突，後期也需要很廢心力地整合。</p>
+<h3 id="建議-1"><a class="header" href="#建議-1">建議</a></h3>
+<p>少做資料夾層面的改動，因為git rename的功能並不是萬能的，會令很多git自動選擇版變得不可讀。筆者的經驗，就是錯把後端和前端的資料夾混在一起，令後端的一些重命名影響到前端。前端也因為有重寫的需要，對資料夾結構大改。最後結果就是很多看不懂的git自動選擇版。有一些有選對，但有一些就選錯。</p>
+<p>可以做一些事前處理，來減經痛苦。在筆者的資料夾問題情境，在把後端將要整合的多個commit中，挑選最早前沒有命名問題的commit先整合一次。然後前端先手動模擬後端的人工命名，自行commit一次，最後再把後端剩餘的commit再做整合。這個做法不是完全解決問題，但至少可以讓use mine / use theirs / edit更新易理解。</p>
+<p>而另一個建議是，縮短發佈週期，逼使其他開發中的功能越早做整合，也逼使每個功能不要做太大規模的改動。如果真的做大規模改動，就要有心理準備要多次重要的整合。</p>
+<h2 id="情況3-多個穩定發佈版本需要同時維護"><a class="header" href="#情況3-多個穩定發佈版本需要同時維護">情況3: 多個穩定發佈版本需要同時維護</a></h2>
+<p>若然大家面對的工作規模真的很大，同時有多個版運行版本，就如gitlab，每一個月都有一個新功能版本(16.0.x, 16.1.x, 16.2.x,… 16.9.x)，但它不會強逼大家更新，對於過去一段時間的功能版本，也會推出安全性更新(前述的x會不斷修正問題)。</p>
+<p>這是一個很負責任的發佈模式，不過對於開發者來講就一定很地獄。因為16.0.x的安全更新並不能無痛地整合到16.9.x中，可能每個版本重新人工修改還要來得穩健。</p>
+<h3 id="建議-2"><a class="header" href="#建議-2">建議</a></h3>
+<p>各個分支人工修改可能更適合。最後就是取決於商業政策的考量，到底公司願意為已發佈的功能版本提供多久的支援。就以gitlab為例，其實它也只承諾維持兩三個月前的功能版本。是否會backport到多個月之前的版本，就看問題的嚴重性和backport難易度。</p>
+<p>也分享一些筆者朋友的經驗，他們開發的是軟件跟硬件整理的軟件庫。但因為硬件有限制，例如庫的大小、算力的差異，所以最後分支多到爆炸。這也是軟硬整合的痛，問題暫時無解。除非老闆肯放棄市場。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="git---持續整合策略--git---continuous-integration-strategy"><a class="header" href="#git---持續整合策略--git---continuous-integration-strategy">Git - 持續整合策略 | Git - Continuous integration strategy</a></h1>
+<p>對於原始碼的管理，平常筆者也有在用gitlab的Continuous integration，針對每次提交(commit)，都會有自動編譯和測試。但當一個專案中，有很多關聯庫(dependency library)的引用時，光是專案中每個commit 行auto build就不夠用了。更嚴重的是，若然大家有很多微服務micro service，它們的更新不會反映在commit中。</p>
+<p>所以定期重跑動動編譯和測試，是筆者認為可以緩解關聯更新的問題，至少可以提高知道問題所在。</p>
+<h2 id="night-build的原意"><a class="header" href="#night-build的原意">Night Build的原意</a></h2>
+<p>筆者先做了一些功課，參考別人怎樣思考Night build （定期重新編譯）這件事。</p>
+<ol>
+<li>每次整合新功能到穩定分支（stable branch）之前，都需要做自動測試。</li>
+<li>當專案複雜性越來越大，每次自動測試都把全部測試跑一次，就會遇到效能瓶頸。</li>
+<li>所以考慮commit時做單元測試（unit test），然後每個固定的時間問隔做整合測試（integration test）。那個固定的時間間隔就是Night build。</li>
+</ol>
+<h2 id="night-build之於integration-test"><a class="header" href="#night-build之於integration-test">Night Build之於integration test</a></h2>
+<p>筆者原始的問題並不是來自於效能瓶頸，而是涉及關聯性更新問題。這些要麼就有是經code base 層面引發關聯性自動試測，要麼就是Night build重複測試。</p>
+<p>這兩個功能，gitlab都有提供，只是筆者初步構想下，Night build比較易設定，也乎合原始的定位。</p>
+<p>因為要考慮micro service的於沙盒環境的部署，最簡易的Night build只需要一個共用的環境就夠。但也同樣意味著，Night build需要進行多個不同的分支測試，就需要多個不同的環境。</p>
+<p>另外Night build的測時時機也是一個問題，因為測試當下，並不能百份百對應關聯micro services的提交狀況，大家就更需要做好發佈的版本號語意管理。</p>
+<h2 id="night-build-實務操作上的注意點"><a class="header" href="#night-build-實務操作上的注意點">Night Build 實務操作上的注意點</a></h2>
+<p>Night build第一個要注意的問題，就是要確保同一個commit，真的可以重複建設。一般來說，大家的目標只在運行測試，而自動測試不具破壞性，就基本可以重複的。而如果測試當中包含發佈測試版本，那就還要考慮重複發佈有沒有生效或造成附作用。</p>
+<p>以Java maven為例，重複發佈測試版本需要遵守特定的規則，版本號需要以SNAPSHOT結尾，這是為讓maven每天都會重新下載它們的包。而沒有SNAPSHOT結尾的，就只會做一次性下載，減少重複下載造成的資源浪費。若真遇著不支援重複發佈的情況，就需要以日期時間做版本號，就像vscode的某些插件，就是以時間截結尾以作為區分。</p>
+<p>Night build另一個要注意的問題，就是開發圖隊何時進行下一輪開發，這會決定何時有新的版本號。扣除上述因為工具不支援的而引發的副作用，還要考慮沒有更新而發生的問題。</p>
+<p>有個尷尬情況是，團隊在發佈現行版本時，release commit與main有機會是同一個commit(也就是未有進行下一輪開發)。若不斷重複發佈，有沒有變相發佈了一些沒有預期的功能？例如Docker image，官方大力建議每日自動發佈。當底層的image更新後，頂層引用它們的image，也可以重新發佈，保持安全性。但這樣做的問題，就是頂層的同一個版本號，昨日與今日的運行結果也可能不一樣。這對追蹤問題，並不友好。</p>
+<p>所以大家做分支整合時，要預先對版本號作好規劃。然後還要留意Night build不應與release commit重疊。版本號大家做好語意管理，再加上alpha / beta / SNAPSHOT等區分Night build版本，應該就足夠了。而commit重疊問題，就要留意開發週期，Night build要麼就比release早一個commit(即在release時，不推進Night build)，要麼晚一個commit(即馬上規劃下一個版本號進行Night build)。</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="spring-boot---maven-cheat-sheet"><a class="header" href="#spring-boot---maven-cheat-sheet">Spring Boot - Maven Cheat sheet</a></h1>
+<h2 id="基礎"><a class="header" href="#基礎">基礎</a></h2>
+<p>刪除所有結果，全部重新編譯</p>
+<pre><code class="language-bash">mvn clean compile
+</code></pre>
+<p>跑起用Spring boot寫的main class，運行Spring boot context。</p>
+<pre><code class="language-bash">mvn spring-boot:run
+# or
+mvn clean compile spring-boot:run
+</code></pre>
+<p>執行測試用例，預設只會測試test資料夾下以某些命名規則的class(例如class名以Tests或Test結尾的class，其他命名規則筆者未有能力一一驗證)</p>
+<pre><code class="language-bash">mvn test
+# or
+mvn clean compile test
+</code></pre>
+<h2 id="多profile多組件多測試"><a class="header" href="#多profile多組件多測試">多Profile、多組件、多測試</a></h2>
+<p>使用-P指定編譯時的選用pom.xml中的project.profiles.profile參數。也可以用此來傳遞到spring profile，使得編譯後的spring war預設選擇特定profile。</p>
+<pre><code class="language-bash">mvn clean compile -PmvnProfile
+# or
+mvn clean compile spring-boot:run -PmvnProfile
+</code></pre>
+<p>使用-pl限定mvn指令只對某個子組件生效，但有時候子組件之間也有引用關係，所以需要再額外加上-am參數(--also-make)</p>
+<pre><code class="language-bash">mvn clean compile spring-boot:run -pl SUBMODULE_NAME -am
+</code></pre>
+<p>使用-Dtest=限定只執行某個class的測試用例，或單個測試函數。(可以無視class名的命名規則)</p>
+<pre><code class="language-bash">mvn test -Dtest=TEST_CLASS_NAME
+# or
+mvn test -Dtest=TEST_CLASS_NAME#TES_METHOD_NAME
+</code></pre>
+<p>若屬於多組件情況下，其他子模組找不到同樣名稱的測試，會測試失敗。需要再加上-Dsurefire.failIfNoSpecifiedTests=false</p>
+<pre><code class="language-bash">mvn test -pl SUBMODULE_NAME -am -Dtest=TEST_CLASS_NAME -Dsurefire.failIfNoSpecifiedTests=false
+# or
+mvn test -pl SUBMODULE_NAME -am -Dtest=TEST_CLASS_NAME#TES_METHOD_NAME -Dsurefire.failIfNoSpecifiedTests=false
+</code></pre>
+<h2 id="打包"><a class="header" href="#打包">打包</a></h2>
+<p>在本機電腦中，把java變成jar或者war。通常用於自行發佈的環境中。</p>
+<pre><code class="language-bash">mvn package
+</code></pre>
+<h2 id="例外情況"><a class="header" href="#例外情況">例外情況</a></h2>
+<p>強行把一個第三方jar，種到本機電腦中的.m2/repository</p>
+<pre><code class="language-bash"># copy from https://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html
+mvn install:install-file -Dfile=&lt;path-to-file&gt; -DgroupId=&lt;group-id&gt; -DartifactId=&lt;artifact-id&gt; -Dversion=&lt;version&gt; -Dpackaging=&lt;packaging&gt;
+</code></pre>
+<p>有時特定Profile沒法成功執行測試用例，或者你認為有些測試問題不影響使用，需要跳過package中的test。</p>
+<pre><code class="language-bash">mvn package -Dmaven.test.skip=true  # won't compile test folder
+mvn package -DskipTests=true # compile, but won't run
+</code></pre>
+<p>若想預設特定submodule為不執行test。可以修改對應的pom.xml</p>
+<pre><code class="language-xml">	&lt;profiles&gt;
+		&lt;profile&gt;
+			&lt;id&gt;dev&lt;/id&gt;
+			&lt;properties&gt;
+				&lt;maven.test.skip&gt;true&lt;/maven.test.skip&gt;
+			&lt;/properties&gt;
+			&lt;activation&gt;
+				&lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
+			&lt;/activation&gt;
+		&lt;/profile&gt;
+	&lt;/profiles&gt;
+</code></pre>
+<p>此後有需要測試，則要手動執行</p>
+<pre><code class="language-bash">mvn test -pl SUBMODULE_NAME -am -Dmaven.test.skip=false
+</code></pre>
+<p>若你不想整個submodule 跳過，想逐個class跳過。可以</p>
+<pre><code class="language-xml">		&lt;plugins&gt;
+			&lt;plugin&gt;
+				&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+				&lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
+				&lt;version&gt;3.2.5&lt;/version&gt;
+				&lt;configuration&gt;
+					&lt;excludes&gt;
+						&lt;exclude&gt;**/SpecialTest.java&lt;/exclude&gt;
+					&lt;/excludes&gt;
+				&lt;/configuration&gt;
+			&lt;/plugin&gt;
+		&lt;/plugins&gt;
+</code></pre>
+<p>此後有需要測試，則要手動執行指定特定class。但你只能一個個class手動測試。</p>
+<pre><code class="language-bash">mvn clean compile test -pl SUBMODULE_NAME -am -Dtest=SpecialTest -Dsurefire.failIfNoSpecifiedTests=false
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="web-socket-vs-http11-vs-http2"><a class="header" href="#web-socket-vs-http11-vs-http2">Web Socket vs http/1.1 vs http/2</a></h1>
+<h2 id="http11"><a class="header" href="#http11">http/1.1</a></h2>
+<p>現時最基本的http protocol。但它效能不算很好的原因，在於每次都要起連線，先Client Request，再Server Response。雖然它可以使用<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Keep-Alive">Keep-Alive</a> header，同一個TCP/IP連線中連續做多次request/response循環，但重點是它需要先後request/response，所以當中有一個response長度很大，就要慢慢等它完結。</p>
+<h2 id="http2"><a class="header" href="#http2">http/2</a></h2>
+<p>沿用http/1.1的大部份東西，包括status code等，但傳送的方法做了更改。</p>
+<p>在傳統的Client Server行為中，假設第一個Client request是去問Server取得主網頁index.html。在Client得知完整的index.html response後，分析其中有一個main.css，才後知後覺的再問server去取main.css，這才有了第二個request。</p>
+<p>http/2，就是一種Server有主導權的機制。Server明明知道index.html會連著main.css，所以在第一次回傳時，把main.css跟index.html一起回傳，即是回傳比Client原本查詢範圍更多的結果。即它可以主動推送資料，不用等Client去做二次操作。</p>
+<h2 id="web-socket"><a class="header" href="#web-socket">Web Socket</a></h2>
+<p>原本在http/1.1的時代，就有人提出了升級的玩法。Web socket就是把http 1.1的request/response循環，在第一次握手後，硬改為TCP/IP 的傳統Socket機制。Client/Server可以隨時Read/Write。但跟傳統TCP Socket的差別在於，Web Socket可以保證Read時可以讀取一個完整內容，而傳統TCP Socket每次Read都可能只有該內容的一部份，要多次Read及計算長度才能確保讀完完整的內容。</p>
+<p>因為建立了Socket，長期維持連線，再加上多工機制，所以十分適合作為實時傳輸用。</p>
+<h1 id="spring-boot-implementation"><a class="header" href="#spring-boot-implementation">Spring boot implementation</a></h1>
+<p>筆者查看了一下Spring boot的教學，http/2只有一些基本文件支援描述，但沒有簡單無腦可以的教學。但對於Web Socket，倒是有的。</p>
+<p>STOMP (Simple / Streaming Text Orientated Messaging Protocol)是Web Socket內的一個實現方式，Spring boot提供的就是STOMP底下的Web Socket。筆者實驗後，感覺就是傳統的http 1.1升級Web Socket的做法。</p>
+<h1 id="基於http2-的web-socket升級版"><a class="header" href="#基於http2-的web-socket升級版">基於Http2 的Web Socket升級版</a></h1>
+<p>筆者之前亦跟好友聊過一下Web Socket、Http 2的差異，經好友梳理，其實Web Socket也不一定是Http 1.1，現在Http 2也開始可以這樣玩了。</p>
+<p>好友轉發的<a href="https://medium.com/@pgjones/http-2-websockets-81ae3aab36dd">Medium</a>的文章描述下，IETF在2018年後也制定了新的玩法<a href="https://www.rfc-editor.org/rfc/rfc8441">RFC8441</a>，Web Socket可以經 http 2轉化出來。</p>
+<p>無奈筆者還受困於Spring http/1.1的限制內，未能為大家介紹更多。</p>
+<h1 id="reference"><a class="header" href="#reference">Reference</a></h1>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Protocol_upgrade_mechanism">Mozilla Web socket</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Keep-Alive">Mozilla Keep-Alive</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Glossary/HTTP_2">Mozilla HTTP/2</a></li>
+<li><a href="https://medium.com/@pgjones/http-2-websockets-81ae3aab36dd">Medium - pgjones - HTTP/2 WebSockets</a></li>
+<li><a href="https://en.wikipedia.org/wiki/HTTP/2">Wikipedia - HTTP/2</a></li>
+<li><a href="https://www.cloudflare.com/zh-tw/learning/performance/http2-vs-http1.1/">Cloudflare - HTTP/2 與 HTTP/1.1 的比較：其如何影響 Web 效能？</a></li>
+<li><a href="https://stackoverflow.com/questions/52441828/http-1-1-websocket-and-http-2-0-analysis-in-terms-of-socket">stack overflow - HTTP/1.1, webSocket and HTTP/2.0 analysis in terms of Socket</a></li>
+<li><a href="https://spring.io/guides/gs/messaging-stomp-websocket/">Spring - Using WebSocket to build an interactive web application</a></li>
+<li><a href="https://www.rfc-editor.org/rfc/rfc8441">IETF - RFC8441</a></li>
+<li><a href="https://github.com/macauyeah/spring-boot-stomp">Source Code - spring-boot-stomp</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="spring-boot-multiple-datasource"><a class="header" href="#spring-boot-multiple-datasource">Spring Boot Multiple DataSource</a></h1>
+<p><a href="https://github.com/macauyeah/spring-boot-multiple-datasource">Example Code</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="lambda-表達式之可讀性"><a class="header" href="#lambda-表達式之可讀性">Lambda 表達式之可讀性</a></h1>
+<p>Java作為一個真OOP物件導向的程式，在設計和編寫上是很嚴謹，什至是囉嗦的程度。近年很多Programmer因為各種原因，都放棄Java跳船去其他語言。</p>
+<p>Javascript是其中一個很多人的選擇，因為Javascript有nodejs的加持，在Web世界下，可以同時走frontend、backend路線。而Javacript亦有一個很明顯的特性，就是大部份的library都以callback的型式出現。另外，Javascript也讓很多人覺得很簡潔，這除了是因為它沒有強型態的規限外，另一個原因也是因為有callback的大量使用。</p>
+<h2 id="function-pointer"><a class="header" href="#function-pointer">Function Pointer</a></h2>
+<p>其實callback，籠統一點講就是在一個function A傳入另一個function pointer B。而編寫function A的作者，並初期並不知道function pointer B的實際操作會是什麼。A作者只是強調在特別定時候，它就會使用這個function pointer B。而這種把function pointer 傳來傳去的做法，就可以看成是Functional Programming的基礎。</p>
+<p>Functional Programming除了把function pointer 當成是一等公民以外，還有很多附加要求，例如：</p>
+<ul>
+<li>Pure Function: 它只會使用到自己的Local Variable本地變數，這樣它的作用域就鎖死在Function內部，就不會有副作用。
+<ul>
+<li>傳統的OOP，Class中不少變數會以Class Attribute型式存在，雖然它們可能是private attribute，但還是獨立於Function外，這樣各Function的操作，都要靠作者好好地記著Class Attribute的狀態。</li>
+</ul>
+</li>
+<li>Nested Functions: 與普通程式語言類似，很多情況下都需要local variable，而Function Programming要足夠好用的話，就需要彈性地在function裏定義local function pointer。</li>
+</ul>
+<h2 id="java-lambda-表達式"><a class="header" href="#java-lambda-表達式">Java Lambda 表達式</a></h2>
+<p>其實從Java 8開始，就有提供Lambda表達式，這是一個可以制作匿名function pointer的方法。所以硬要講，Java也可以做Functional Programming。</p>
+<p>但必需要盡早強調的是，Java經常性地使用class attribute，它們很多時候都會引申請狀態的概念。即是在它們必需經過特定步驟後，class attribute才會有特定的意義。也就是Lambda表達式想保持Pure Function的特性，它可以使用的時期就有很大限制。</p>
+<p>但我們還有必要使用Lambda嗎? 以筆者的經驗來講，它還是有作用的，特別在於它可以改善Class Function的閱讀性。</p>
+<p>例如下面一個Java Class。它是一個工廠，提供一個服務可以生產一堆車。那些車而需要經過特定檢測，才能推出。</p>
+<pre><code class="language-java">public class Factory {
+    // ex1
+    public static List&lt;Car&gt; generateListOfCarByForLoop() {
+        List&lt;Car&gt; tempCars = new ArrayList&lt;&gt;();
+        // many other logic
+        // many other logic
+        // many other logic
+        List&lt;Car&gt; passTestCars = new ArrayList&lt;&gt;();
+        for (Car car : tempCars) {
+            if (car.getWheels().size() == 4) {
+                // many other check logics
+                // many other check logics
+                // many other check logics
+                passTestCars.add(car);
+            }
+        }
+        return passTestCars;
+    }
+}
+</code></pre>
+<p>中間的for loop可以用lambda來改寫。</p>
+<pre><code class="language-java">    // ex2
+    public static List&lt;Car&gt; generateListOfCarByLamda() {
+        List&lt;Car&gt; cars = new ArrayList&lt;&gt;();
+        // many other logic
+        // many other logic
+        // many other logic
+        cars = cars.stream().filter((car) -&gt; {
+            if (car.getWheels().size() == 4) {
+                // many other check logics
+                // many other check logics
+                // many other check logics
+                return true;
+            }
+            return false;
+        }).toList();
+        return cars;
+    }
+</code></pre>
+<p>有人會說，上述ex2只是形式上改變了，沒有特別易讀。就像ex3這樣，把特定邏輯抽成獨立function，才是真正的易讀，對嗎?</p>
+<pre><code class="language-java">   // ex3
+    public static List&lt;Car&gt; generateListOfCarByForLoopFunction() {
+        List&lt;Car&gt; tempCars = new ArrayList&lt;&gt;();
+        // many other logic
+        // many other logic
+        // many other logic
+        List&lt;Car&gt; passTestCars = filterCarsByWheelsSize(tempCars, 4);
+        return passTestCars;
+    }
+
+    private static List&lt;Car&gt; filterCarsByWheelsSize(List&lt;Car&gt; originalList, int targetSize) {
+        List&lt;Car&gt; passTestCars = new ArrayList&lt;&gt;();
+        for (Car car : originalList) {
+            if (car.getWheels().size() == targetSize) {
+                // many other check logics
+                // many other check logics
+                // many other check logics
+                passTestCars.add(car);
+            }
+        }
+        return passTestCars;
+    }
+</code></pre>
+<p>上述ex3是一個有效的改進。如果大家不計較傳入參數的先後順序及交互影響的話，就已經很足夠。</p>
+<p>但如果大家對於多參數的解讀又怎樣?</p>
+<pre><code class="language-java">private static List&lt;Car&gt; someotherfunction(List&lt;Car&gt; cars, List&lt;Wheel&gt; wheels)
+</code></pre>
+<p>大家又會不會突然停住，想想到底是cars影響wheels，還是wheels影響cars?</p>
+<p>對於多參數的function來講，相互影響就會越來越多，但使用Lambda的話，可以針對性地表達這是一個Predicate Lambda。</p>
+<pre><code class="language-java">    // ex4
+    public static List&lt;Car&gt; generateListOfCarByLamdaComposition() {
+        List&lt;Car&gt; cars = new ArrayList&lt;&gt;();
+        // many other logic
+        // many other logic
+        // many other logic
+        List&lt;Wheel&gt; wheels = new ArrayList&lt;&gt;(4);
+        cars = cars.stream().filter(
+            filterCarByWheelSizePredicate(wheels)
+        ).toList();
+        return cars;
+    }
+
+    private static Predicate&lt;Car&gt; filterCarByWheelSizePredicate(List&lt;Wheel&gt; wheels){
+        return (car) -&gt; {
+            if (car.getWheels().size() == wheels.size()) {
+                // many other check logics
+                // many other check logics
+                // many other check logics
+                return true;
+            }
+            return false;
+        };
+    }
+</code></pre>
+<p>就最後的ex4版本，可以很明確的知道是cars被Predicate所作用</p>
+<p>如果大家還有其他使用Lambda的明顯好處，也可以一起來Github分享大家的<a href="https://github.com/macauyeah/spring-boot-demo">Code</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="lambda-表達式之可讀性2---java-sorting"><a class="header" href="#lambda-表達式之可讀性2---java-sorting">Lambda 表達式之可讀性2 - Java Sorting</a></h1>
+<p>對於習慣寫SQL的朋友來講，排序是件很容易的事，通常在SQL的結尾，先後加上不同欄位名稱，就可以有排序效果。例如:</p>
+<pre><code class="language-sql">select car.size, car.NumberOfWheels
+from car
+order by car.size, car.NumberOfWheels
+</code></pre>
+<p>即使要改變排序的條件，先以car.NumberOfWheels再car.size，那改一改就好</p>
+<pre><code class="language-sql">select car.size, car.NumberOfWheels
+from car
+order by car.NumberOfWheels, car.size
+</code></pre>
+<p>但對於Java來說，就不是這麼容易的一回事。很多依賴SQL的商用開發者，可能也不記得Java是怎樣做Sorting interface的。但對於NoSQL的世代來講，Database應該視為一個Storage Engine。某些排序還是要靠Program層面做，例如傳統的Java就需要提供一個回傳-1, 0, 1的Function，以決定A應該排在B前面，還是相等，還是排在B後面。</p>
+<pre><code class="language-java">    public static void sortExample(){
+        List&lt;Car&gt; cars = new ArrayList&lt;&gt;();
+        // ... many cars
+        cars.sort(ChainComparator.getOldSchoolComparator());
+    }
+
+    private static Comparator&lt;Car&gt; getOldSchoolComparator(){
+        return (a, b)-&gt;{
+            Double aCarSize = a.getSize();
+            Double bCarSize = b.getSize();
+            if (aCarSize.compareTo(bCarSize) != 0) {
+                return aCarSize.compareTo(bCarSize);
+            } else { // if tied
+                Integer aNumOfWheel = a.getWheels().size();
+                Integer bNumOfWheel = b.getWheels().size();
+                return aNumOfWheel.compareTo(bNumOfWheel);
+            }
+        };
+    }
+</code></pre>
+<p>上述例子雖然已使用Lambda去簡化寫法，但實際上如果排序欄位很多，就會出現一個很長的表達式。而且也很難去改寫中間的先後次序，例如怎樣才能很輕易地把numOfWheel改到放在carSize前面。即使我們有辦法把分段邏輯都抽入個別Function裏面，那個If的結構也是抽不走。</p>
+<p>在Java 8 Lambda出現後，其實Comparator也有提供新的寫法，它可以連在一起繼續延伸，讓平手、再查一下條件的情況簡化了。這也是讓Dynamic Sorting變得有可能。</p>
+<pre><code class="language-java">    public static void sortExample(){
+        List&lt;Car&gt; cars = new ArrayList&lt;&gt;();
+        // ... many cars
+        cars.sort(ChainComparator.getComparatorChain());
+    }
+	private static Comparator&lt;Car&gt; getComparatorCarSize(){
+        return (aCar, bCar)-&gt;{
+            Double aCarSize = aCar.getSize();
+            Double bCarSize = bCar.getSize();
+            return aCarSize.compareTo(bCarSize);
+        };
+    }
+
+    private static Comparator&lt;Car&gt; getComparatorNumOfWheels(){
+        return (aCar, bCar)-&gt;{
+            Integer aNumOfWheel = aCar.getWheels().size();
+            Integer bNumOfWheel = bCar.getWheels().size();
+            return aNumOfWheel.compareTo(bNumOfWheel);
+        };
+    }
+
+    private static Comparator&lt;Car&gt; getComparatorChain(){
+        return ChainComparator.getComparatorCarSize()
+            .thenComparing(ChainComparator.getComparatorNumOfWheels());
+    }
+</code></pre>
+<p>上述的例子，可能還是沒有太體現出Lambda的好處，主要是Java型態的問題，上面那樣寫我們每次都要重複地編寫適合Car的Comparator，就變得有點囉唆。但貼心的Comparator還有提供進一步的Lambda結構。</p>
+<pre><code class="language-java">    public static void sortExample(){
+        List&lt;Car&gt; cars = new ArrayList&lt;&gt;();
+        // ... many cars
+        cars.sort(ChainComparator.getComparatorChain2());
+    }
+
+    private static Comparator&lt;Double&gt; getComparatorDouble(){
+        return (aCarSize, bCarSize)-&gt;{
+            return aCarSize.compareTo(bCarSize);
+        };
+    }
+
+    private static Comparator&lt;Integer&gt; getComparatorInteger(){
+        return (aNumOfWheel, bNumOfWheel)-&gt;{
+            return aNumOfWheel.compareTo(bNumOfWheel);
+        };
+    }
+
+    private static Comparator&lt;Car&gt; getComparatorChain2(){
+        Comparator&lt;Car&gt; chainedComparator = Comparator.comparing(
+            car-&gt;car.getSize(), // converter
+            ChainComparator.getComparatorDouble() // reuse exisiting comparator
+        );
+        chainedComparator = chainedComparator.thenComparing(
+            car-&gt;car.getWheels().size(), // converter
+            ChainComparator.getComparatorInteger() // reuse exisiting comparator
+        );
+        return chainedComparator;
+    }
+</code></pre>
+<p>上述的例子中，getComparatorDouble，getComparatorInteger可能是別人寫好的Comparator，它們不是針對Car來使用的。但我們還是可以經過Comparator.comparing的介面，硬把Car轉為Double或Integer，然後就可以重用別人準備好的getComparatorDouble，getComparatorInteger。</p>
+<p><a href="https://github.com/macauyeah/spring-boot-demo/">Github Code</a></p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="spring-boot-01---萬物始於spring-boot-context"><a class="header" href="#spring-boot-01---萬物始於spring-boot-context">Spring Boot 01 - 萬物始於Spring boot context</a></h1>
+<p>筆者早些時候向一位朋友討論，為何Java那麼不受歡迎。朋友一句就回答，Java煩爆，沒有人會喜歡。</p>
+<p>老實講，Java在句法上，實在囉唆。但以筆者的經驗，即使使用其他語言和開發框架，在實戰到一定複雜程度下，其實也一樣煩爆。</p>
+<p>而現在的Java框架中，就以Spring boot的入門門檻低。筆者從Spring boot 1.x用到現在的3.x，也真的感受到更多的簡化，所以筆者也加入一起推廣Spring boot的行列。筆者將會通過一系列最小的可執行程式，為大家講解Spring在Web和資料庫上的應用。</p>
+<p>所以現在就不廢話，馬上開壇作法</p>
+<h2 id="快速下戴模版"><a class="header" href="#快速下戴模版">快速下戴模版</a></h2>
+<p>使用Spring initializr，可以很容易就建立一個以Spring boot starter為底的java project。大家可以使用<a href="https://start.spring.io/">Spring 官網</a>又或是<a href="https://code.visualstudio.com/docs/java/java-spring-boot">vscode plugin</a> 快速地建立一個maven或gradle project。筆者較為熟悉maven，就以maven起一個範例。</p>
+<p>在使用Spring initializr有幾件事必需要指定的:</p>
+<ul>
+<li>Spring boot version: 3.x.y 或以上</li>
+<li>Language: java</li>
+<li>Group Id: 請選擇有意思的域名，如果你用github，可以選 io.github.yourusername</li>
+<li>artifactId: 這個範例的名字，例如commandline</li>
+<li>Packaging type: 本次使用jar，日後若開發web 應用，可以使用war</li>
+<li>Java version: 17或以上</li>
+</ul>
+<p>之後就不用選了。若你經官網起範例，你會得到一個zip檔，下載後解壓縮。若你使用vscode插件，最後插件會叫有一個位置儲存。它們都是最後也是會得到同一樣範例Java project。</p>
+<p>你使用Vscode，Intellij打開，IDE都會自動辨識到它是java maven project，同時會顯示java和maven結構。道理上你用Intellij 應該可以無腦開始編譯(Community 或Ultimate版都可以)，
+Vscode有安裝Extension Pack for Java也會開始自動編譯。不想麻煩，也可以試用<a href="https://docs.github.com/en/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/setting-up-your-java-project-for-codespaces">Github Codespaces - java</a>。Github Codespaces其實就是一個雲上的vscode，經網頁可以連到Github VM內的vscode，所以它也會有齊Extension Pack for Java等插件。</p>
+<p>筆者最後也會上載已完成的範例，它也可以在Github Codespaces上以Java執行或繼續開發。</p>
+<p>打開project中的pom.xml，它為我們添加了兩個很重要的lib</p>
+<pre><code class="language-xml">		&lt;dependency&gt;
+			&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+			&lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;
+		&lt;/dependency&gt;
+		...
+		...
+			&lt;plugin&gt;
+				&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+				&lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+			&lt;/plugin&gt;
+</code></pre>
+<p>spring-boot-starter是重中之重，它定義了怎樣動態地設定日後的其他lib，它是讓我們可以無腦設定的一個關鍵。(但若大家有很多客制化的設定，就要返撲歸真地逐個lib叫起)。</p>
+<p>maven在預設情況下，只會負責編譯和打包目前的project原始碼。所有相關依賴(就是xml中的dependency)，並不會自動包起。而spring-boot-maven-plugin，就是幫我們把相關依據都包在一起，讓你的jar可以獨立行起來。</p>
+<p>註: 若大家在開發lib jar，並不是一個獨立執行的jar，也就是原始碼上沒有main函數，大家就不應該引用spring-boot-starter和spring-boot-maven-plugin。</p>
+<p>我們繼續看其他原始碼，整個資料夾就像以下那樣。</p>
+<pre><code>.
+|-- HELP.md
+|-- pom.xml
+`-- src
+    |-- main
+    |   |-- java
+    |   |   `-- io
+    |   |       `-- github
+    |   |           `-- macauyeah
+    |   |               `-- springboot
+    |   |                   `-- tutorial
+    |   |                       `-- commandline
+    |   |                           `-- CommandlineApplication.java
+    |   `-- resources
+    |       `-- application.properties
+    `-- test
+        `-- java
+            `-- io
+                `-- github
+                    `-- macauyeah
+                        `-- springboot
+                            `-- tutorial
+                                `-- commandline
+                                    `-- CommandlineApplicationTests.java
+</code></pre>
+<p>CommandlineApplication是我們有main函數的java class。我像可以經過IDE運行main又或者下指令mvn spring-boot:run來執行。</p>
+<h2 id="正式開始我們的commandline開發"><a class="header" href="#正式開始我們的commandline開發">正式開始我們的Commandline開發</a></h2>
+<p>我們在CommandlineApplication.class中，加入新的程式碼，實現ApplicationRunner和它的函數run。</p>
+<pre><code class="language-java">package io.github.macauyeah.springboot.tutorial.commandline;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+// other import
+
+@SpringBootApplication
+public class CommandlineApplication implements ApplicationRunner {
+	static Logger LOG = LoggerFactory.getLogger(CommandlineApplication.class);
+
+	public static void main(String[] args) {
+		SpringApplication.run(CommandlineApplication.class, args);
+	}
+
+	@Override
+	public void run(ApplicationArguments args) throws Exception {
+		args.getOptionNames().stream().forEach(optionName -&gt; {
+			LOG.debug("option name:" + optionName);
+
+			args.getOptionValues(optionName).forEach(optionValue -&gt; {
+				LOG.debug("option values:" + optionValue);
+			});
+		});
+		LOG.debug("program end.");
+	}
+	// ...
+</code></pre>
+<p>這個run函數很直白，就是更好地演譯main中的String[] args。</p>
+<p>但大家還要看清楚，這個main並沒有直接執行run。其實它是靠SpringApplication.run及@SpringBootApplication，跑一堆自動設定，最後因為傳入CommandlineApplication.class是一個Spring 可以處理的ApplicationRunner，所以才呼叫它的CommandlineApplication.run。</p>
+<p>換個講法，如果今天做的是web應用，傳入去的就會是SpringBootServletInitializer，這個SpringBootServletInitializer也不一定跟main是同一個class。</p>
+<p>如果大家有興趣，可以經過反編譯器，點入@SpringBootApplication看它的原始碼，你就可以看到它其實代表了很多自動化的東西。如果我們只做一些在同一個模組下生效的事情，《自動化》極大地降低了大家入門門檻。一般來講，如果大家不在意程式碼的複用度，比較少機會自行設定，自動化已經很有用。而隨著系統規模增加，多模組就慢慢地顯得重要，在大家了解完基本的Spring後，著者再從測試用途test case入手，為大家介紹如何手動設定。</p>
+<h2 id="source-code"><a class="header" href="#source-code">Source Code</a></h2>
+<p><a href="https://github.com/macauyeah/spring-boot-demo/tree/main/spring-boot-tutorial/commandline">Commandline Application</a></p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>
