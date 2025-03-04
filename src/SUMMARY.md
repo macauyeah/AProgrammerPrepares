@@ -58,6 +58,7 @@
 - [Spring Boot 05 - 為 http json api 加入登入要求](./spring/springBootLesson/05-spring-web-spring-data.md)
 - [Spring Boot 06 - Spring Boot Web 調試工具](./spring/springBootLesson/06-spring-web-debug.md)
 - [Spring Boot 07 - Spring Boot Web 加入限制](./spring/springBootLesson/07-spring-web-api-validate.md)
+- [Spring Boot 08 - 多情境設置 maven profile 與 application.properties](./spring/springBootLesson/08-spring-boot-properties-profile.md)
 - [draft structure](./spring/springBootLesson/spring-web-structure.md)
 
 # vue js
