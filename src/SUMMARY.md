@@ -15,6 +15,7 @@
 - [Schedule Job with Docker - 中文](./VMDockerNotes/CronJobWithDockerCN.md)
 - [Docker Variable control - 中文](./VMDockerNotes/DockerArgEnvCN.md)
 - [於 Docker 中運行 Oracle](./VMDockerNotes/OracleCN.md)
+- [Docker 中的非管理員用户](./VMDockerNotes/DockerNonRootUser.md)
 
 # Podman
 - [SteamDeck 上的 Podman](./VMDockerNotes/SteamDeckWithPodmanCN.md)
