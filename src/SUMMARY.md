@@ -10,7 +10,7 @@
 - [Swarm mode 上線](./VMDockerNotes/SwarmModeCommandCN.md)
 - [Swarm mode 上線 2](./VMDockerNotes/SwarmModeUndeployLeaveCN.md)
 - [Swarm mode 上線 3 - Rollback 回滾](./VMDockerNotes/SwarmModeRollbackCN.md)
-- [Swarm mode 上線 4 - IP 設定](./VMDockerNotes/SwarmModeRollbackCN.md)
+- [Swarm mode 上線 4 - IP 設定](./VMDockerNotes/SwarmModeIPCN.md)
 - [Swarm mode 上線 5 - load balancer 負載平衡器](./VMDockerNotes/SwarmModeLoadBalancer.md)
 - [Swarm mode 上線 6 - Host OS 升級流程](./VMDockerNotes/SwarmModeUpgrade.md)
 - [Schedule Job with Docker - 中文](./VMDockerNotes/CronJobWithDockerCN.md)
