@@ -32,7 +32,7 @@ open api，就是一個公認的使用手冊標準，我們只要在spring-web�
     <dependency>
         <groupId>org.springdoc</groupId>
         <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-        <version>2.5.0</version>
+        <version>2.8.8</version>
     </dependency>
 ```
 
