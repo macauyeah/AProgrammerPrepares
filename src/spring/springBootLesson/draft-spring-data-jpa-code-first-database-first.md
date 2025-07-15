@@ -1,5 +1,4 @@
-# Spring Boot 09 - 設計Database的選擇: Code First Database First 混合使用
-# draft
+# Spring Boot draft - 設計Database的選擇: Code First Database First 混合使用
 h2 一定會code first
 
 dev profile - code first
