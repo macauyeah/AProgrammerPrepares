@@ -67,5 +67,8 @@
 - [draft api doc](./spring/springBootLesson/draft-spring-api-doc.md)
 - [draft structure](./spring/springBootLesson/draft-spring-web-structure.md)
 
+# oracle sql
+- [Oracle 及 Spring Data JPA 的唯讀策略](./sql/oracle/read-only-mode.md)
+
 # vue js
 - [draft time attact](./vuejs/TimeAttack.md)
