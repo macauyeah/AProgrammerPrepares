@@ -1,4 +1,4 @@
-# Spring boot 10 - openapi generator spring boot java client
+# Spring Boot 10 - OpenAPI自動生成 API 客戶端的步驟
 之前我們在介紹[Spring Boot Web 調試工具](06-spring-web-debug.md) ，就試安裝 openapi 相關的元件。其實 openapi 並不單是為了提供 swagger 測試介面，它主要是提供一個描述的方式，讓我們針對一個特定 openapi 文件，生成對應的 api server 或 api client 接口。也就是，如果 server 方有提供該文件，道理上可以經 openapi 的工具，生成一個可以直接訪問 server 的 client library。本節，可以沿用之前的 [spring boot web api doc](https://github.com/macauyeah/spring-boot-demo/tree/main/spring-boot-tutorial/spring-boot-web-api-doc) ，為它產生一個client library 作為實驗。
 
 在生成 client library 之前，我們還需要一個工具 openapi-generator-cli 。最簡單的取得方式，就是經過 npm ， 在你需要生成 client library 的專案中，安裝你需要的 openapi-generator-cli 版本。

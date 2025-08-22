@@ -51,6 +51,7 @@
 - [Multiple datasource](./spring/springBootMultipleDatasource.md)
 - [Java Lamdbda](./spring/javaLambda.md)
 - [Java Lamdbda - Sorting](./spring/javaLambda2.md)
+- [升級 Reactor Netty 1.2.6：重新配置 SSL 設定](./spring/WebClientSSL.md)
 
 ---
 
@@ -64,7 +65,8 @@
 - [Spring Boot 07 - Spring Boot Web 加入限制](./spring/springBootLesson/07-spring-web-api-validate.md)
 - [Spring Boot 08 - 多情境設置 maven profile 與 application.properties](./spring/springBootLesson/08-spring-boot-properties-profile.md)
 - [Spring Boot 09 - 多情境設置 maven profile 與 application.properties ](./spring/springBootLesson/09-spring-boot-properties-profile-container.md)
-- [draft api doc](./spring/springBootLesson/draft-spring-api-doc.md)
+- [Spring Boot 10 - OpenAPI自動生成 API 客戶端的步驟](./spring/springBootLesson/10-openapi-generator-spring-boot-java-client.md)
+- [Spring Boot 11 - Web App 更新期間的維護模式：從唯讀到全鎖的解決方案](./spring/springBootLesson/11-spring-data-schema-options.md)
 - [draft structure](./spring/springBootLesson/draft-spring-web-structure.md)
 
 # oracle sql
