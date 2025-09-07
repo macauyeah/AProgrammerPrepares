@@ -69,8 +69,5 @@
 - [Spring Boot 11 - Web App 更新期間的維護模式：從唯讀到全鎖的解決方案](./spring/springBootLesson/11-spring-data-schema-options.md)
 - [draft structure](./spring/springBootLesson/draft-spring-web-structure.md)
 
-# oracle sql
-- [Oracle 及 Spring Data JPA 的唯讀策略](./sql/oracle/read-only-mode.md)
-
 # vue js
 - [draft time attact](./vuejs/TimeAttack.md)
