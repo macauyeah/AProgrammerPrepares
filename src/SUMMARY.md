@@ -5,7 +5,6 @@
 # Docker
 - [Docker的基本概念](./VMDockerNotes/DockerConcept101CN.md)
 - [Build Command Line Application Docker Image - 中文](./VMDockerNotes/BinaryAsDockerImageCN.md)
-- [Docker Tag 命名](./VMDockerNotes/DistributionRegistry.md)
 - [Deploy Docker Cluster - 中文](./VMDockerNotes/DeployDockerClusterCN.md)
 - [Swarm mode 上線](./VMDockerNotes/SwarmModeCommandCN.md)
 - [Swarm mode 上線 2](./VMDockerNotes/SwarmModeUndeployLeaveCN.md)
@@ -16,6 +15,7 @@
 - [Swarm mode 上線 7 - load balancer | 反向代理](./VMDockerNotes/SwarmModeTraefik.md)
 - [Schedule Job with Docker - 中文](./VMDockerNotes/CronJobWithDockerCN.md)
 - [Docker Variable control - 中文](./VMDockerNotes/DockerArgEnvCN.md)
+- [Distribution Registry 的設置與維護](./VMDockerNotes/DistributionRegistry.md)
 - [於 Docker 中運行 Oracle](./VMDockerNotes/OracleCN.md)
 - [Docker 來源掃瞄](./VMDockerNotes/ImageScan.md)
 - [Docker 中的非管理員用户](./VMDockerNotes/DockerNonRootUser.md)

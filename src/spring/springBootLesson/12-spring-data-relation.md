@@ -1,9 +1,3 @@
-query a very long id list
-[spring-boot-tutorial/spring-boot-data-advance](https://github.com/macauyeah/spring-boot-demo/tree/main/spring-boot-tutorial/spring-boot-data-advance)
-
-從Parent 到Child
-
-
 # Spring Data 關聯型態 一對多 多對一
 
 筆者身邊的朋友，首次接觸 ORM 的關聯型態時都會覺得很難，筆者自己也是。但在好好地理順它的設計時，就會覺得其實很簡單。
@@ -160,10 +154,59 @@ EntityManager最強大的是，它可以讓程序員不需要再為Managed狀態
 
 這裏的 CasecadeType.PERSIST ，跟資料庫的 Cascade Update 是不一樣的。資料庫裏的 Cascade Update，是指當 Parent 的 Primary Key 有變，對應child的 Foreign Key也一起變。但因為 JPA Entity 的機制， Parent 的 Primary Key 不可以改變，理論上不會發生類似資料庫的 Cascade Update，頂多有 Cascade Delete。 CasecadeType.PERSIST 就像之前述的生命週期解說一樣， 把 parent和 child 一起拉到受管理的狀態。
 
+CascadeType.REMOVE 也類似，但在使用時要更加留意。因為有時 parent, child 做關聯時，會偷懶只在child 更新。這樣若在同一個 transaction 內進行 delete，就會出事。
 
-註: CascadeType.REMOVE有點尷尬，似乎有更特別的使用規範。筆者測試過，在某些情況下，CascadeType.REMOVE無法處理ForeignKey問題，又或者是，刪除的順序不對。詳見 [spring boot data deletion](https://github.com/macauyeah/spring-boot-demo/tree/main/spring-boot-tutorial/deletion)
+```java
+@Entity
+public class Author {
+    // other attribute
+    // ...
 
+    @OneToMany(mappedBy = "author", cascade = CascadeType.REMOVE)
+    private List<Book> books = new ArrayList<>();
+
+    public void addBook(Book book){
+        this.books.add(book);
+        book.setAuthor(this);
+    }
+
+    public void removeBook(Book book){
+        this.books.remove(book);
+        book.setAuthor(null);
+    }
+}
+
+@Entity
+public class Book {
+    // other attribute
+    // ...
+
+    @ManyToOne
+    private Author author;
+
+    // auther getter setter
+    // ...
+}
+
+@Test
+void testdelete() {
+    Author author = new Author();
+    Book book = new Book();
+    book.setAuthor(author);
+
+    // save author and book
+    assertThrows(org.springframework.dao.InvalidDataAccessApiUsageException.class, () -> {
+        authorRepo.delete(author);
+    });
+    
+    author.addBook(book);
+    authorRepo.delete(author);
+}
+```
+
+`@OneToMany` 需要配合 collection add remove 一起使用（`this.books.add(book);`），不能只做一邊(`book.setAuthor(author);`)，不然就會出現`InvalidDataAccessApiUsageException`。這似乎和 hiberate 的狀態有關，只有經過 collection add remove ，hibernate proxy 才會正確反映未來的 db 狀況。特別在某些時候，例如是記有 `@Transactional` 時，hibernate 似乎不會每次都會真的訪問 db ，如果要準確關聯狀態，就要經過 collection add remove 去更新 proxy。 `CascadeType.REMOVE`, `orphanRemoval = true` 在 collection add remove 都有相同效果。
 
 # Reference
 - [entity-lifecycle-model](https://thorben-janssen.com/entity-lifecycle-model/)
-- [spring boot data deletion](https://github.com/macauyeah/spring-boot-demo/tree/main/spring-boot-tutorial/deletion)
+- [demo repo: spring boot data deletion](https://github.com/macauyeah/spring-boot-demo/tree/main/spring-boot-tutorial/spring-boot-data-deletion)
+- [demo code: OneToManyRefreshStatusTests](https://github.com/macauyeah/spring-boot-demo/tree/main/spring-boot-tutorial/spring-boot-data-advance/src/test/java/io/github/macauyeah/springboot/tutorial/spring_boot_data_advance/OneToManyRefreshStatusTests.java)
