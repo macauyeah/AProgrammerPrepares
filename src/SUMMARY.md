@@ -67,6 +67,9 @@
 - [Spring Boot 09 - 多情境設置 maven profile 與 application.properties ](./spring/springBootLesson/09-spring-boot-properties-profile-container.md)
 - [Spring Boot 10 - OpenAPI自動生成 API 客戶端的步驟](./spring/springBootLesson/10-openapi-generator-spring-boot-java-client.md)
 - [Spring Boot 11 - Web App 更新期間的維護模式：從唯讀到全鎖的解決方案](./spring/springBootLesson/11-spring-data-schema-options.md)
+- [Spring Data 關聯型態 一對多 多對一](./spring/springBootLesson/spring-data-relation.md)
+- [Spring Boot Web 異步 Api](./spring/springBootLesson/spring-web-api-async.md.md)
+- [Spring Boot Email](./spring/springBootLesson/spring-boot-email.md)
 - [draft structure](./spring/springBootLesson/draft-spring-web-structure.md)
 
 # vue js
