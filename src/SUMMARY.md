@@ -63,6 +63,7 @@
 - [Spring Boot 05 - 為 http json api 加入登入要求](./spring/springBootLesson/05-spring-web-spring-data.md)
 - [Spring Boot 06 - Spring Boot Web 調試工具](./spring/springBootLesson/06-spring-web-debug.md)
 - [Spring Boot 07 - Spring Boot Web 加入限制](./spring/springBootLesson/07-spring-web-api-validate.md)
+- [Spring boot web api 異常處理](./spring/springBootLesson/spring-boot-web-exception-handler.md)
 - [Spring Boot 08 - 多情境設置 maven profile 與 application.properties](./spring/springBootLesson/08-spring-boot-properties-profile.md)
 - [Spring Boot 09 - 多情境設置 maven profile 與 application.properties ](./spring/springBootLesson/09-spring-boot-properties-profile-container.md)
 - [Spring Boot 10 - OpenAPI自動生成 API 客戶端的步驟](./spring/springBootLesson/10-openapi-generator-spring-boot-java-client.md)
