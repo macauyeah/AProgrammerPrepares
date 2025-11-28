@@ -1,0 +1,408 @@
+<!DOCTYPE HTML>
+<html lang="zh-Hant" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Spring Data 關聯型態 一對多 多對一 - 程序員的自我修養 A Programmer Prepares</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../../css/general-2459343d.css">
+        <link rel="stylesheet" href="../../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../../searchindex-3169bedd.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../../toc-c1221ec0.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">程序員的自我修養 A Programmer Prepares</h1>
+
+                    <div class="right-buttons">
+                        <a href="../../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="spring-data-關聯型態-一對多-多對一"><a class="header" href="#spring-data-關聯型態-一對多-多對一">Spring Data 關聯型態 一對多 多對一</a></h1>
+<p>筆者身邊的朋友，首次接觸 ORM 的關聯型態時都會覺得很難，筆者自己也是。但在好好地理順它的設計時，就會覺得其實很簡單。</p>
+<h2 id="雙向存取"><a class="header" href="#雙向存取">雙向存取</a></h2>
+<p>這節，我們先以Code First的角度，先體驗一下程式部份的設計意向。</p>
+<p>例如一個Parent，有好幾個Child</p>
+<pre><code class="language-java">@Entity
+public class Parent {
+    // ... Parent Primay Key
+    @OneToMany(mappedBy="parent")
+    List&lt;Child&gt; children = new ArrayList&lt;&gt;();
+    // TODO add remove
+}
+
+@Entity
+public class Child {
+    // ... Child Primay Key
+    @ManyToOne
+    Parent parent;
+}
+
+</code></pre>
+<p>上述的寫法很簡潔，ORM會為你自動加入join column，處理關聯的載入。在讀取Parent時，它的所有Children就可以直接在Java層面讀取，在讀取Child時，它的Parent也隨時取得。也就是，開發人員只要經SQL準備其中一方的資料，另一方並不需要手動準備，它就可以自動按需載入。</p>
+<h2 id="restful-api-坑-雙向存取"><a class="header" href="#restful-api-坑-雙向存取">RESTFul API 坑-雙向存取</a></h2>
+<p>Spring Data在Java層面的雙向存取，已經做到很方便。但經常坑到我們的是Spring Data與RESTFul API的混合應用。當我們嘗試經API回傳我們的Parent Json時，API會很聰明地把關聯的Children也變成Json回傳。但他也會把child中的parent不斷重複變成json，變成無限輪迴。</p>
+<p>坊間有兩種不同的解決方案，可以防止無限輪迴。</p>
+<ul>
+<li>讓Json可以認得已經序列化的元素。@JsonIdentityInfo</li>
+<li>讓Json只可以單向序列化(serialization)。@JsonManagedReference, @JsonBackReference, @JsonIgnore</li>
+</ul>
+<p>筆者兩個方向都試過，但首個方法並不通用，至少它不能算是一般常見的無腦Json結構。它需要伺服器、客戶端都懂這如何經IdentityInfo認得重複出現的元素。</p>
+<p>而單向序列化，是筆者現時的通用解。在設計RESTFul READ API時，筆者就會決定到底是Parent自動回傳Child，還是Child自動回傳Parent。決策的考慮因素，主要在於是否可以簡化Client的API調用次數。通常從Parent出發，自動回傳Child，可以節省API調用。但如果是選項性的結果(List of Value)，就倒過來。有時候，遇著API需要雙向設計，就只好自己設計DTO資料傳輸對象 (Data transfer object, DTO)。</p>
+<p>例如Parent API，就原封不動回傳原本的元素</p>
+<pre><code class="language-java">@Entity
+public class Parent {
+    // ... Parent Primay Key
+    @OneToMany(mappedBy="parent")
+    List&lt;Child&gt; children = new ArrayList&lt;&gt;();
+}
+
+@Entity
+public class Child {
+    // ... Child Primay Key
+    @ManyToOne
+    @JsonIgnore
+    Parent parent;
+}
+
+</code></pre>
+<p>Child API，就反過來引用。</p>
+<pre><code class="language-java">public class ParentDTO {
+    // ... Parent Other fields except children
+}
+
+public class ChildDTO {
+    ParentDTO parent;
+    // ... Child Other fields
+}
+
+</code></pre>
+<p>這種DTO，看起來很麻煩。但其實Spring有提供一個簡便的複制DTO功能，它可以把自動複制兩個class中有同一名稱、同一型別的欄位到另一個class上，不需要逐個欄位明文寫出來。</p>
+<pre><code class="language-java">BeanUtils.copy(child, childDTO);
+BeanUtils.copy(parent, parentDTO);
+childDTO.setParent(parentDTO)
+// 因為child、childDTO中的parent欄位型別不同，BeanUtils.copy會自動忽略，其他欄位就會自動複制。
+</code></pre>
+<p>註: 其實古早的網頁系統設計，DTO的概念一直存取。只是現在RESTFul API的流行，很多框架已經提向便捷的Json轉換。若然平時只需Json單向存取，筆者還是省略DTO的建立。</p>
+<h2 id="presist-and-casecade"><a class="header" href="#presist-and-casecade">Presist and Casecade</a></h2>
+<p>前述講了一些最基本的關聯概念，但當要正式儲存或刪除，就有些考慮完整性問題。平常我們在處理資料庫的關聯表格時，也需要面Foreign Key的正確性問題。同樣地，Spring Data也有這方面的考量，但它有提份一個很方便的CascadeType選項，可以簡化一些流程。</p>
+<p>假設你只能存取Parent Repo，那你需要在Parent中，加入CascadeType.All。當repo.save(parent)時，它就會順多把所有child的也一併進行Save，你也不需要有Child Repo的存在。</p>
+<pre><code class="language-java">@OneToMany(mappedBy="parent", cascade = CascadeType.All)
+List&lt;Child&gt; children = new ArrayList&lt;&gt;();
+</code></pre>
+<p>但在複雜的狀況下，例如你不想在更新parent的情況下，不小心弄到child，特別是經過public web下的API操作，你對web client的資料正確性有存疑，就不要使用CascadeType了。這也是筆者認為在大多數情況下，我們都會把Parent和Child的CRUD分開操作，然後根據需要使用各自的repo save。</p>
+<p>如果你一定要用CascadeType.ALL (CascadeType.REMOVE)，就要再留意刪除的問題。為什麼？因為刪除 parent，其實指的是某個parent不再存在，但不代表child也要一起刪除，child的parent連結可以變為null，也有重新連結其他parent的可能。</p>
+<p>如果大家確定需要共同刪除，就可以用CascadeType.ALL 或 CascadeType.REMOVE。</p>
+<p>還有一個新的選擇，orphanRemoval = true，也有類似效果。</p>
+<pre><code class="language-java">@OneToMany(mappedBy="parent", cascade = CascadeType.REMOVE)
+List&lt;Child&gt; children = new ArrayList&lt;&gt;();
+// or
+@OneToMany(mappedBy="parent", orphanRemoval = true)
+List&lt;Child&gt; children = new ArrayList&lt;&gt;();
+// or
+@OneToMany(mappedBy="parent", cascade = CascadeType.REMOVE, orphanRemoval = true)
+List&lt;Child&gt; children = new ArrayList&lt;&gt;();
+</code></pre>
+<p>筆者測試過，混著用也是可以的。若大家看過其他教程，可能會覺得orphanRemoval = true 和 CascadeType 總是一起出現，但它們其實是分別操作的。單獨使用orphanRemoval = true，有時候則是為了不會出現無主的child，但這不代表parent和child的想要同步更新。</p>
+<h1 id="jpa-entity-的生命週期"><a class="header" href="#jpa-entity-的生命週期">JPA Entity 的生命週期</a></h1>
+<p>Spring Data跟傳統的資料庫Selete，Create，Update，Delete SQL 語句有所不同。也就是這個不同，它的CascadeType比資料庫的Cascade Update和Cascade Delete更強大。</p>
+<p>Spring Data 預設其實是使用 jakarta.persistence.EntityManager，每個Entity主要分為四個狀態</p>
+<ul>
+<li>Transient / New - 不在EntityManager的掌控中</li>
+<li>Managed - 在EntityManager的掌控中，將會在下次flush時，變成sql create或update statement</li>
+<li>Detached - 脫離EntityManager的掌控，不受flush影響</li>
+<li>Removed - 在EntityManager的掌控中，將會在下次flush時，變成sql delete statement</li>
+</ul>
+<p>在Spring Data / Jpa 以前，我們若要直接操作Hibernate，經常見到persist, remove的寫法</p>
+<pre><code class="language-java">entityManager.persist(entity);
+entityManager.remove(entity);
+
+entityManager.detach(entity);
+entityManager.merge(entity);
+</code></pre>
+<p>其實persist就是把處於Transient、Removed的entity，改為Managed。而remove就是把Managed改為Removed。detach，merge也類似，就是Managed，Detached之間互換。</p>
+<p>EntityManager最強大的是，它可以讓程序員不需要再為Managed狀態下的entity操心，它會自動判別下次flush，應該create還是update，如果完全沒有改動的，連update也不會執行。</p>
+<p>(註，flush和commit也有不同，flush就是從java寫到資料庫中，在資料庫commit前，還可以使用rollback放棄。)</p>
+<p>而Spring Data，則是進一步簡化，它把persist改為save，remove改為delete，然後自動選擇flush的時機。</p>
+<h2 id="cascadetype"><a class="header" href="#cascadetype">CascadeType</a></h2>
+<p>在解釋完Entity 的生命週期後，終於可以回到CascadeType了。這裏的CascadeType不是資料庫的Cascade操作，其實它是指EntityManager的狀態操作是否有傳遞關係。亦即是，persist(parent)時，要不要連同child也一起操作?</p>
+<p>我們查看 CasecadeType 的原始碼，就可以發現可以被傳遞的操作共有以下這些</p>
+<ul>
+<li>PERSIST</li>
+<li>MERGE</li>
+<li>REMOVE</li>
+<li>REFRESH</li>
+<li>DETACH</li>
+<li>ALL (以上全部)</li>
+</ul>
+<p>這裏的 CasecadeType.PERSIST ，跟資料庫的 Cascade Update 是不一樣的。資料庫裏的 Cascade Update，是指當 Parent 的 Primary Key 有變，對應child的 Foreign Key也一起變。但因為 JPA Entity 的機制， Parent 的 Primary Key 不可以改變，理論上不會發生類似資料庫的 Cascade Update，頂多有 Cascade Delete。 CasecadeType.PERSIST 就像之前述的生命週期解說一樣， 把 parent和 child 一起拉到受管理的狀態。</p>
+<p>CascadeType.REMOVE 也類似，但在使用時要更加留意。因為有時 parent, child 做關聯時，會偷懶只在child 更新。這樣若在同一個 transaction 內進行 delete，就會出事。</p>
+<pre><code class="language-java">@Entity
+public class Author {
+    // other attribute
+    // ...
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.REMOVE)
+    private List&lt;Book&gt; books = new ArrayList&lt;&gt;();
+
+    public void addBook(Book book){
+        this.books.add(book);
+        book.setAuthor(this);
+    }
+
+    public void removeBook(Book book){
+        this.books.remove(book);
+        book.setAuthor(null);
+    }
+}
+
+@Entity
+public class Book {
+    // other attribute
+    // ...
+
+    @ManyToOne
+    private Author author;
+
+    // auther getter setter
+    // ...
+}
+
+@Test
+void testdelete() {
+    Author author = new Author();
+    Book book = new Book();
+    book.setAuthor(author);
+
+    // save author and book
+    assertThrows(org.springframework.dao.InvalidDataAccessApiUsageException.class, () -&gt; {
+        authorRepo.delete(author);
+    });
+    
+    author.addBook(book);
+    authorRepo.delete(author);
+}
+</code></pre>
+<p><code>@OneToMany</code> 需要配合 collection add remove 一起使用（<code>this.books.add(book);</code>），不能只做一邊(<code>book.setAuthor(author);</code>)，不然就會出現<code>InvalidDataAccessApiUsageException</code>。這似乎和 hiberate 的狀態有關，只有經過 collection add remove ，hibernate proxy 才會正確反映未來的 db 狀況。特別在某些時候，例如是記有 <code>@Transactional</code> 時，hibernate 似乎不會每次都會真的訪問 db ，如果要準確關聯狀態，就要經過 collection add remove 去更新 proxy。 <code>CascadeType.REMOVE</code>, <code>orphanRemoval = true</code> 在 collection add remove 都有相同效果。</p>
+<h1 id="reference"><a class="header" href="#reference">Reference</a></h1>
+<ul>
+<li><a href="https://thorben-janssen.com/entity-lifecycle-model/">entity-lifecycle-model</a></li>
+<li><a href="https://github.com/macauyeah/spring-boot-demo/tree/main/spring-boot-tutorial/spring-boot-data-deletion">demo repo: spring boot data deletion</a></li>
+<li><a href="https://github.com/macauyeah/spring-boot-demo/tree/main/spring-boot-tutorial/spring-boot-data-advance/src/test/java/io/github/macauyeah/springboot/tutorial/spring_boot_data_advance/OneToManyRefreshStatusTests.java">demo code: OneToManyRefreshStatusTests</a></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../../spring/springBootLesson/11-spring-data-schema-options.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../../spring/springBootLesson/spring-boot-test-principle.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../../spring/springBootLesson/11-spring-data-schema-options.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../../spring/springBootLesson/spring-boot-test-principle.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../../mark-09e88c2c.min.js"></script>
+        <script src="../../searcher-c2a407aa.js"></script>
+
+        <script src="../../clipboard-1626706a.min.js"></script>
+        <script src="../../highlight-abc7f01d.js"></script>
+        <script src="../../book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../../mermaid-a19b8af3.min.js"></script>
+        <script src="../../mermaid-init-4533fb11.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

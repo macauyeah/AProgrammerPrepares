@@ -1,0 +1,558 @@
+<!DOCTYPE HTML>
+<html lang="zh-Hant" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Swarm mode 上線 6 - load balancer | 負載平衡器 - 程序員的自我修養 A Programmer Prepares</title>
+
+
+        <!-- Custom HTML head -->
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="../favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="../favicon-8114d1fc.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex-3169bedd.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-c1221ec0.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">程序員的自我修養 A Programmer Prepares</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="swarm-mode-上線-6---load-balancer--負載平衡器"><a class="header" href="#swarm-mode-上線-6---load-balancer--負載平衡器">Swarm mode 上線 6 - load balancer | 負載平衡器</a></h1>
+<p>前面我們一直談 swarm 的設定，但對於真實的服務，我們還要考慮客戶端是如何連接我們的伺服器群集。通常網路服務，客戶端都會經過域名轉換成IP，然而通過IP連線服務。</p>
+<h2 id="ingress-network"><a class="header" href="#ingress-network">Ingress Network</a></h2>
+<p>假設我們 swarm 內有5個節點，那到底域名應該指向我們哪一個節點的 IP 呢？</p>
+<p>如果我們不考慮節點死機的話，其實5個節點的IP都可以。因為 swarm 會自動把同一個公開的 port ，在每一個節點上都可以訪問到。</p>
+<p>以下例子，即使只有一個 container 運行，佔用 port 8888，它還是會在5個節點上全開。 swarm 通過自己的 ingress network，它所有節點的 8888 串連起來。</p>
+<pre><code class="language-yaml">services:
+  http:
+    image: bretfisher/httpenv
+    ports:
+      - 8888:8888
+    deploy:
+      replicas: 1
+      update_config:
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+</code></pre>
+<p>我們可以在每個節點上，都會找到這個 ingress network，而且那個Network ID，應該是一樣的</p>
+<pre><code>&gt; docker network ls | grep ingress
+t7rmk6g9zybm   ingress           overlay   swarm
+</code></pre>
+<p>如果上述的 service 的 replicas 調成大於1的數量， ingress network 還會方便地自動 round robin (輪替) 地分派流量，達到最簡單的負載平衡。</p>
+<h2 id="virtual-ip"><a class="header" href="#virtual-ip">Virtual IP</a></h2>
+<p>前述的設定，我們有一最大的假設，就是節點不會死機。但實際情況下，各種原因，例如安全性更新、重啟中，都會讓節點暫時無法使用。即使所有 service 都是會自動 failover (故障轉移)，但客戶端還是用舊機 IP ，它還是無法訪問。因為該機 IP 已無法使用，除非我們連 IP 也懂 failover。這時， Virtual IP 就是我們的救命靈藥。</p>
+<p>在 ubuntu 上，我們可以經過 keepalived 去設定 Virtual IP</p>
+<pre><code class="language-bash">apt-get update &amp;&amp; apt-get install keepalived -y
+</code></pre>
+<p>然後設定 keepalived ， 假設 172.22.1.5 是我們的 Virtual IP 。 然後每個節點都要加入conf</p>
+<pre><code class="language-conf"># vim /etc/keepalived/keepalived.conf
+# assume failover ip is 172.22.1.5
+vrrp_instance VI_1 {
+    # change interface according to machine status
+    interface eth1
+    # one node is MASTER, other nodes are BACKUP
+    state MASTER
+    # virtual_router_id 1-255
+    # all nodes in same group must be same value
+    virtual_router_id 101
+    # lower value will become master
+    # ex, node1 priority 100, node2 priority 200, node3 priority 150.
+    # if node 1, 2, 3 alive, node2 will become master.
+    # if node 2 gone, node 3 will become master.
+    priority 100
+    advert_int 1
+    virtual_ipaddress {
+        172.22.1.5
+    }
+}
+</code></pre>
+<p>上述需要特別注意的是</p>
+<ul>
+<li>virtual_router_id : 要一起share ip的節點都要有同一個值。</li>
+<li>priority : 每個節點應該都要不一樣，最大的那個節點，就會優先使用 Virtual IP 。</li>
+</ul>
+<h2 id="proxy-gateway-load-balance"><a class="header" href="#proxy-gateway-load-balance">proxy gateway load balance</a></h2>
+<p>前面的例子，我們已經成功設定 ingress Network，也加了 virtual ip 。如果大家的目標是單一 web 應用，應該就已經很足夠。但作為一個足夠節儉的老闆，怎會讓一個 Swarm 只跑一個 Web 應用？但問題來了，一個 docker swarm service 就已經佔用一個公開端口 (例如上述的8888，或是更常見的443)。怎麼可以做到多個 service 分享同一個端口？答案就是回到傳統的 Web Server 當中，使用它們的 virtual host 及 proxy 功能，以達到這一效果。我們就以 Nginx 為例，去建立一個守門口的網關 (gateway) 。</p>
+<p>以下就是一個最簡單的例子，最前端的 http-gateway (nginx) 對外公開端口 8080 ，它根據 virtual host，去分派對應的請求去 dmzhttp (bretfisher/httpenv) 及 managerhttp (bretfisher/httpenv) 。構架圖就是以下這樣。</p>
+<pre><code>                              ┌───────────┐  
+              ┌──────────────►│  dmzhttp  │  
+              │               └───────────┘  
+              │                              
+           ┌───────────────┐                 
+           │ http-gateway  │                 
+  ────────►│ (nginx:8080)  │                 
+           └──┬────────────┘                 
+              │                              
+              │              ┌─────────────┐ 
+              └─────────────►│ managerhttp │ 
+                             └─────────────┘ 
+</code></pre>
+<p>換成 docker stack ，就大概如下</p>
+<pre><code class="language-yaml">services:
+  http-gateway:
+    image: http-gateway
+    ports:
+      - 8080:8080
+    deploy:
+      replicas: 1
+      update_config:
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+  dmzhttp:
+    image: bretfisher/httpenv
+    deploy:
+      replicas: 2
+      update_config:
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+  managerhttp:
+    image: bretfisher/httpenv
+    deploy:
+      replicas: 3
+      update_config:
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+</code></pre>
+<p>docker stack有一個很好的功能，就是 service 名會自動成為同一段網絡中的 hostname 。即是http-gateway中，它可以經DNS，找到 dmzhttp 、 managerhttp，也就是它的 nginx 可以設定成如下的樣子。</p>
+<pre><code class="language-conf"># default.conf
+server {
+	listen       8080;
+	listen  [::]:8080;
+	server_name  managerhttp;
+	resolver 127.0.0.11 valid=30s;
+
+	location ^~ / {
+		set $upstream_manager managerhttp;
+		proxy_cache off;
+		proxy_pass http://$upstream_manager:8888$request_uri;
+	}
+}
+server {
+	listen       8080;
+	listen  [::]:8080;
+	server_name  dmzhttp;
+	resolver 127.0.0.11 valid=30s;
+
+	location ^~ / {
+		set $upstream_dmz dmzhttp;
+		proxy_cache off;
+		proxy_pass http://$upstream_dmz:8888$request_uri;
+	}
+}
+</code></pre>
+<p>上面的例子中，就是一般的 virtual host + nginx proxy 設定。特別要說明的是 resolver 那一行，它指向 docker DNS (127.0.0.11)， 而且還可以讓nginx在找不到上游時，不要馬上死亡。這樣 docker swarm 中各個 service 隨時加加減減，有保命的作用。</p>
+<p>最後我們的 http-gateway 就是 nginx image + default.conf 上述的 docker 就可以用以下方式打包。</p>
+<pre><code># Dockerfile
+# docker image build -t http-gateway ./
+FROM nginx:latest
+COPY default.conf /etc/nginx/conf.d/default.conf
+</code></pre>
+<p>上面的 docker stack 和 nginx config，只要同步增加 service 及對應的 proxy pass，就可以o讓同一個端口，根據不同hostname做分流。當然，如果大家可以共用端口及 hostname 也可以，分流就改用 nginx location 來設定，不過這是更加偏向 nginx 的內容，日後有機會再介紹。本篇就先集中於 docker 相關的議題。</p>
+<p>在安全性的角度， docker 還有一些配置可以做，就是讓 dmzhttp 和 managerhttp 在不同的機器上發佈。假設我們的網絡分開兩段，一段是 manager 專用，一段是 dmz 專用。在建立 docker swarm 後，我們可以為不同的節點加入對應的標簽。</p>
+<pre><code class="language-bash">docker node update --label-add zone=manager YOUR_MANAGER_NODE
+docker node update --label-add zone=dmz YOUR_DMZ_NODE
+</code></pre>
+<p>然後我們通過修改 docker stakc 中的 placement -&gt; constraints ，限制不同的 service 在不同的節點上運行。</p>
+<pre><code class="language-diff">services:
+  http-gateway:
+    image: http-gateway
+    ports:
+      - 8080:8080
+    deploy:
+      replicas: 1
+      update_config:
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+  dmzhttp:
+    image: bretfisher/httpenv
+    deploy:
+      replicas: 2
+      update_config:
+        delay: 10s
+      restart_policy:
+        condition: on-failure
++     placement:
++       constraints:
++         - node.labels.zone==dmz
+  managerhttp:
+    image: bretfisher/httpenv
+    deploy:
+      replicas: 3
+      update_config:
+        delay: 10s
+      restart_policy:
+        condition: on-failure
++     placement:
++       constraints:
++         - node.labels.zone==manager
+</code></pre>
+<p>使用上面的例子，我們就可以達到簡單分離的效果。但大家緊記，這個分離效果始終是一個規則式功能，它與防火牆的隔離還是有本質上的區別。除了利用傳統的防火牆技術外，我們的docker swarm network，其實也可以做更多隔離，我們日後再慢慢加強這個例子。</p>
+<h1 id="基於安全性的各種考量"><a class="header" href="#基於安全性的各種考量">基於安全性的各種考量</a></h1>
+<p>前面介紹了 ingress network ，亦介紹了 proxy gateway 。能做到的基本都做到了，再來就是考量安全性的問題。因為加了 proxy gateway ，前述的例子是所有 service ，都放在同一個 yaml 檔中。好處是，所有相關的東西存放在同一個檔中， gateway ，背後的 service 都一眼看到。但壞處就是有其中一個 service 更新，都要改那個 yaml 檔。更大的問題是， stack deploy 的指令，不單只更新其中一個 service ，就連其他 service 都會自動取得最新 image 而 redeploy 。</p>
+<p>對於一個緊密的系統來講，同步更新可能不是大問題。但對於一些預定排程發佈的系統可不能這樣因為副作用而更新了。如果你也有這樣的分開管理需求，可以參考下面做法，把 gateway service 及 upstream service 放在不同的檔案中，然後經過 external network把所有 service 串連起來。</p>
+<pre><code class="language-yaml"># nginx-stack.yaml, docker stack deploy -c nginx-stack.yaml nginx
+services:
+  http-gateway:
+    image: http-gateway
+    ports:
+      - 8080:8080
+    deploy:
+      replicas: 1
+      update_config:
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+# manager-stack.yaml
+services:
+  managerhttp:
+    image: bretfisher/httpenv
+    networks:
+      - nginx_default
+      - default
+    deploy:
+      replicas: 3
+      update_config:
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.labels.zone==manager
+networks:
+  nginx_default:
+    external: true
+
+# dmz-stack.yaml
+services:
+  dmzhttp:
+    image: bretfisher/httpenv
+    networks:
+      - nginx_default
+      - default
+    deploy:
+      replicas: 2
+      update_config:
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.labels.zone==dmz
+networks:
+  nginx_default:
+    external: true
+</code></pre>
+<p>這樣，不同 service 的維護人員，就可以獨自控制自己的檔案。在第一次發佈時，確認 nginx-stack.yaml 先行發佈就可以了。對應的發佈指令是<code>docker stack deploy -c nginx-stack.yaml nginx</code>，它會自動産生一個 nginx_default （即 stack名字_default ）的網絡。之後其他service，就可以經networks的設定找到它了。</p>
+<pre><code class="language-yaml">services:
+  YOUR_SERVICE:
+    networks:
+      - nginx_default
+      - default
+
+networks:
+  nginx_default:
+    external: true
+</code></pre>
+<p>上述即使分離檔案，在安全性考量時還是有一個問題，就是 ingress network 的問題。試想一下，dmzhttp （Demilitarized Zone）原本被設定的原因，就是想限制外來的訪問請求，只能訪問公開的服務。但因為經過 ingress network 之後，它們會在所有機器上開放這些 port。那就是，以下面的例子來講，若 dmzhttp 是公開的服務， intrahttp 是內部服務，即使用 intrahttp 使用不同的port 8889。但一經 swarm mode 預設的 ingress network ，在<code>node.labels.zone==dmz</code>的那些節點，還是可以訪問到 intrahttp 。</p>
+<pre><code class="language-yaml">services:
+  dmzhttp:
+    image: bretfisher/httpenv
+    ports:
+      - 8888:8888
+    deploy:
+      replicas: 2
+      update_config:
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.labels.zone==dmz
+  intrahttp:
+    image: bretfisher/httpenv
+    ports:
+      - 8889:8888
+    deploy:
+      replicas: 3
+      update_config:
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.labels.zone==intra
+</code></pre>
+<p>我們前述介紹的 proxy gateway ，其實已經有一定程度可以解決這個問題。因為 proxy gateway 是根據 http 協定中的 host header 去做分流。在邊界網絡進來的「合法」訪問，道理上會好好地經引導到我們的 dmzhttp 。不過網路的邪惡可容小看， proxy gateway 也會有被騙的一日。有特定能力的攻擊者，只需找到目標域名，還是可以接觸到 intrahttp 。</p>
+<p>若要做進一步隔離，在這種情況下，我們可以在 dmz , intra 機器中各設定一套 swarm ，完全獨立，這是最安全的做法。但這樣做的管理成本就會變高，因為兩個網段都會有自己的 manager 節點，而且在 dmz 網段的 manager 節點也有被攻擊的可能。</p>
+<p>若我們回到單一 swarm 的方向，可以修改各個 service 中的 port 和 deploy 。利用 post mode 中的「host」，配合 deploy mode 中的「global」，完全跳開 ingress network。</p>
+<pre><code class="language-yaml">services:
+  dmzhttp:
+    image: nginx
+    ports:
+      - target: 80
+        published: 8888
+        mode: host
+    deploy:
+      mode: global
+      update_config:
+        delay: 1s
+      restart_policy:
+        condition: any
+      placement:
+        constraints:
+          - node.labels.zone==dmz
+  intrahttp:
+    image: bretfisher/httpenv
+    ports:
+      - target: 8888
+        published: 8888
+        mode: host
+    deploy:
+      mode: global
+      update_config:
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints:
+          - node.labels.zone==intra
+</code></pre>
+<p>上面的例子中， dmzhttp 會在所有 dmz 的機器中，每個節點只運行一份服務，而且直接使用該機的 8888 port ，外面不會再有 ingress network 的 存在。同樣地，intrahttp 會在 intra 的所有節點，運行一份服務，佔用它們的8888 。這兩個服務，即使使用一個 port ，swarm 也不會說有任何問題，因為它們不會經 ingress network 搶佔其他人的 8888。</p>
+<p>可能會有讀者問，如果 host mode 這麼安全，為什麼預設會是 ingress network，那我們就要先了理清 ingress network 與 host mode 有有什麼分別？假設我們只運行一個service，它佔用8888。</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>功能</th><th>ingress mode</th><th>host mode</th></tr>
+</thead>
+<tbody>
+<tr><td>replicas 數</td><td>同一個 service replicas 為任意數量，什至比節點的數目多</td><td>因為有 port 限制，每個節點最多只能運行一份</td></tr>
+<tr><td>Virtual IP</td><td>Virtual IP 任意在節點中跳轉也可以，因為 ingress 會自動找到對應的 service 所在的節點</td><td>Virtual IP必需要與 service 所在節點綁定，其他節點訪問不到</td></tr>
+<tr><td>load balance</td><td>有</td><td>沒有</td></tr>
+</tbody>
+</table>
+</div>
+<p>host mode 就像我們傳統在各自的節點上自行佈署自己的程序，各個節點只有一份。所以不會有自動 load balance 的效果，如果客戶端訪問固定的IP，就會得到是固定的接器接受請求。我們有需要，就要在前面加一個 Proxy Gateway (或 HA  proxy )。 Virtual IP 也一樣， host mode 下需要好好地自動跟著 service 的生命期，不過幸運的是， Docker 預設己經有自動重啟 service 功能，即前文中的 restart_policy ，它在 host mode 下也適用。如果大家有配合 deploy 中的 global mode ， Virtual IP 的並沒有實際變動。但如果沒有 global mode ，就要再想想辦法了。</p>
+<p>最後考慮 load balance 的問題，如果進入點的 service 的真的不太消耗資源，沒有 load balance 也是可以的 ，但若超負荷，就必需要自建 proxy gateway 。經過進入點後，若我有背後的 service 就沒有所謂的 ingress 和 host mode 選擇。</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../VMDockerNotes/SwarmModeUpgrade.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../VMDockerNotes/SwarmModeTraefik.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../VMDockerNotes/SwarmModeUpgrade.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../VMDockerNotes/SwarmModeTraefik.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../mermaid-a19b8af3.min.js"></script>
+        <script src="../mermaid-init-4533fb11.js"></script>
+
+
+
+    </div>
+    </body>
+</html>
