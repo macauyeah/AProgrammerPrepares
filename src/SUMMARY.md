@@ -30,6 +30,7 @@
 - [Docker Swarm in Vmware - 中文](./VMDockerNotes/VmwareDockerClusterCN.md)
 - [Docker with NFS file store - 中文](./VMDockerNotes/DockerWithNfsCN.md)
 - [Docker with Syslog - 中文](./VMDockerNotes/DockerSyslogCN.md)
+- [Anolis, OpenEuler rpm proxy update](./VMDockerNotes/VM/ChineseRpmBaseOSWithProxyUpgrade.md)
 
 ---
 
